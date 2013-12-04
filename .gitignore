@@ -1,0 +1,18 @@
+# File types #
+##############
+*.pyc
+*.swo
+*.swp
+*.swn
+
+# Directories #
+###############
+logs/
+
+# Specific files #
+##################
+indumatic/settings.py
+
+# OS generated files #
+######################
+*~
