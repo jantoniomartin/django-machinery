@@ -1,0 +1,36 @@
+{% extends "crm/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ group.name }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ group.name }}</h1>
+<p>
+<a href="{% url 'crm_group_edit' group.id %}">{% trans "Edit group" %}</a>
+</p>
+
+<table>
+<thead>
+<tr>
+    <th>{% trans "Name" %}</th>
+    <th>{% trans "City" %}</th>
+    <th>{% trans "Region" %}</th>
+    <th>{% trans "Country" %}</th>
+	<th>{% trans "Phone" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for c in group.company_set.all %}
+<tr>
+    <td><a href="{% url 'crm_company_detail' c.id %}">{{ c.name|title }}</a></td>
+    <td>{{ c.city|title|default_if_none:"" }}</td>
+    <td>{{ c.region|title|default_if_none:"" }}</td>
+    <td>{{ c.country|title|default_if_none:"" }}</td>
+    <td>{{ c.main_phone|default_if_none:"" }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

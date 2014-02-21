@@ -1,0 +1,66 @@
+{% extends "crm/base.html" %}
+{% load i18n %}
+{% load crm_tags %}
+
+{% block title %}{{ company.name|title }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ company.name|title }}</h1>
+<p>
+<a href="{% url 'crm_company_edit' company.id %}">{% trans "Edit company" %}</a>
+</p>
+
+<h2>{% trans "General data" %}</h2>
+<dl>
+{% if company.group %}
+<dt>{% trans "Group" %}</dt><dd>{{ company.group }}</dd>
+{% endif %}
+<dt>{% trans "VATIN" %}</dt><dd>{{ company.vatin|default_if_none:"" }}</dd>
+<dt>{% trans "Address" %}</dt>
+<dd>{{ company.address }}<br/>
+	{{ company.postal_code }} {{ company.city }}<br/>
+	{{ company.region }} - {{ company.country }}
+</dd>
+<dt>{% trans "Phone numbers" %}</dt>
+<dd>
+	{{ company.main_phone|format_phone }}
+	<br/>
+	{{ company.secondary_phone|format_phone }}
+</dd>
+<dt>{% trans "Fax" %}</dt><dd>{{ company.fax|format_phone }}</dd>
+<dt>{% trans "Website" %}</dt><dd>{{ company.website|default_if_none:"" }}</dd>
+<dt>{% trans "Global email" %}</dt><dd>{{ company.global_email }}</dd>
+<dt>{% trans "Comment" %}</dt><dd>{{ company.comment|default_if_none:"" }}</dd>
+<dt>{% trans "Creation date" %}</dt><dd>{{ company.created_at }}</dd>
+<dt>{% trans "Last updated" %}</dt><dd>{{ company.updated_at }}</dd>
+</dl>
+
+<h2>{% trans "Departments" %}</h2>
+<p>
+<a href="{% url 'crm_department_create' %}">{% trans "New department" %}</a>
+</p>
+<table>
+<tr>
+<th>{% trans "Department" %}</th>
+<th>{% trans "Person" %}</th>
+<th>{% trans "Phone" %}</th>
+<th>{% trans "Email" %}</th>
+<th>{% trans "Use for orders" %}</th>
+<th>{% trans "Comment" %}</th>
+</tr>
+{% for d in company.department_set.all %}
+<tr>
+<td>
+<a href="{% url 'crm_department_detail' d.id %}">{{ d.name }}</a>
+</td>
+<td>{{ d.person }}</td>
+<td>{{ d.phone }}</td>
+<td>{{ d.email }}</td>
+<td>{{ d.send_orders|yesno }}</td>
+<td>{{ d.comment }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

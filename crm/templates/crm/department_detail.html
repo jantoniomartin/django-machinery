@@ -1,0 +1,31 @@
+{% extends 'crm/base.html' %}
+{% load i18n %}
+{% load crm_tags %}
+
+{% block title %}{{ department }} @ {{ department.company }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ department }}</h1>
+<h2>
+<a href="{% url 'crm_company_detail' department.company.id %}">{{ department.company }}</a>
+</h2>
+
+<p>
+<a href="{% url 'crm_department_edit' department.id %}">{% trans "Edit" %}</a>
+</p>
+
+<dl>
+<dt>{% trans "Person" %}</dt>
+<dd>{{ department.person }}</dd>
+<dt>{% trans "Phone" %}</dt>
+<dd>{{ department.phone|format_phone }}</dd>
+<dt>{% trans "Email" %}</dt>
+<dd>{{ department.email }}</dd>
+<dt>{% trans "Use for orders" %}</dt>
+<dd>{{ department.send_orders|yesno }}</dd>
+<dt>{% trans "Comment" %}</dt>
+<dd>{{ department.comment }}</dd>
+</dl>
+
+{% endblock %}

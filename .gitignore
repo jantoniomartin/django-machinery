@@ -8,6 +8,7 @@
 # Directories #
 ###############
 logs/
+indumatic/whoosh_index/
 
 # Specific files #
 ##################

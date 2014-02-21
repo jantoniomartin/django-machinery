@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<ul>
+<li><a href="{% url 'haystack_search' %}">{% trans "Search" %}</a></li>
+</ul>
+
+{% block body %}
+
+{% endblock %}
+</body>
+</html>

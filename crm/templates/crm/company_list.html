@@ -1,0 +1,61 @@
+{% extends "crm/base.html" %}
+{% load i18n %}
+{% load breadcrumbs %}
+
+{% block title %}{% trans "Companies" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Companies" %}</h1>
+
+<p>
+<a href="{% url 'crm_company_create' %}">{% trans "New company" %}</a>
+</p>
+
+<table>
+<thead>
+<tr>
+    <th>{% trans "Name" %}</th>
+    <th>{% trans "City" %}</th>
+    <th>{% trans "Region" %}</th>
+    <th>{% trans "Country" %}</th>
+	<th>{% trans "Phone" %}</th>
+	<th>{% trans "Group" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for c in company_list %}
+<tr>
+    <td><a href="{% url 'crm_company_detail' c.id %}">{{ c.name|title }}</a></td>
+    <td>{{ c.city|title|default_if_none:"" }}</td>
+    <td>{{ c.region|title|default_if_none:"" }}</td>
+    <td>{{ c.country|title|default_if_none:"" }}</td>
+    <td>{{ c.global_phone|default_if_none:"" }}</td>
+	<td>
+	{% if c.group %}
+		<a href="{% url 'crm_group_detail' c.group.id %}">{{ c.group }}</a>
+	{% endif %}
+	</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pagination">
+	<ul>
+		{% if page_obj.has_previous %}
+		<li>
+			<a href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
+		</li>
+		{% endif %}
+		<li>{% trans "Page" %} {{ page_obj.number }}
+			{% trans "of" %} {{ paginator.num_pages }}.</li>
+		{% if page_obj.has_next %}
+		<li>
+			<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
+		</li>
+		{% endif %}
+	</ul>
+</div>
+
+{% endblock %}
