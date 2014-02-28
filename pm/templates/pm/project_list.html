@@ -1,0 +1,52 @@
+{% extends "pm/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Projects" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Projects" %}</h1>
+
+<p>
+<a href="{% url 'pm_project_create' %}">{% trans "New project" %}</a>
+</p>
+
+<table>
+<thead>
+<tr>
+    <th>{% trans "Reference" %}</th>
+    <th>{% trans "Description" %}</th>
+    <th>{% trans "Customer" %}</th>
+    <th>{% trans "Created on" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for project in project_list %}
+<tr>
+    <td><a href="{% url 'pm_project_detail' project.id %}">{{ project.sector }}-{{ project.serial }}</a></td>
+    <td>{{ project.description }}</td>
+    <td><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.customer }}</a></td>
+    <td>{{ project.created_on }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pagination">
+	<ul>
+		{% if page_obj.has_previous %}
+		<li>
+			<a href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
+		</li>
+		{% endif %}
+		<li>{% trans "Page" %} {{ page_obj.number }}
+			{% trans "of" %} {{ paginator.num_pages }}.</li>
+		{% if page_obj.has_next %}
+		<li>
+			<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
+		</li>
+		{% endif %}
+	</ul>
+</div>
+
+{% endblock %}

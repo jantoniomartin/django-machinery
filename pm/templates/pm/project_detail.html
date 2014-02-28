@@ -1,0 +1,51 @@
+{% extends "pm/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ project.sector }}-{{ project.serial }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ project.sector }}-{{ project.serial }}</h1>
+<p>
+<a href="{% url 'pm_project_edit' project.id %}">{% trans "Edit project" %}</a>
+</p>
+
+<dl>
+<dt>{% trans "Description" %}</dt>
+<dd>{{ project.description }}</dd>
+<dt>{% trans "Notes" %}</dt>
+<dd>{{ project.notes }}</dd>
+<dt>{% trans "Created on" %}</dt>
+<dd>{{ project.created_on }}</dd>
+<dt>{% trans "Company" %}</dt>
+<dd><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a></dd>
+</dl>
+
+<h2>{% trans "Project modules" %}</h2>
+<p><a href="{% url 'pm_machine_create' %}">{% trans "Create machine" %}</a></p>
+<table>
+<tr>
+<th>{% trans "Reference" %}</th>
+<th>{% trans "Description" %}</th>
+<th>{% trans "Comments" %}</th>
+<th>{% trans "Parts" %}</th>
+<th>{% trans "Created on" %}</th>
+<th>{% trans "Shipped on" %}</th>
+<th>{% trans "Running on" %}</th>
+<th>{% trans "Estimated delivery" %}</th>
+</tr>
+{% for machine in project.machine_set.all %}
+<tr>
+<td><a href="{% url 'pm_machine_detail' machine.id %}">{{ machine.model }}{{ machine.number }}</a></td>
+<td>{{ machine.description }}</td>
+<td>{{ machine.machinecomment_set.count }}</td>
+<td>&nbsp;</td>
+<td>{{ machine.created_on }}</td>
+<td>{{ machine.shipped_on }}</td>
+<td>{{ machine.running_on }}</td>
+<td>{{ machine.estimated_delivery_on }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

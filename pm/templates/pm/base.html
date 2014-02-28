@@ -1,0 +1,14 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body %}
+
+<ul>
+	<li><a href="{% url 'pm_sector_list' %}">{% trans "Sectors" %}</a></li>
+	<li><a href="{% url 'pm_project_list' %}">{% trans "Projects" %}</a></li>
+</ul>
+
+{% block content %}{% endblock %}
+
+{% endblock %}
+

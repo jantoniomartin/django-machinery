@@ -1,0 +1,43 @@
+{% extends "pm/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sectors" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Sectors" %}</h1>
+
+<p>
+<a href="{% url 'pm_sector_create' %}">{% trans "New sector" %}</a>
+</p>
+
+<table>
+<tr>
+<th>{% trans "Code" %}</th>
+<th>{% trans "Description" %}</th>
+</tr>
+{% for sector in sector_list %}
+<tr>
+<td><a href="{% url 'pm_sector_detail' sector.id %}">{{ sector.code }}</a></td>
+<td>{{ sector.description }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<div class="pagination">
+	<ul>
+		{% if page_obj.has_previous %}
+		<li>
+			<a href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
+		</li>
+		{% endif %}
+		<li>{% trans "Page" %} {{ page_obj.number }}
+			{% trans "of" %} {{ paginator.num_pages }}.</li>
+		{% if page_obj.has_next %}
+		<li>
+			<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
+		</li>
+		{% endif %}
+	</ul>
+</div>
+
+{% endblock %}
