@@ -1,0 +1,43 @@
+{% extends "wm/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ group }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ group }}</h1>
+<ul>
+{% for g in group.path %}
+<li><a href="{% url 'wm_group_detail' g.id %}">{{ g }}</a></li>
+{% endfor %}
+	<ul>
+	{% for g in group.children %}
+	<li><a href="{% url 'wm_group_detail' g.id %}">{{ g }}</a></li>
+	{% endfor %}
+	</ul>
+</ul>
+
+<p>
+<a href="">{% trans "New category" %}</a>
+</p>
+
+<table>
+<thead>
+<tr>
+    <th>{% trans "Reference" %}</th>
+    <th>{% trans "Brand" %}</th>
+    <th>{% trans "Description" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for article in group.article_set.all %}
+<tr>
+    <td><a href="{% url 'wm_article_detail' article.id %}">{{ article.code }}</a></td>
+    <td>{{ article.brand|default_if_none:"" }}</td>
+    <td>{{ article.description }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

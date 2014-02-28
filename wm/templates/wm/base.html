@@ -1,0 +1,13 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body %}
+
+<ul>
+	<li><a href="{% url 'wm_article_list' %}">{% trans "Articles" %}</a></li>
+</ul>
+
+{% block content %}{% endblock %}
+
+{% endblock %}
+

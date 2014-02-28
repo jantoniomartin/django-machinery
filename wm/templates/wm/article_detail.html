@@ -1,0 +1,30 @@
+{% extends "wm/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ article.code }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ article.code }}</h1>
+<p>
+<a href="{% url 'wm_article_edit' article.id %}">{% trans "Edit article" %}</a>
+</p>
+
+<dl>
+<dt>{% trans "Description" %}</dt>
+<dd>{{ article.description }}</dd>
+<dt>{% trans "Category" %}</dt>
+<dd>
+{% for group in article.group.path %}
+/ <a href="{% url 'wm_group_detail' group.id %}">{{ group }}</a>
+{% endfor %}
+</dd>
+<dt>{% trans "Brand" %}</dt>
+<dd>{{ article.brand|default_if_none:"" }}</dd>
+<dt>{% trans "Measure unit" %}</dt>
+<dd>{{ machine.created_on }}</dd>
+<dt>{% trans "Standard packaging" %}</dt>
+<dd>{{ machine.shipped_on }}</dd>
+</dl>
+
+{% endblock %}

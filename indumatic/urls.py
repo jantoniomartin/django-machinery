@@ -11,4 +11,5 @@ urlpatterns = patterns('',
 	url(r'^search/', include('haystack.urls')),
 	url(r'^crm/', include('crm.urls')),
 	url(r'^pm/', include('pm.urls')),
+	url(r'^wm/', include('wm.urls')),
 )

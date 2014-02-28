@@ -1,0 +1,50 @@
+{% extends "wm/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Articles" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Articles" %}</h1>
+
+<p>
+<a href="{% url 'wm_article_create' %}">{% trans "New article" %}</a>
+</p>
+
+<table>
+<thead>
+<tr>
+    <th>{% trans "Reference" %}</th>
+    <th>{% trans "Brand" %}</th>
+    <th>{% trans "Description" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for article in article_list %}
+<tr>
+    <td><a href="{% url 'wm_article_detail' article.id %}">{{ article.code }}</a></td>
+    <td>{{ article.brand|default_if_none:"" }}</td>
+    <td>{{ article.description }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pagination">
+	<ul>
+		{% if page_obj.has_previous %}
+		<li>
+			<a href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
+		</li>
+		{% endif %}
+		<li>{% trans "Page" %} {{ page_obj.number }}
+			{% trans "of" %} {{ paginator.num_pages }}.</li>
+		{% if page_obj.has_next %}
+		<li>
+			<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
+		</li>
+		{% endif %}
+	</ul>
+</div>
+
+{% endblock %}
