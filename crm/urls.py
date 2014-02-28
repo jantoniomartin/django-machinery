@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView
 
 from crm.models import Company, Group, Department
 
-urlpatterns = patterns("djinn_crm.views",
+urlpatterns = patterns("crm.views",
     url(r'^$',
 		ListView.as_view(
 			model=Company,

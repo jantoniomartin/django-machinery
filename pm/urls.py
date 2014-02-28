@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView
 
 from pm.models import Sector, Project, Machine, MachineComment
 
-urlpatterns = patterns("djinn_crm.views",
+urlpatterns = patterns("pm.views",
     url(r'^$',
 		ListView.as_view(
 			model=Project,
