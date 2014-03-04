@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
+from pm.forms import ProjectForm
 from pm.models import Sector, Project, Machine, MachineComment
 from pm.views import MachinePartsView
 
@@ -51,12 +52,15 @@ urlpatterns = patterns("pm.views",
     url(r'^project/edit/(?P<pk>\d+)/$',
 		UpdateView.as_view(
 			model=Project,
+			context_object_name = 'project',
+			form_class = ProjectForm
 		),
 		name="pm_project_edit"
 	),
 	url(r'^project/create/$',
 		CreateView.as_view(
-			model=Project
+			model=Project,
+			form_class = ProjectForm
 		),
 		name="pm_project_create"
 	),

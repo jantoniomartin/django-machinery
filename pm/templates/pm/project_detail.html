@@ -1,11 +1,11 @@
 {% extends "pm/base.html" %}
 {% load i18n %}
 
-{% block title %}{{ project.sector }}-{{ project.serial }}{% endblock %}
+{% block title %}{{ project }}{% endblock %}
 
 {% block content %}
 
-<h1>{{ project.sector }}-{{ project.serial }}</h1>
+<h1>{{ project }}</h1>
 <p>
 <a href="{% url 'pm_project_edit' project.id %}">{% trans "Edit project" %}</a>
 </p>

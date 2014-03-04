@@ -1,16 +1,17 @@
 {% extends 'pm/base.html' %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %}{% trans "Edit project" %}{% endblock %}
 
 {% block content %}
 
-<h1>{% trans "Edit project" %}</h1>
+<h1>{% trans "Edit project" %} {% if project %}{{ project }}{% endif %}</h1>
 
-<form method="POST" action=".">
+<form method="POST" action="." class="uniForm">
 {% csrf_token %}
 
-{{ form.as_p }}
+{{ form|crispy }}
 <p><input type="submit" value="{% trans "Save" %}" /></p>
 </form>
 {% endblock %}

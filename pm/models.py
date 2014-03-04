@@ -13,7 +13,7 @@ class Sector(models.Model):
 		verbose_name_plural = _("sectors")
 
 	def __unicode__(self):
-		return self.code
+		return self.description
 
 	@models.permalink
 	def get_absolute_url(self):

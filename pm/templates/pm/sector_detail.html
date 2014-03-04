@@ -5,14 +5,14 @@
 
 {% block content %}
 
-<h1>{{ sector.code }}</h1>
+<h1>{{ sector }}</h1>
 <p>
 <a href="{% url 'pm_sector_edit' sector.id %}">{% trans "Edit sector" %}</a>
 </p>
 
 <dl>
-<dt>{% trans "Description" %}</dt>
-<dd>{{ sector.description }}</dd>
+<dt>{% trans "Code" %}</dt>
+<dd>{{ sector.code }}</dd>
 </dl>
 
 {% endblock %}
