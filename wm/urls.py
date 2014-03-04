@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
 from wm.models import Group, Article
+from wm.views import GroupArticlesJSONView
 
 urlpatterns = patterns("wm.views",
 	url(r'^$',
@@ -32,11 +33,24 @@ urlpatterns = patterns("wm.views",
 		),
 		name="wm_article_create"
 	),
+	url(r'^group/tree/$',
+		ListView.as_view(
+			model=Group,
+			context_object_name="nodes",
+			template_name="wm/group_tree.html"
+		),
+		name="wm_group_tree"
+	),
 	url(r'^group/detail/(?P<pk>\d+)/$',
 		DetailView.as_view(
 			model=Group,
 			context_object_name="group"
 		),
 		name="wm_group_detail"
+	),
+	url(r'^group/(?P<pk>\d+)/articles/$',
+		GroupArticlesJSONView.as_view(
+		),
+		name="wm_group_articles"
 	),
 )

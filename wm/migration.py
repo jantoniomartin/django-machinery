@@ -54,7 +54,8 @@ def import_groups():
 		for row in cursor.fetchall():
 			if row[1] == 0:
 				## root nodes
-				node = models.Group.add_root(id=row[0], name=row[2])
+				#node = models.Group.add_root(id=row[0], name=row[2])
+				node = models.Group.objects.create(id=row[0], name=row[2])
 				ids.append(str(node.id))
 				c += 1
 				n += 1
@@ -66,7 +67,9 @@ def import_groups():
 					msg += u"Error: parent with id %s not found" % row[1]
 					return
 				else:
-					node = parent.add_child(id=row[0], name=row[2])
+					#node = parent.add_child(id=row[0], name=row[2])
+					node = models.Group.objects.create(id=row[0], name=row[2],
+						parent=parent)
 					ids.append(str(node.id))
 					c += 1
 					n += 1

@@ -1,12 +1,14 @@
 {% extends "site_base.html" %}
 {% load i18n %}
 
-{% block body %}
-
-<ul>
+{% block app_menu %}
+<ul id="app_menu">
+	<li><a href="{% url 'wm_group_tree' %}">{% trans "Categories" %}</a></li>
 	<li><a href="{% url 'wm_article_list' %}">{% trans "Articles" %}</a></li>
 </ul>
+{% endblock %}
 
+{% block body %}
 {% block content %}{% endblock %}
 
 {% endblock %}
