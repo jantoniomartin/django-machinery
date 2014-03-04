@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from pm import models
 import crm.models as crm
+import wm.models as wm
 
 def import_all():
 	msg = import_sectors()
@@ -144,29 +145,36 @@ def import_comments():
 	return msg
 
 def import_parts():
-    cursor = setup_cursor()
-    if cursor is None:
-        return
-    sql = """SELECT id, article_id, machine_id, quantity, job
-        FROM parts"""
-    cursor.execute(sql)
-    n = 0
-    for row in cursor.fetchall():
-        try:
-            article = Article.objects.get(id=row[1])
-        except ObjectDoesNotExist:
-            print "Article not found for part %s" % row[0]
-            continue
-        try:
-            machine = models.Machine.objects.get(id=row[2])
-        except ObjectDoesNotExist:
-            print "Machine not found for part %s" % row[0]
-            continue
-        function = row[4]
-        if function is None:
-            function = u"No definido"
-        part = models.Part(article=article, machine=machine,
-            quantity=row[3], function=function)
-        part.save()
-        n += 1
-    print "Imported %s parts" % n
+	cursor = setup_cursor()
+	if cursor is None:
+		return
+	sql = """SELECT id, article_id, machine_id, quantity, job
+		FROM parts"""
+	cursor.execute(sql)
+	n = 0
+	msg = u"Error report for Parts:\n"
+	for row in cursor.fetchall():
+		try:
+			article = wm.Article.objects.get(id=row[1])
+		except ObjectDoesNotExist:
+			msg += u"Article not found for part %s" % row[0]
+			continue
+		try:
+			machine = models.Machine.objects.get(id=row[2])
+		except ObjectDoesNotExist:
+			msg += u"Machine not found for part %s" % row[0]
+			continue
+		function = row[4]
+		if function is None:
+			function = u"No definido"
+		part = models.Part(article=article, machine=machine,
+			quantity=row[3], function=function)
+		try:
+			part.save()
+		except Exception, e:
+			print e
+			msg += u"Couldn't save part %s\n" % row[0]
+		else:
+			n += 1
+	print "Imported %s parts" % n
+	return msg

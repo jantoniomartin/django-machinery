@@ -66,6 +66,14 @@ urlpatterns = patterns("pm.views",
 		),
 		name="pm_machine_detail"
 	),
+    url(r'^machine/parts/(?P<pk>\d+)/$',
+		DetailView.as_view(
+			model=Machine,
+        	context_object_name="machine",
+			template_name="pm/machine_parts.html",
+		),
+		name="pm_machine_parts"
+	),
     url(r'^machine/edit/(?P<pk>\d+)/$',
 		UpdateView.as_view(
 			model=Machine,

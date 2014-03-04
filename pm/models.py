@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from crm.models import Company
+from wm.models import Article
 
 class Sector(models.Model):
 	code = models.CharField(_("code"), max_length=3, unique=True)
@@ -82,16 +83,17 @@ class MachineComment(models.Model):
 	def __unicode__(self):
 		return self.body
 
-#class Part(models.Model):
-#    article = models.ForeignKey(Article, verbose_name=_("article"))
-#    machine = models.ForeignKey(Machine, verbose_name=_("machine"))
-#    quantity = models.FloatField(_("quantity"))
-#    function = models.CharField(_("function"), max_length=255)
-#
-#    class Meta:
-#        ordering = ["article__code",]
-#        verbose_name = _("part")
-#        verbose_name_plural = _("parts")
-#
-#    def __unicode__(self):
-#        return unicode(self.article)
+class Part(models.Model):
+    article = models.ForeignKey(Article, verbose_name=_("article"))
+    machine = models.ForeignKey(Machine, verbose_name=_("machine"))
+    quantity = models.FloatField(_("quantity"))
+    function = models.CharField(_("function"), max_length=255)
+
+    class Meta:
+        ordering = ["article__code",]
+        verbose_name = _("part")
+        verbose_name_plural = _("parts")
+
+    def __unicode__(self):
+		return unicode(self.article)
+
