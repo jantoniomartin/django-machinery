@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
 from pm.models import Sector, Project, Machine, MachineComment
+from pm.views import MachinePartsView
 
 urlpatterns = patterns("pm.views",
     url(r'^$',
@@ -67,11 +68,7 @@ urlpatterns = patterns("pm.views",
 		name="pm_machine_detail"
 	),
     url(r'^machine/parts/(?P<pk>\d+)/$',
-		DetailView.as_view(
-			model=Machine,
-        	context_object_name="machine",
-			template_name="pm/machine_parts.html",
-		),
+		MachinePartsView.as_view(),
 		name="pm_machine_parts"
 	),
     url(r'^machine/edit/(?P<pk>\d+)/$',
@@ -92,4 +89,5 @@ urlpatterns = patterns("pm.views",
 		),
 		name="pm_machinecomment_create"
 	),
+	url(r'^part/create/$', 'create_part', name="pm_part_create"),
 )

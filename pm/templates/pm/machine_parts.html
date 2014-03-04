@@ -1,15 +1,96 @@
 {% extends "pm/base.html" %}
 {% load i18n %}
+{% load staticfiles %}
+{% load mptt_tags %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'vakata-jstree/themes/default/style.min.css' %}" />
+<script src="{% static 'vakata-jstree/jstree.min.js' %}"></script>
+<script>
+$(function() {
+	$('#tree').on('changed.jstree', function(e, data) {
+		var obj = data.selected;
+		var group_id = obj[0].substr(5);
+		console.log(group_id);
+		$.getJSON("/wm/group/" + group_id + "/articles/", function(data){
+			var tbl_body = "";
+			$.each( data, function() {
+				var row = "<tr>";
+				row += '<td><input name="article" type="radio" value="' + this.pk + '"/></td>'; 
+				row += '<td><a href="' + this.url + '">' + this.code + '</a></td>';
+				row += "<td>" + this.brand + "</td>";
+				row += "<td>" + this.description + "</td>";
+				row += "</tr>";
+				tbl_body += row;
+			});
+			$("#articles tbody").html(tbl_body);
+		})
+		.fail(function(){
+			alert("Error: No se ha podido cargar la lista de artículos.");
+		});
+	});
+});
+
+$(function() {
+	$('#tree').jstree({
+		"core" : {
+			"multiple" : false,
+		}
+	});
+});
+
+$(function() {
+	var frm =$("#part_form");
+	frm.submit(function(ev) {
+		var data = frm.serialize();
+		console.log(data);
+		$.ajax({
+			type: frm.attr('method'),
+			url: frm.attr('action'),
+			data: data,
+			success: function(data) {
+				var row = "<tr>";
+				row += '<td>' + data.quantity + '</td>';
+				row += '<td>' + data.unit + '</td>';
+				row += '<td>' + data.reference + '</td>';
+				row += '<td>' + data.description + '</td>';
+				row += '<td>' + data.function + '</td>';
+				row += "<tr>";
+				$('#parts tr:last').after(row);
+			},
+			error: function(resp) {
+				var errors = JSON.parse(resp.responseText);
+				alert("Error. Comprueba el formulario.");
+			}
+		});
+		ev.preventDefault();
+	});
+});
+</script>
+
+<style type="text/css">
+#tree {
+	float: left;
+	width: 40%;
+}
+
+#articles {
+	width: 50%;
+}
+</style>
+{% endblock %}
 
 {% block title %}{% trans "Parts in" %} {{ machine.project.sector }}-{{ machine.project.serial }}-{{ machine.model }}{{ machine.number }}{% endblock %}
 
 {% block content %}
 
-<h1>{% trans "Parts in" %} {{ machine.project.sector }}-{{ machine.project.serial }}-{{ machine.model }}{{ machine.number }}</h1>
+<h1>{% trans "Parts in" %} {{ machine.project }}-{{ machine.model }}{{ machine.number }}</h1>
 <p>
+<a href="{% url 'pm_project_detail' machine.project.id %}">{{ machine.project }}</a>
 </p>
 
-<table>
+<table id="parts">
+<thead>
 <tr>
 <th>{% trans "Qty" %}</th>
 <th>{% trans "Unit" %}</th>
@@ -17,6 +98,7 @@
 <th>{% trans "Description" %}</th>
 <th>{% trans "Function" %}</th>
 </tr>
+</thead>
 {% for part in machine.part_set.all %}
 <tr>
 <td>{{ part.quantity|floatformat:"0" }}</td>
@@ -29,5 +111,45 @@
 
 </table>
 
+<h2>{% trans "Add parts" %}</h2>
+
+<div id="tree">
+<ul>
+	{% recursetree nodes %}
+		<li id="node_{{ node.id }}">
+			{{ node.name }}
+			{% if not node.is_leaf_node %}
+				<ul class="children">
+					{{ children }}
+				</ul>
+			{% endif %}
+		</li>
+	{% endrecursetree %}
+</ul>
+</div>
+
+<div id="article_selection">
+<form id="part_form" method="POST" action="{% url 'pm_part_create' %}">{% csrf_token %}
+{% trans "Quantity" %}: <input id="id_quantity" type="text" name="quantity"/>
+{% trans "Function" %}: <input id="id_function" type="text" name="function"/>
+<input type="hidden" name="machine" value="{{ machine.id }}"/>
+<input type="submit" value="{% trans "Save" %}"/>
+<table id="articles" border="1">
+<thead>
+<th>&nbsp;</th>
+<th>{% trans "Reference" %}</th>
+<th>{% trans "Brand" %}</th>
+<th>{% trans "Description" %}</th>
+</thead>
+<tbody></tbody>
+</table>
+</form>
+</div>
+
+<script>
+$(function() {
+	$('#tree').jstree(true).select_node('child_node');
+});
+</script>
 
 {% endblock %}

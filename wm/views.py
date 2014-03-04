@@ -8,30 +8,7 @@ from django.views.generic import TemplateView
 
 from wm import models
 
-class JSONResponseMixin(object):
-	def render_to_json_response(self, context, **response_kwargs):
-		"""
-		Returns a JSON response containing 'context' as payload.
-		"""
-		try:
-			response = HttpResponse(self.convert_context_to_json(context),
-							content_type='application/json',
-							**response_kwargs)
-		except Exception as e:
-			print e.strerror
-		else:
-			print "No error"
-			return response
-
-	def convert_context_to_json(self, context):
-		"""
-		Convert the context dictionary into a JSON object"
-		"""
-		print "Debug 1"
-		j = json.dumps(context)
-		return j
-
-class GroupArticlesJSONView(JSONResponseMixin, TemplateView):
+class GroupArticlesJSONView(TemplateView):
 	def get(self, request, *args, **kwargs):
 		try:
 			group = models.Group.objects.get(id=kwargs['pk'])
