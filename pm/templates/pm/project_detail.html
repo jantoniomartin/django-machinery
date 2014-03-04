@@ -39,7 +39,7 @@
 <td><a href="{% url 'pm_machine_detail' machine.id %}">{{ machine.model }}{{ machine.number }}</a></td>
 <td>{{ machine.description }}</td>
 <td>{{ machine.machinecomment_set.count }}</td>
-<td>&nbsp;</td>
+<td><a href="{% url 'pm_machine_parts' machine.id %}">{{ machine.part_set.count }}</a></td>
 <td>{{ machine.created_on }}</td>
 <td>{{ machine.shipped_on }}</td>
 <td>{{ machine.running_on }}</td>
