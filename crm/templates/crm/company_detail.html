@@ -63,4 +63,23 @@
 {% endfor %}
 </table>
 
+<h2>{% trans "Projects" %}</h2>
+<table>
+<thead>
+<tr>
+<th>{% trans "Reference" %}</th>
+<th>{% trans "Description" %}</th>
+<th>{% trans "Created on" %}</th>
+</tr>
+</thead>
+{% for project in company.project_set.all %}
+<tr>
+<td><a href="{% url 'pm_project_detail' project.id %}">{{ project }}</a></td>
+<td>{{ project.description }}</td>
+<td>{{ project.created_on }}</td>
+</tr>
+{% endfor %}
+</table>
+
+
 {% endblock %}

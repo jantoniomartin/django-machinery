@@ -21,6 +21,7 @@
     <th>{% trans "Country" %}</th>
 	<th>{% trans "Phone" %}</th>
 	<th>{% trans "Group" %}</th>
+	<th colspan="2">{% trans "Actions" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -36,6 +37,8 @@
 		<a href="{% url 'crm_group_detail' c.group.id %}">{{ c.group }}</a>
 	{% endif %}
 	</td>
+	<td><a href="{% url 'crm_company_edit' c.id %}">{% trans "Edit" %}</a></td>
+	<td>{% trans "Delete" %}</td>
 </tr>
 {% endfor %}
 </tbody>
