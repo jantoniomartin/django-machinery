@@ -1,0 +1,94 @@
+{% extends "wm/base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load mptt_tags %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'vakata-jstree/themes/default/style.min.css' %}" />
+<script src="{% static 'vakata-jstree/jstree.min.js' %}"></script>
+<script>
+$(function() {
+	$('#tree').on('changed.jstree', function(e, data) {
+		var obj = data.selected;
+		var group_id = obj[0].substr(5);
+		console.log(group_id);
+		$.getJSON("/wm/group/" + group_id + "/articles/", function(data){
+			var tbl_body = "";
+			$.each( data, function() {
+				var row = "<tr>";
+				row += '<td><a href="' + this.url + '">' + this.code + '</a></td>';
+				row += "<td>" + this.brand + "</td>";
+				row += "<td>" + this.description + "</td>";
+				row += "</tr>";
+				tbl_body += row;
+			});
+			$("#articles tbody").html(tbl_body);
+		})
+		.fail(function(){
+			alert("Error: No se ha podido cargar la lista de artículos.");
+		});
+	});
+});
+
+$(function() {
+	$('#tree').jstree({
+		"core" : {
+			"multiple" : false,
+		}
+	});
+});
+</script>
+
+<style type="text/css">
+#tree {
+	float: left;
+	width: 40%;
+}
+
+#articles {
+	width: 50%;
+}
+</style>
+{% endblock %}
+
+
+{% block title %}{% trans "Articles by category" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Articles by category" %}</h1>
+
+<div id="tree">
+<ul>
+	{% recursetree nodes %}
+		<li id="node_{{ node.id }}">
+			{{ node.name }}
+			{% if not node.is_leaf_node %}
+				<ul class="children">
+					{{ children }}
+				</ul>
+			{% endif %}
+		</li>
+	{% endrecursetree %}
+</ul>
+</div>
+
+<table id="articles" border="1">
+<thead>
+<th>{% trans "Reference" %}</th>
+<th>{% trans "Brand" %}</th>
+<th>{% trans "Description" %}</th>
+</thead>
+<tbody></tbody>
+</table>
+
+<script>
+$(function() {
+	$('#tree').jstree(true).select_node('child_node');
+});
+</script>
+
+<script type="text/javascript">
+</script>
+
+{% endblock %}

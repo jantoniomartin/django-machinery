@@ -1,0 +1,33 @@
+{% extends "pm/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Parts in" %} {{ machine.project.sector }}-{{ machine.project.serial }}-{{ machine.model }}{{ machine.number }}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Parts in" %} {{ machine.project.sector }}-{{ machine.project.serial }}-{{ machine.model }}{{ machine.number }}</h1>
+<p>
+</p>
+
+<table>
+<tr>
+<th>{% trans "Qty" %}</th>
+<th>{% trans "Unit" %}</th>
+<th>{% trans "Reference" %}</th>
+<th>{% trans "Description" %}</th>
+<th>{% trans "Function" %}</th>
+</tr>
+{% for part in machine.part_set.all %}
+<tr>
+<td>{{ part.quantity|floatformat:"0" }}</td>
+<td>{{ part.article.measure_unit }}</td>
+<td>{{ part.article.code }}</td>
+<td>{{ part.article.description }}</td>
+<td>{{ part.function }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+
+{% endblock %}
