@@ -1,19 +1,30 @@
 {% load i18n %}
+{% load staticfiles %}
 
 <html>
 <head>
 	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="{% static 'css/indumatic.css' %}" type="text/css" />
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'uni-form/css/uni-form.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'uni-form/css/default.uni-form.css' %}" type="text/css" />
+	{% block extra_head %}{% endblock %}
 </head>
 <body>
-<ul>
+<ul id="main_menu">
+<li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
 <li><a href="{% url 'crm_company_list' %}">{% trans "Companies" %}</a></li>
 <li><a href="{% url 'pm_project_list' %}">{% trans "Projects" %}</a></li>
 <li><a href="{% url 'wm_article_list' %}">{% trans "Articles" %}</a></li>
 <li><a href="{% url 'haystack_search' %}">{% trans "Search" %}</a></li>
 </ul>
 
+{% block app_menu %}{% endblock %}
+
+<div id="content_wrapper">
 {% block body %}
 
 {% endblock %}
+</div>
 </body>
 </html>
