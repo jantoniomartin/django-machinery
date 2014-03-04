@@ -1,0 +1,47 @@
+{% extends 'site_base.html' %}
+{% load i18n %}
+
+{% block body %}
+<h1>{% trans "Project summary" %}</h1>
+
+<h2>{% trans "Active projects" %}</h2>
+
+<table>
+<thead>
+<tr>
+<th>{% trans "Reference" %}</th>
+<th>{% trans "Description" %}</th>
+<th>{% trans "Customer" %}</th>
+<th>{% trans "Estimated delivery" %}</th>
+</tr>
+</thead>
+{% for project in active_projects %}
+<tr>
+<td><a href="{% url 'pm_project_detail' project.id %}">{{ project }}</a></td>
+<td>{{ project.description }}</td>
+<td><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a></td>
+<td>{{ project.estimated_delivery_on }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<h2>{% trans "Shipped projects" %}</h2>
+
+<table>
+<thead>
+<tr>
+<th>{% trans "Reference" %}</th>
+<th>{% trans "Description" %}</th>
+<th>{% trans "Customer" %}</th>
+</tr>
+</thead>
+{% for project in shipped_projects %}
+<tr>
+<td><a href="{% url 'pm_project_detail' project.id %}">{{ project }}</a></td>
+<td>{{ project.description }}</td>
+<td><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a></td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
