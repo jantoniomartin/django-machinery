@@ -4,6 +4,7 @@
 {% block app_menu %}
 <ul id="app_menu">
 	<li><a href="{% url 'wm_group_tree' %}">{% trans "Categories" %}</a></li>
+	<li><a href="{% url 'wm_group_create' %}">{% trans "New category" %}</a></li>
 	<li><a href="{% url 'wm_article_list' %}">{% trans "Articles" %}</a></li>
 	<li><a href="{% url 'wm_article_create' %}">{% trans "New article" %}</a></li>
 </ul>

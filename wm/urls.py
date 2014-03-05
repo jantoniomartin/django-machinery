@@ -8,6 +8,14 @@ from wm.views import *
 urlpatterns = patterns("wm.views",
 	url(r'^$',
 		ListView.as_view(
+			model=Group,
+			context_object_name="nodes",
+			template_name="wm/group_tree.html"
+		),
+		name="wm_group_tree"
+	),
+	url(r'^article/list/$',
+		ListView.as_view(
 			model=Article,
 			paginate_by=20,
 			context_object_name="article_list"
@@ -19,31 +27,20 @@ urlpatterns = patterns("wm.views",
 		name="wm_article_detail"
 	),
 	url(r'^article/edit/(?P<pk>\d+)/$',
-		UpdateView.as_view(
-			model=Article,
-		),
+		ArticleUpdateView.as_view(),
 		name="wm_article_edit"
 	),
 	url(r'^article/create/$',
-		CreateView.as_view(
-			model=Article
-		),
+		ArticleCreateView.as_view(),
 		name="wm_article_create"
 	),
-	url(r'^group/tree/$',
-		ListView.as_view(
-			model=Group,
-			context_object_name="nodes",
-			template_name="wm/group_tree.html"
-		),
-		name="wm_group_tree"
+	url(r'^group/create/$',
+		GroupCreateView.as_view(),
+		name="wm_group_create"
 	),
-	url(r'^group/detail/(?P<pk>\d+)/$',
-		DetailView.as_view(
-			model=Group,
-			context_object_name="group"
-		),
-		name="wm_group_detail"
+	url(r'^group/edit/(?P<pk>\d+)/$',
+		GroupUpdateView.as_view(),
+		name="wm_group_edit"
 	),
 	url(r'^group/(?P<pk>\d+)/articles/$',
 		GroupArticlesJSONView.as_view(

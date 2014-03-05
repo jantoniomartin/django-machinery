@@ -16,14 +16,14 @@
 <dd>{{ article.description }}</dd>
 <dt>{% trans "Category" %}</dt>
 <dd>
-{{ article.group.get_ancestors|tree_path:" > " }}
+{{ article.group.get_ancestors|tree_path:" / " }} / {{ article.group }}
 </dd>
 <dt>{% trans "Brand" %}</dt>
 <dd>{{ article.brand|default_if_none:"" }}</dd>
 <dt>{% trans "Measure unit" %}</dt>
-<dd>{{ machine.created_on }}</dd>
+<dd>{{ article.measure_unit }}</dd>
 <dt>{% trans "Standard packaging" %}</dt>
-<dd>{{ machine.shipped_on }}</dd>
+<dd>{{ article.packaging }}</dd>
 </dl>
 
 <h2>{% trans "Latest machines where the article is installed" %}</h2>

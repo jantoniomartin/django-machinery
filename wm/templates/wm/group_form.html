@@ -14,7 +14,7 @@ $(function() {
 		/*var li = $('#' + obj[0]);
 		alert(li.text().trim());*/
 		var group_id = obj[0].substr(5);
-		$('#id_group').val(group_id);
+		$('#id_parent').val(group_id);
 	});
 });
 
@@ -28,7 +28,7 @@ $(function() {
 </script>
 
 <style type="text/css">
-#article_form {
+#group_form {
 	float: left;
 	width: 40%;
 }
@@ -40,13 +40,13 @@ $(function() {
 </style>
 {% endblock %}
 
-{% block title %}{% trans "Edit article" %}{% endblock %}
+{% block title %}{% trans "Edit category" %}{% endblock %}
 
 {% block content %}
 
-<h1>{% trans "Edit article" %}</h1>
+<h1>{% trans "Edit category" %}</h1>
 
-<div id="article_form">
+<div id="group_form">
 
 <form method="POST" action="." class="uniForm">
 {% csrf_token %}
@@ -58,12 +58,12 @@ $(function() {
 </div>
 
 <div id="tree_wrapper">
-<h2>{% trans "Choose a category for the article" %}</h2>
+<h2>{% trans "Choose a parent for this category" %}</h2>
 <div id="tree">
 <ul>
 	{% recursetree nodes %}
 		<li id="node_{{ node.id }}"
-		{% if node.id == article.group.id %}data-jstree='{"opened":true, "selected": true}'{% endif %}>
+		{% if node.id == group.parent.id %}data-jstree='{"opened":true, "selected": true}'{% endif %}>
 			{{ node.name }}
 			{% if not node.is_leaf_node %}
 				<ul class="children">
