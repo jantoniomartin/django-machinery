@@ -8,10 +8,6 @@
 
 <h1>{% trans "Companies" %}</h1>
 
-<p>
-<a href="{% url 'crm_company_create' %}">{% trans "New company" %}</a>
-</p>
-
 <table>
 <thead>
 <tr>
@@ -21,7 +17,7 @@
     <th>{% trans "Country" %}</th>
 	<th>{% trans "Phone" %}</th>
 	<th>{% trans "Group" %}</th>
-	<th colspan="2">{% trans "Actions" %}</th>
+	<th>{% trans "Actions" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -31,14 +27,13 @@
     <td>{{ c.city|title|default_if_none:"" }}</td>
     <td>{{ c.region|title|default_if_none:"" }}</td>
     <td>{{ c.country|title|default_if_none:"" }}</td>
-    <td>{{ c.global_phone|default_if_none:"" }}</td>
+    <td>{{ c.main_phone|default_if_none:"" }}</td>
 	<td>
 	{% if c.group %}
 		<a href="{% url 'crm_group_detail' c.group.id %}">{{ c.group }}</a>
 	{% endif %}
 	</td>
 	<td><a href="{% url 'crm_company_edit' c.id %}">{% trans "Edit" %}</a></td>
-	<td>{% trans "Delete" %}</td>
 </tr>
 {% endfor %}
 </tbody>
