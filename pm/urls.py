@@ -83,6 +83,10 @@ urlpatterns = patterns("pm.views",
 		MachineCommentCreateView.as_view(),
 		name="pm_machinecomment_create"
 	),
+	url(r'^comment/delete/(?P<pk>\d+)/$',
+		MachineCommentDeleteView.as_view(),
+		name="pm_machinecomment_delete"
+	),
 	url(r'^part/create/$', 'create_part', name="pm_part_create"),
 	url(r'^machine/create/$', 'create_machine', name="pm_machine_create"),
 )

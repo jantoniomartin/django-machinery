@@ -16,11 +16,17 @@ class MachineCommentCreateView(CreateView):
 	def get_success_url(self):
 		return self.object.machine.get_absolute_url()
 
+class MachineCommentDeleteView(DeleteView):
+	model = MachineComment
+	
+	def get_success_url(self):
+		return self.object.machine.get_absolute_url()
+
 class MachineDeleteView(DeleteView):
 	model = Machine
 	
 	def get_success_url(self):
-		return reverse_lazy('pm_project_detail', args=[self.object.project.id])
+		return self.object.project.get_absolute_url()
 
 class MachineDetailView(DetailView):
 	model = Machine

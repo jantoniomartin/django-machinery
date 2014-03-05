@@ -1,0 +1,23 @@
+{% extends 'pm/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete comment" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Delete confirmation" %}</h1>
+
+<p>{% blocktrans %}This comment will be deleted. Are you sure?{% endblocktrans %}</p>
+
+<div class="comment">
+<div class="comment_date">{{ object.created_on }}</div>
+{{ object }}
+</div>
+
+<p><a href="{% url 'pm_machine_detail' object.machine.id %}">{% trans "Go back." %}</a>
+
+<form action="" method="post">{% csrf_token %}
+	<input type="submit" value="{% trans "Delete" %}" />
+</form>
+
+{% endblock %}

@@ -29,11 +29,13 @@
 <h2>{% trans "Comments" %}</h2>
 {% for comment in machine.machinecomment_set.all %}
 <div class="comment">
-{{ comment }}
 <div class="comment_date">{{ comment.created_on }}</div>
+{{ comment }}
+<div class="comment_menu">
+<a href="{% url 'pm_machinecomment_delete' comment.id %}">{% trans "Delete" %}</a>
+</div>
 </div>
 {% endfor %}
-</ul>
 
 <form action="{% url 'pm_machinecomment_create' %}" method="post" class="uniForm">{% csrf_token %}
 
