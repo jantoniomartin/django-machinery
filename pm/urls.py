@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from pm.forms import ProjectForm
+from pm.forms import ProjectForm, PartForm
 from pm.models import Sector, Project, Machine, MachineComment
 from pm.views import *
 
@@ -86,6 +86,14 @@ urlpatterns = patterns("pm.views",
 	url(r'^comment/delete/(?P<pk>\d+)/$',
 		MachineCommentDeleteView.as_view(),
 		name="pm_machinecomment_delete"
+	),
+	url(r'^part/edit/(?P<pk>\d+)/$',
+		PartUpdateView.as_view(),
+		name="pm_part_edit"
+	),
+	url(r'^part/delete/(?P<pk>\d+)/$',
+		PartDeleteView.as_view(),
+		name="pm_part_delete"
 	),
 	url(r'^part/create/$', 'create_part', name="pm_part_create"),
 	url(r'^machine/create/$', 'create_machine', name="pm_machine_create"),

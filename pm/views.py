@@ -1,13 +1,13 @@
 import json
 
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.shortcuts import render
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from pm.forms import NewMachineForm, PartForm, MachineCommentForm
-from pm.models import Project, Machine, MachineComment
+from pm.models import Project, Machine, MachineComment, Part
 from wm.models import Group
 
 class MachineCommentCreateView(CreateView):
@@ -47,6 +47,19 @@ class MachinePartsView(DetailView):
 		ctx = super(MachinePartsView, self).get_context_data(**kwargs)
 		ctx.update({'nodes': Group.objects.all()})
 		return ctx
+
+class PartDeleteView(DeleteView):
+	model = Part
+	
+	def get_success_url(self):
+		return reverse_lazy('pm_machine_parts', args=[self.object.machine.id])
+
+class PartUpdateView(UpdateView):
+	model = Part
+	form_class = PartForm
+
+	def get_success_url(self):
+		return reverse_lazy('pm_machine_parts', args=[self.object.machine.id])
 
 class ProjectDetailView(DetailView):
 	model = Project
@@ -103,6 +116,9 @@ def create_part(request):
 				"reference": part.article.code,
 				"description": part.article.description,
 				"function": part.function,
+				"detail_url": part.article.get_absolute_url(),
+				"edit_url": reverse('pm_part_edit', args=[part.id]),
+				"delete_url": reverse('pm_part_delete', args=[part.id]),
 			}
 			response_data = json.dumps(part_json)
 			return HttpResponse(response_data, content_type="application/json")

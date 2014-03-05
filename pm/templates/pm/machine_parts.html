@@ -52,9 +52,14 @@ $(function() {
 				var row = "<tr>";
 				row += '<td>' + data.quantity + '</td>';
 				row += '<td>' + data.unit + '</td>';
-				row += '<td>' + data.reference + '</td>';
+				row += '<td><a href="' + data.detail_url + '">';
+				row += data.reference + '</a></td>';
 				row += '<td>' + data.description + '</td>';
 				row += '<td>' + data.function + '</td>';
+				row += '<td>';
+				row += '<a href="' + data.edit_url + '">{% trans "Edit" %}</a> ';
+				row += '<a href="' + data.delete_url + '">{% trans "Delete" %}</a>';
+				row += '</td>';
 				row += "<tr>";
 				$('#parts tr:last').after(row);
 			},
@@ -80,7 +85,7 @@ $(function() {
 </style>
 {% endblock %}
 
-{% block title %}{% trans "Parts in" %} {{ machine.project.sector }}-{{ machine.project.serial }}-{{ machine.model }}{{ machine.number }}{% endblock %}
+{% block title %}{% trans "Parts in" %} {{ machine.project }}-{{ machine.model }}{{ machine.number }}{% endblock %}
 
 {% block content %}
 
@@ -97,15 +102,20 @@ $(function() {
 <th>{% trans "Reference" %}</th>
 <th>{% trans "Description" %}</th>
 <th>{% trans "Function" %}</th>
+<th>{% trans "Actions" %}</th>
 </tr>
 </thead>
 {% for part in machine.part_set.all %}
 <tr>
 <td>{{ part.quantity|floatformat:"0" }}</td>
 <td>{{ part.article.measure_unit }}</td>
-<td>{{ part.article.code }}</td>
+<td><a href="{% url 'wm_article_detail' part.article.id %}">{{ part.article.code }}</a></td>
 <td>{{ part.article.description }}</td>
 <td>{{ part.function }}</td>
+<td>
+<a href="{% url 'pm_part_edit' part.id %}">{% trans "Edit" %}</a>
+<a href="{% url 'pm_part_delete' part.id %}">{% trans "Delete" %}</a>
+</td>
 </tr>
 {% endfor %}
 

@@ -3,6 +3,7 @@ from django.db.models import Max
 
 from crm.models import Company
 from pm.models import Machine, Project, Part, MachineComment
+from wm.models import Article
 
 class MachineCommentForm(forms.ModelForm):
 	machine = forms.ModelChoiceField(
@@ -38,6 +39,11 @@ class NewMachineForm(forms.ModelForm):
 		return m
 
 class PartForm(forms.ModelForm):
+	machine = forms.ModelChoiceField(queryset=Machine.objects.all(),
+		widget=forms.HiddenInput)
+	article = forms.ModelChoiceField(queryset=Article.objects.all(),
+		widget=forms.HiddenInput)
+
 	class Meta:
 		model = Part
 		fields = ['article', 'machine', 'quantity', 'function']

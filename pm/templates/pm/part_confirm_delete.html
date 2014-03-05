@@ -1,0 +1,18 @@
+{% extends 'pm/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete part" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Delete confirmation" %}</h1>
+
+<p>{% blocktrans with object.article.code as code %}The part {{ code }} will be deleted. Are you sure?{% endblocktrans %}</p>
+
+<p><a href="{% url 'pm_machine_parts' object.machine.id %}">{% trans "Go back." %}</a>
+
+<form action="" method="post">{% csrf_token %}
+	<input type="submit" value="{% trans "Delete" %}" />
+</form>
+
+{% endblock %}
