@@ -1,5 +1,6 @@
 {% extends "wm/base.html" %}
 {% load i18n %}
+{% load mptt_tags %}
 
 {% block title %}{{ article.code }}{% endblock %}
 
@@ -15,9 +16,7 @@
 <dd>{{ article.description }}</dd>
 <dt>{% trans "Category" %}</dt>
 <dd>
-{% for group in article.group.path %}
-/ <a href="{% url 'wm_group_detail' group.id %}">{{ group }}</a>
-{% endfor %}
+{{ article.group.get_ancestors|tree_path:" > " }}
 </dd>
 <dt>{% trans "Brand" %}</dt>
 <dd>{{ article.brand|default_if_none:"" }}</dd>
@@ -26,5 +25,24 @@
 <dt>{% trans "Standard packaging" %}</dt>
 <dd>{{ machine.shipped_on }}</dd>
 </dl>
+
+<h2>{% trans "Latest machines where the article is installed" %}</h2>
+
+<table>
+<thead>
+<tr>
+	<th>{% trans "Machine" %}</th>
+	<th>{% trans "Description" %}</th>
+	<th>{% trans "Function" %}</th>
+</tr>
+</thead>
+{% for part in latest_parts %}
+<tr>
+	<td><a href="{% url 'pm_machine_detail' part.machine.id %}">{{ part.machine.full_reference }}</a></td>
+	<td>{{ part.machine.description }}</td>
+	<td>{{ part.function }}</td>
+</tr>
+{% endfor %}
+</table>
 
 {% endblock %}

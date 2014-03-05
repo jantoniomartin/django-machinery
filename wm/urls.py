@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
 from wm.models import Group, Article
-from wm.views import GroupArticlesJSONView
+from wm.views import *
 
 urlpatterns = patterns("wm.views",
 	url(r'^$',
@@ -15,10 +15,7 @@ urlpatterns = patterns("wm.views",
 		name="wm_article_list"
 	),
 	url(r'^article/detail/(?P<pk>\d+)/$',
-		DetailView.as_view(
-			model=Article,
-			context_object_name="article"
-		),
+		ArticleDetailView.as_view(),
 		name="wm_article_detail"
 	),
 	url(r'^article/edit/(?P<pk>\d+)/$',

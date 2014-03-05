@@ -65,6 +65,10 @@ class Machine(models.Model):
 	def __unicode__(self):
 		return u"%(model)s%(number)s" % {'model': self.model,
 										'number': self.number }
+	
+	@property
+	def full_reference(self):
+		return u"%s-%s" % (self.project, self)
 
 	@models.permalink
 	def get_absolute_url(self):
@@ -90,7 +94,7 @@ class Part(models.Model):
     function = models.CharField(_("function"), max_length=255)
 
     class Meta:
-        ordering = ["article__code",]
+        ordering = ["-pk",]
         verbose_name = _("part")
         verbose_name_plural = _("parts")
 
