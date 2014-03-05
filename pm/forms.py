@@ -2,7 +2,15 @@ from django import forms
 from django.db.models import Max
 
 from crm.models import Company
-from pm.models import Machine, Project, Part
+from pm.models import Machine, Project, Part, MachineComment
+
+class MachineCommentForm(forms.ModelForm):
+	machine = forms.ModelChoiceField(
+		queryset=Machine.objects.all(),
+		widget=forms.HiddenInput)
+
+	class Meta:
+		model = MachineComment
 
 class NewMachineForm(forms.ModelForm):
 	project = forms.ModelChoiceField(
@@ -29,6 +37,11 @@ class NewMachineForm(forms.ModelForm):
 			m.save()
 		return m
 
+class PartForm(forms.ModelForm):
+	class Meta:
+		model = Part
+		fields = ['article', 'machine', 'quantity', 'function']
+
 class ProjectForm(forms.ModelForm):
 	company = forms.ModelChoiceField(queryset=Company.objects.filter(is_customer=True))
 
@@ -45,9 +58,4 @@ class ProjectForm(forms.ModelForm):
 		if commit:
 			m.save()
 		return m
-
-class PartForm(forms.ModelForm):
-	class Meta:
-		model = Part
-		fields = ['article', 'machine', 'quantity', 'function']
 

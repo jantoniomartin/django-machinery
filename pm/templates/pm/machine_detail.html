@@ -1,5 +1,6 @@
 {% extends "pm/base.html" %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %}{{ machine.project }}-{{ machine.model }}{{ machine.number }}{% endblock %}
 
@@ -19,21 +20,26 @@
 <dd>{{ machine.shipped_on }}</dd>
 <dt>{% trans "Running on" %}</dt>
 <dd>{{ machine.running_on }}</dd>
-<dt>{% trans "Estimated deliver on" %}</dt>
+<dt>{% trans "Estimated delivery on" %}</dt>
 <dd>{{ machine.estimated_delivery_on }}</dd>
 <dt>{% trans "Is retired?" %}</dt>
 <dd>{{ machine.is_retired|yesno }}</dd>
 </dl>
 
 <h2>{% trans "Comments" %}</h2>
-<p>
-<a href="{% url 'pm_machinecomment_create' %}">{% trans "New comment" %}</a>
-</p>
-<ul>
 {% for comment in machine.machinecomment_set.all %}
-<li><span>{{ comment.created_on }}</span>
-{{ comment }}</li>
+<div class="comment">
+{{ comment }}
+<div class="comment_date">{{ comment.created_on }}</div>
+</div>
 {% endfor %}
 </ul>
+
+<form action="{% url 'pm_machinecomment_create' %}" method="post" class="uniForm">{% csrf_token %}
+
+{{ comment_form|crispy }}
+<p><input type="submit" value="{% trans "Save" %}" />
+
+</form>
 
 {% endblock %}

@@ -40,10 +40,6 @@ $(function() {
 	});
 });
 
-$(function() {
-	$('.dateinput').datepicker();
-});
-
 </script>
 {% endblock %}
 
@@ -90,7 +86,10 @@ $(function() {
 <td>{{ machine.shipped_on|date:"d/m/Y" }}</td>
 <td>{{ machine.running_on|date:"d/m/Y" }}</td>
 <td>{{ machine.estimated_delivery_on|date:"d/m/Y" }}</td>
-<td><a href="{% url 'pm_machine_delete' machine.id %}">{% trans "Delete" %}</a></td>
+<td>
+<a href="{% url 'pm_machine_edit' machine.id %}">{% trans "Edit" %}</a>
+<a href="{% url 'pm_machine_delete' machine.id %}">{% trans "Delete" %}</a>
+</td>
 </tr>
 {% endfor %}
 </table>

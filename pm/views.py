@@ -4,11 +4,17 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.shortcuts import render
 from django.views.generic import DetailView
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import CreateView, DeleteView
 
-from pm.forms import NewMachineForm, PartForm
-from pm.models import Project, Machine
+from pm.forms import NewMachineForm, PartForm, MachineCommentForm
+from pm.models import Project, Machine, MachineComment
 from wm.models import Group
+
+class MachineCommentCreateView(CreateView):
+	model = MachineComment
+	
+	def get_success_url(self):
+		return self.object.machine.get_absolute_url()
 
 class MachineDeleteView(DeleteView):
 	model = Machine
@@ -16,6 +22,15 @@ class MachineDeleteView(DeleteView):
 	def get_success_url(self):
 		return reverse_lazy('pm_project_detail', args=[self.object.project.id])
 
+class MachineDetailView(DetailView):
+	model = Machine
+	context_object_name = "machine"
+
+	def get_context_data(self, **kwargs):
+		ctx = super(MachineDetailView, self).get_context_data(**kwargs)
+		comment_form = MachineCommentForm(initial={'machine': self.object.pk })
+		ctx.update({ 'comment_form': comment_form })
+		return ctx
 
 class MachinePartsView(DetailView):
 	model=Machine
