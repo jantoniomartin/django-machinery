@@ -1,5 +1,51 @@
 {% extends "pm/base.html" %}
 {% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block extra_head %}
+<script type="text/javascript">
+
+$(function() {
+	var frm =$("#machine_form");
+	frm.submit(function(ev) {
+		var data = frm.serialize();
+		console.log(data);
+		$.ajax({
+			type: frm.attr('method'),
+			url: frm.attr('action'),
+			data: data,
+			success: function(data) {
+				var row = "<tr>";
+				row += '<td>' + data.reference + '</td>';
+				row += '<td>' + data.description + '</td>';
+				row += '<td>0</td>';
+				row += '<td>0</td>';
+				row += '<td>' + data.created_on + '</td>';
+				row += '<td>0</td>';
+				row += '<td>0</td>';
+				row += '<td>' + data.delivery + '</td>';
+				row += "<tr>";
+				$('#machines_table tr:last').after(row);
+			},
+			error: function(resp) {
+				console.log(resp.responseText);
+				var errors = JSON.parse(resp.responseText);
+				for (error in errors) {
+					console.log(errors[error]);
+				}
+				alert("Error. Comprueba el formulario.");
+			}
+		});
+		ev.preventDefault();
+	});
+});
+
+$(function() {
+	$('.dateinput').datepicker();
+});
+
+</script>
+{% endblock %}
 
 {% block title %}{{ project }}{% endblock %}
 
@@ -22,8 +68,7 @@
 </dl>
 
 <h2>{% trans "Project modules" %}</h2>
-<p><a href="{% url 'pm_machine_create' %}">{% trans "Create machine" %}</a></p>
-<table>
+<table id="machines_table">
 <tr>
 <th>{% trans "Reference" %}</th>
 <th>{% trans "Description" %}</th>
@@ -40,12 +85,18 @@
 <td>{{ machine.description }}</td>
 <td>{{ machine.machinecomment_set.count }}</td>
 <td><a href="{% url 'pm_machine_parts' machine.id %}">{{ machine.part_set.count }}</a></td>
-<td>{{ machine.created_on }}</td>
-<td>{{ machine.shipped_on }}</td>
-<td>{{ machine.running_on }}</td>
-<td>{{ machine.estimated_delivery_on }}</td>
+<td>{{ machine.created_on|date:"d/m/Y" }}</td>
+<td>{{ machine.shipped_on|date:"d/m/Y" }}</td>
+<td>{{ machine.running_on|date:"d/m/Y" }}</td>
+<td>{{ machine.estimated_delivery_on|date:"d/m/Y" }}</td>
 </tr>
 {% endfor %}
 </table>
+
+<form id="machine_form" method="post" action="{% url 'pm_machine_create' %}" class="uniForm">
+{% csrf_token %}
+{{ machine_form|crispy }}
+<p><input type="submit" value="{% trans "Save" %}"></p>
+</form>
 
 {% endblock %}

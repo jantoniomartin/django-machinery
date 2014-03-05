@@ -6,8 +6,12 @@
 	<title>{% block title %}{% endblock %}</title>
 	<link rel="stylesheet" href="{% static 'css/indumatic.css' %}" type="text/css" />
 	<script src="{% static 'js/jquery.js' %}"></script>
+	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<script src="{% static 'js/jquery.ui.datepicker-es.js' %}"></script>
 	<link rel="stylesheet" href="{% static 'uni-form/css/uni-form.css' %}" type="text/css" />
 	<link rel="stylesheet" href="{% static 'uni-form/css/default.uni-form.css' %}" type="text/css" />
+
 	{% block extra_head %}{% endblock %}
 </head>
 <body>
