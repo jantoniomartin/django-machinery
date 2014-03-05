@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, url
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from pm.forms import ProjectForm
 from pm.models import Sector, Project, Machine, MachineComment
-from pm.views import MachinePartsView, ProjectDetailView
+from pm.views import MachinePartsView, ProjectDetailView, MachineDeleteView
 
 urlpatterns = patterns("pm.views",
     url(r'^$',
@@ -77,6 +77,10 @@ urlpatterns = patterns("pm.views",
 			model=Machine,
 		),
 		name="pm_machine_edit"
+	),
+    url(r'^machine/delete/(?P<pk>\d+)/$',
+		MachineDeleteView.as_view(),
+		name="pm_machine_delete"
 	),
     url(r'^comment/create/$',
 		CreateView.as_view(

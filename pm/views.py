@@ -1,12 +1,21 @@
 import json
 
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.shortcuts import render
 from django.views.generic import DetailView
+from django.views.generic.edit import DeleteView
 
 from pm.forms import NewMachineForm, PartForm
 from pm.models import Project, Machine
 from wm.models import Group
+
+class MachineDeleteView(DeleteView):
+	model = Machine
+	
+	def get_success_url(self):
+		return reverse_lazy('pm_project_detail', args=[self.object.project.id])
+
 
 class MachinePartsView(DetailView):
 	model=Machine

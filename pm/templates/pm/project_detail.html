@@ -78,6 +78,7 @@ $(function() {
 <th>{% trans "Shipped on" %}</th>
 <th>{% trans "Running on" %}</th>
 <th>{% trans "Estimated delivery" %}</th>
+<th>{% trans "Actions" %}</th>
 </tr>
 {% for machine in project.machine_set.all %}
 <tr>
@@ -89,6 +90,7 @@ $(function() {
 <td>{{ machine.shipped_on|date:"d/m/Y" }}</td>
 <td>{{ machine.running_on|date:"d/m/Y" }}</td>
 <td>{{ machine.estimated_delivery_on|date:"d/m/Y" }}</td>
+<td><a href="{% url 'pm_machine_delete' machine.id %}">{% trans "Delete" %}</a></td>
 </tr>
 {% endfor %}
 </table>
