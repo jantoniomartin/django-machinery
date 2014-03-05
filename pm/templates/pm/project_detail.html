@@ -16,7 +16,9 @@ $(function() {
 			data: data,
 			success: function(data) {
 				var row = "<tr>";
-				row += '<td>' + data.reference + '</td>';
+				row += '<td>';
+				row += '<a href="' + data.detail_url + '">';
+				row +=  data.reference + '</a></td>';
 				row += '<td>' + data.description + '</td>';
 				row += '<td>0</td>';
 				row += '<td>0</td>';
@@ -24,6 +26,10 @@ $(function() {
 				row += '<td>0</td>';
 				row += '<td>0</td>';
 				row += '<td>' + data.delivery + '</td>';
+				row += '<td>';
+				row += '<a href="' + data.edit_url + '">{% trans "Edit" %}</a> ';
+				row += '<a href="' + data.delete_url + '">{% trans "Delete" %}</a>';
+				row += '</td>';
 				row += "<tr>";
 				$('#machines_table tr:last').after(row);
 			},

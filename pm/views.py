@@ -1,6 +1,6 @@
 import json
 
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.shortcuts import render
 from django.views.generic import DetailView
@@ -70,6 +70,10 @@ def create_machine(request):
 				"description": machine.description,
 				"created_on": machine.created_on.strftime("%d/%m/%Y"),
 				"delivery": "",
+				"detail_url": machine.get_absolute_url(),
+				"edit_url": reverse('pm_machine_edit', args=[machine.id]),
+				"delete_url": reverse('pm_machine_delete',
+											args=[machine.id]),
 			}
 			if machine.estimated_delivery_on:
 				print machine.estimated_delivery_on
