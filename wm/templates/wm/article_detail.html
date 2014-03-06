@@ -1,6 +1,7 @@
 {% extends "wm/base.html" %}
 {% load i18n %}
 {% load mptt_tags %}
+{% load crispy_forms_tags %}
 
 {% block title %}{{ article.code }}{% endblock %}
 
@@ -25,6 +26,44 @@
 <dt>{% trans "Standard packaging" %}</dt>
 <dd>{{ article.packaging }}</dd>
 </dl>
+
+<h2>{% trans "Offers for this article" %}</h2>
+
+<table>
+<thead>
+<tr>
+	<td>{% trans "Supplier" %}</td>
+	<td>{% trans "Date" %}</td>
+	<td>{% trans "Expires" %}</td>
+	<td>{% trans "Code" %}</td>
+	<td>{% trans "Retail price" %}</td>
+	<td>{% trans "Invoice price" %}</td>
+	<td>{% trans "Actions" %}</td>
+</tr>
+</thead>
+{% for offer in article.offer_set.all %}
+<tr>
+	<td>{{ offer.company }}</td>
+	<td>{{ offer.created_on }}</td>
+	<td>{{ offer.expired_on|default_if_none:"" }}</td>
+	<td>{{ offer.code }}</td>
+	<td>{{ offer.retail_price|default_if_none:"" }}</td>
+	<td>{{ offer.invoice_price|default_if_none:"" }}</td>
+	<td><a href="{% url 'om_offer_edit' offer.id %}">{% trans "Edit" %}</a></td>
+</td>
+{% endfor %}
+</table>
+
+<h3>{% trans "New offer" %}</h3>
+<form action="{% url 'om_offer_create' %}" method="post">{% csrf_token %}
+
+<ul class="one_row_form">
+{{ offer_form.as_ul }}
+</ul>
+
+<p><input type="submit" value="{% trans "Save" %}" />
+</form>
+
 
 <h2>{% trans "Latest machines where the article is installed" %}</h2>
 
