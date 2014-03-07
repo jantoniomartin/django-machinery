@@ -61,13 +61,11 @@ urlpatterns = patterns("om.views",
 		name="om_order_pending"
 	),
 	url(r'^orderitem/pending/$',
-		ListView.as_view(
-			model = OrderItem,
-			context_object_name = "item_list",
-			paginate_by = 10,
-			queryset = OrderItem.objects.filter(completed_on__isnull=True),
-			template_name = 'om/orderitem_pending_list.html'
-		),
+		OrderItemPendingView.as_view(),
+		name="om_orderitem_pending"
+	),
+	url(r'^orderitem/pending/(?P<pk>\d+)$',
+		OrderItemPendingView.as_view(),
 		name="om_orderitem_pending"
 	),
 )

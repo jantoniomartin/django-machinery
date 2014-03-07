@@ -5,7 +5,7 @@ from django.db.models import ObjectDoesNotExist
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
 from crm.models import Company
@@ -127,3 +127,15 @@ class OrderDetailView(TemplateView):
 		return HttpResponseRedirect(
 			reverse('om_order_detail', args=[self.kwargs['pk']])
 		)
+
+class OrderItemPendingView(ListView):
+	model = OrderItem
+	context_object_name = "item_list"
+	paginate_by = 10
+	template_name = 'om/orderitem_pending_list.html'
+	
+	def get_queryset(self):
+		qs = OrderItem.objects.filter(completed_on__isnull=True)
+		if 'pk' in self.kwargs.keys():
+			qs = qs.filter(offer__company__id=self.kwargs['pk'])
+		return qs

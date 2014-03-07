@@ -1,6 +1,8 @@
 {% extends 'site_base.html' %}
 {% load i18n %}
 
+{% block title %}INDUMATIC{% endblock %}
+
 {% block body %}
 <h1>{% trans "Project summary" %}</h1>
 
@@ -43,5 +45,33 @@
 </tr>
 {% endfor %}
 </table>
+
+<h2>{% trans "Delayed orders" %}</h2>
+<ul>
+{% for order in delayed_orders %}
+	<li><a href="{% url 'om_order_detail' order.id %}">{{ order }}</a></li>
+{% empty %}
+	<li>{% trans "There are no delayed orders." %}</li>
+{% endfor %}
+</ul>
+
+<h2>{% trans "Possible orders" %}</h2>
+<ul>
+{% for company in suppliers_in_cart %}
+	<li><a href="{% url 'om_order_create' company.id %}">{{ company }}</a></li>
+{% empty %}
+	<li>{% trans "The cart is empty." %}</li>
+{% endfor %}
+</ul>
+
+<h2>{% trans "Suppliers with pending orders" %}</h2>
+<ul>
+{% for company in pending_companies %}
+	<li><a href="{% url 'om_orderitem_pending' company.id %}">{{ company }}</a></li>
+{% empty %}
+	<li>{% trans "There are no pending orders" %}</li>
+{% endfor %}
+</ul>
+
 
 {% endblock %}
