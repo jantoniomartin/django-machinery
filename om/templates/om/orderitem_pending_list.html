@@ -1,0 +1,41 @@
+{% extends 'om/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Pending items" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Pending items" %}</h1>
+
+<table>
+<thead>
+<tr>
+<td>{% trans "Supplier" %}</td>
+<td>{% trans "Ordered" %}</td>
+<td>{% trans "Received" %}</td>
+<td>{% trans "Unit" %}</td>
+<td>{% trans "Reference" %}</td>
+<td>{% trans "Description" %}</td>
+<td>{% trans "Estimated delivery" %}</td>
+<td>{% trans "Actions" %}</td>
+</tr>
+</thead>
+
+{% for item in item_list %}
+<tr>
+<td><a href="{% url 'crm_company_detail' item.offer.company.id %}">{{ item.offer.company }}</a></td>
+<td>{{ item.ordered_quantity }}</td>
+<td>{{ item.received_quantity }}</td>
+<td>{{ item.offer.article.measure_unit }}</td>
+<td><a href="{% url 'wm_article_detail' item.offer.article.id %}">{{ item.offer.article.code }}</a></td>
+<td>{{ item.offer.article.description }}</td>
+<td>{{ item.estimated_delivery|default_if_none:"" }}</td>
+<td>
+<a href="{% url 'om_order_detail' item.order.id %}">{% trans "Receive" %}</a>
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

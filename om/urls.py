@@ -48,4 +48,26 @@ urlpatterns = patterns("om.views",
 		OrderDetailView.as_view(),
 		name="om_order_detail"
 	),
+	url(r'^order/pending/$',
+		ListView.as_view(
+			model = Order,
+			context_object_name = "order_list",
+			paginate_by = 10,
+			queryset = Order.objects.filter(
+				orderitem__completed_on__isnull=True
+			).distinct(),
+			template_name = 'pm/order_list.html'
+		),
+		name="om_order_pending"
+	),
+	url(r'^orderitem/pending/$',
+		ListView.as_view(
+			model = OrderItem,
+			context_object_name = "item_list",
+			paginate_by = 10,
+			queryset = OrderItem.objects.filter(completed_on__isnull=True),
+			template_name = 'om/orderitem_pending_list.html'
+		),
+		name="om_orderitem_pending"
+	),
 )

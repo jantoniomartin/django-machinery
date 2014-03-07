@@ -3,7 +3,9 @@
 
 {% block app_menu %}
 <ul id="app_menu">
-<li><a href="{% url 'om_order_list' %}">{% trans "Orders" %}</a></li>
+<li><a href="{% url 'om_order_list' %}">{% trans "All orders" %}</a></li>
+<li><a href="{% url 'om_order_pending' %}">{% trans "Pending orders" %}</a></li>
+<li><a href="{% url 'om_orderitem_pending' %}">{% trans "Pending items" %}</a></li>
 </ul>
 {% endblock %}
 

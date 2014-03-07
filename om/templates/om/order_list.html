@@ -22,7 +22,9 @@
 <td class="center"><a href="{% url 'om_order_detail' order.id %}">{{ order }}</a></td>
 <td>{{ order.created_at }}</td>
 <td><a href="{% url 'crm_company_detail' order.company.id %}">{{ order.company }}</a></td>
-<td>&nbsp;</td>
+<td>
+<a href="{% url 'om_order_detail' order.id %}">{% trans "Receive" %}</a>
+</td>
 </tr>
 {% endfor %}
 
