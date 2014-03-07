@@ -1,0 +1,31 @@
+{% extends 'om/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Order list" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Order list" %}</h1>
+
+<table>
+<thead>
+<tr>
+<td>{% trans "Reference" %}</td>
+<td>{% trans "Date" %}</td>
+<td>{% trans "Supplier" %}</td>
+<td>{% trans "Actions" %}</td>
+</tr>
+</thead>
+
+{% for order in order_list %}
+<tr>
+<td class="center"><a href="{% url 'om_order_detail' order.id %}">{{ order }}</a></td>
+<td>{{ order.created_at }}</td>
+<td><a href="{% url 'crm_company_detail' order.company.id %}">{{ order.company }}</a></td>
+<td>&nbsp;</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

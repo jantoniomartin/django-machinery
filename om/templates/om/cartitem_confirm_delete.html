@@ -1,0 +1,18 @@
+{% extends 'om/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete cart item" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Delete confirmation" %}</h1>
+
+<p>{% blocktrans with object.offer.article.code as item %}The item {{ name }} will be deleted. Are you sure?{% endblocktrans %}</p>
+
+<p><a href="{% url 'om_cartitem_list' %}">{% trans "Go back." %}</a>
+
+<form action="" method="post">{% csrf_token %}
+	<input type="submit" value="{% trans "Delete" %}" />
+</form>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'om/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "New order" %}{% endblock %}
+
+{% block extra_head %}
+
+<script type="text/javascript">
+
+function get_sum() {
+	var cart_sum = 0;
+	$('.cost').each( function() {
+		var item_id = $(this).attr("id").substr(5);
+		var cb = $( "input:checkbox[value=" + item_id + "]" );
+		if ( cb.is(":checked") ) {
+			var cost = parseFloat($(this).text());
+			if ( isNaN(cost) ) cost = 0;
+			cart_sum += cost;
+		}
+	});
+	$('#sum').text(cart_sum.toFixed(2));
+}
+
+$(document).ready(function() {
+	get_sum();
+	$( "#item_list input:checkbox" ).change(get_sum);
+});
+</script>
+
+{% endblock %}
+
+
+{% block content %}
+
+<h1>{% trans "New order" %}</h1>
+
+<h2>{% trans "Supplier data" %}</h2>
+<dl>
+<dt>{% trans "Company" %}</dt>
+<dd><a href="{% url 'crm_company_detail' supplier.id %}">{{ supplier }}</a></dd>
+<dt>{% trans "Main phone" %}</dt>
+<dd>{{ supplier.main_phone }}</dd>
+<dt>{% trans "Emails for orders" %}</dt>
+<dd>&nbsp;</dd>
+</dl>
+
+<form method="POST" action="">
+{% csrf_token %}
+
+<table id="item_list">
+{% for item in items %}
+<tr>
+<td class="center"><input type="checkbox" name="items" value="{{ item.id }}" checked /></td>
+<td class="center">{{ item.quantity }}</td>
+<td>{{ item.offer.article.code }}</td>
+<td>{{ item.offer.article.description }}</td>
+<td class="right">{{ item.offer.invoice_price|default_if_none:0|floatformat:2 }}</td>
+<td id="cost_{{ item.id }}" class="cost right">{{ item.cost|default_if_none:0|floatformat:2 }}</td>
+</tr>
+{% endfor %}
+<tr>
+<td colspan=5 class="right" style="border: 0; font-weight: bold">{% trans "Sum" %}</td>
+<td id="sum" class="right" style="font-weight: bold"></td>
+</tr>
+</table>
+
+{% for hidden in form.hidden_fields %}
+	{{ hidden }}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+	{% if field.name != "items" %}
+	<div class="fieldWrapper">
+		{{ field.errors }}
+		<div>{{ field.label_tag }}</div>
+		<div>{{ field }}</div>
+	</div>
+	{% endif %}
+{% endfor %}
+
+<p><input type="submit" value="{% trans "Save" %}" /></p>
+</form>
+
+
+{% endblock %}

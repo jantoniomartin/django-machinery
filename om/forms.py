@@ -20,3 +20,39 @@ class OfferForm(forms.ModelForm):
 	class Meta:
 		model = models.Offer
 
+class _OrderForm(forms.ModelForm):
+	company = forms.ModelChoiceField(
+		queryset=Company.objects.filter(is_supplier=True),
+		widget=forms.TextInput
+	)
+	
+	class Meta:
+		model = models.Order
+
+class OrderForm(forms.ModelForm):
+	company = forms.ModelChoiceField(
+		queryset=Company.objects.filter(is_supplier=True),
+		widget=forms.HiddenInput
+	)
+	items = forms.ModelMultipleChoiceField(
+		queryset=models.CartItem.objects.all()
+	)
+	notes = forms.CharField(
+		required=False,
+		widget=forms.Textarea
+	)
+
+	class Meta:
+		model = models.Order
+		exclude = ['reference',]
+	
+class OrderItemReceptionForm(forms.ModelForm):
+	receive = forms.IntegerField(required=False)
+	estimated_delivery = forms.DateField(required=False,
+		input_formats=['%d/%m/%Y', '%Y-%m-%d'],
+		widget=forms.TextInput(attrs={"class": "dateinput"})
+	)
+	
+	class Meta:
+		fields = ['estimated_delivery',]
+

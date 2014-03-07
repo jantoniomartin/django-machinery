@@ -29,9 +29,11 @@
 
 <h2>{% trans "Offers for this article" %}</h2>
 
+<form method="post" action="{% url 'om_cartitem_create' %}">{% csrf_token %}
 <table>
 <thead>
 <tr>
+	<td>{% trans "Order" %}</td>
 	<td>{% trans "Supplier" %}</td>
 	<td>{% trans "Date" %}</td>
 	<td>{% trans "Expires" %}</td>
@@ -43,6 +45,7 @@
 </thead>
 {% for offer in article.offer_set.all %}
 <tr>
+	<td><input name="offer" type="radio" value="{{ offer.id }}" /></td>
 	<td>{{ offer.company }}</td>
 	<td>{{ offer.created_on }}</td>
 	<td>{{ offer.expired_on|default_if_none:"" }}</td>
@@ -53,6 +56,11 @@
 </td>
 {% endfor %}
 </table>
+<p>
+<input name="quantity" type="text" /> {% trans "units" %}
+<input type="submit" value="{% trans "Order" %}" />
+</p>
+</form>
 
 <h3>{% trans "New offer" %}</h3>
 <form action="{% url 'om_offer_create' %}" method="post">{% csrf_token %}

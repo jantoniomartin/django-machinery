@@ -36,6 +36,10 @@ class Order(models.Model):
     def __unicode__(self):
         return unicode(self.reference)
 
+	@models.permalink
+	def get_absolute_url(self):
+		return ("om_order_detail", [self.id])
+
 class OrderItem(models.Model):
     ordered_quantity = models.FloatField(_("ordered quantity"))
     received_quantity = models.FloatField(_("received quantity"), default=0)
@@ -61,3 +65,4 @@ class CartItem(models.Model):
 
     def __unicode__(self):
         return self.id
+	

@@ -1,0 +1,14 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block app_menu %}
+<ul id="app_menu">
+<li><a href="{% url 'om_order_list' %}">{% trans "Orders" %}</a></li>
+</ul>
+{% endblock %}
+
+{% block body %}
+{% block content %}{% endblock %}
+
+{% endblock %}
+
