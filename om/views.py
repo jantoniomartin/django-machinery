@@ -5,7 +5,7 @@ from django.db.models import ObjectDoesNotExist
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
 from crm.models import Company
@@ -86,8 +86,12 @@ class OrderCreateView(CreateView):
 			item.delete()
 		return HttpResponseRedirect(self.get_success_url())
 
-class OrderDetailView(TemplateView):
-	template_name = "om/order_detail.html"
+class OrderDetailView(DetailView):
+	model = Order
+	template_object_name = 'order'
+
+class OrderReceiveView(TemplateView):
+	template_name = "om/order_receive.html"
 	
 	def get_formset_class(self):	
 		return modelformset_factory(
@@ -97,7 +101,7 @@ class OrderDetailView(TemplateView):
 		)
 
 	def get_context_data(self, *args, **kwargs):
-		ctx = super(OrderDetailView, self).get_context_data(*args, **kwargs)
+		ctx = super(OrderReceiveView, self).get_context_data(*args, **kwargs)
 		order = get_object_or_404(Order, id=self.kwargs['pk'])
 		items = order.orderitem_set.extra(
 			select={ 'pending': 'ordered_quantity - received_quantity' }

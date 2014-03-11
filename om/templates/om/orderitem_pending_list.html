@@ -31,7 +31,7 @@
 <td>{{ item.offer.article.description }}</td>
 <td>{{ item.estimated_delivery|default_if_none:"" }}</td>
 <td>
-<a href="{% url 'om_order_detail' item.order.id %}">{% trans "Receive" %}</a>
+<a href="{% url 'om_order_receive' item.order.id %}">{% trans "Receive" %}</a>
 </td>
 </tr>
 {% endfor %}
