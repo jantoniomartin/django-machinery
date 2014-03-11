@@ -57,8 +57,10 @@ $(function() {
 				row += '<td>' + data.description + '</td>';
 				row += '<td>' + data.function + '</td>';
 				row += '<td>';
-				row += '<a href="' + data.edit_url + '">{% trans "Edit" %}</a> ';
-				row += '<a href="' + data.delete_url + '">{% trans "Delete" %}</a>';
+				row += '<a href="' + data.edit_url;
+				row += '" class="btn btn-xs btn-primary">{% trans "Edit" %}</a> ';
+				row += '<a href="' + data.delete_url;
+				row += '" class="btn btn-xs btn-danger">{% trans "Delete" %}</a>';
 				row += '</td>';
 				row += "<tr>";
 				$('#parts tr:last').after(row);
@@ -73,16 +75,6 @@ $(function() {
 });
 </script>
 
-<style type="text/css">
-#tree {
-	float: left;
-	width: 40%;
-}
-
-#articles {
-	width: 50%;
-}
-</style>
 {% endblock %}
 
 {% block title %}{% trans "Parts in" %} {{ machine.project }}-{{ machine.model }}{{ machine.number }}{% endblock %}
@@ -94,7 +86,7 @@ $(function() {
 <a href="{% url 'pm_project_detail' machine.project.id %}">{{ machine.project }}</a>
 </p>
 
-<table id="parts">
+<table id="parts" class="table table-striped table-hover">
 <thead>
 <tr>
 <th>{% trans "Qty" %}</th>
@@ -105,6 +97,7 @@ $(function() {
 <th>{% trans "Actions" %}</th>
 </tr>
 </thead>
+<tbody>
 {% for part in machine.part_set.all %}
 <tr>
 <td>{{ part.quantity|floatformat:"0" }}</td>
@@ -113,17 +106,18 @@ $(function() {
 <td>{{ part.article.description }}</td>
 <td>{{ part.function }}</td>
 <td>
-<a href="{% url 'pm_part_edit' part.id %}">{% trans "Edit" %}</a>
-<a href="{% url 'pm_part_delete' part.id %}">{% trans "Delete" %}</a>
+<a href="{% url 'pm_part_edit' part.id %}" class="btn btn-xs btn-primary">{% trans "Edit" %}</a>
+<a href="{% url 'pm_part_delete' part.id %}" class="btn btn-xs btn-danger">{% trans "Delete" %}</a>
 </td>
 </tr>
 {% endfor %}
-
+</tbody>
 </table>
 
-<h2>{% trans "Add parts" %}</h2>
-
-<div id="tree">
+<div class="col-md-4">
+<div class="panel panel-primary">
+<div class="panel-heading">{% trans "Select category" %}</div>
+<div id="tree" class="panel-body">
 <ul>
 	{% recursetree nodes %}
 		<li id="node_{{ node.id }}">
@@ -137,14 +131,28 @@ $(function() {
 	{% endrecursetree %}
 </ul>
 </div>
+</div>
+</div>
 
-<div id="article_selection">
-<form id="part_form" method="POST" action="{% url 'pm_part_create' %}">{% csrf_token %}
-{% trans "Quantity" %}: <input id="id_quantity" type="text" name="quantity"/>
-{% trans "Function" %}: <input id="id_function" type="text" name="function"/>
+<div class="col-md-8">
+<div class="panel panel-primary">
+<div class="panel-heading">{% trans "Select article" %}</div>
+<div id="article_selection" class="panel-body">
+
+<form id="part_form" method="POST" action="{% url 'pm_part_create' %}" class="form-inline">{% csrf_token %}
 <input type="hidden" name="machine" value="{{ machine.id }}"/>
-<input type="submit" value="{% trans "Save" %}"/>
-<table id="articles" border="1">
+  <div class="form-group">
+    <label class="sr-only" for="id_quantity">{% trans "Quantity" %}</label>
+	<input id="id_quantity" type="text" name="quantity" class="form-control" placeholder="{% trans "Quantity" %}" />
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="id_funcion">{% trans "Funcion" %}</label>
+    <input id="id_function" type="text" name="function" class="form-control" placeholder="{% trans "Function" %}" />
+  </div>
+<button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+
+
+<table id="articles" class="table table-striped table-hover">
 <thead>
 <th>&nbsp;</th>
 <th>{% trans "Reference" %}</th>
@@ -154,6 +162,9 @@ $(function() {
 <tbody></tbody>
 </table>
 </form>
+</div>
+</div>
+</div>
 </div>
 
 <script>

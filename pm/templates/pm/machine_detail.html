@@ -11,7 +11,10 @@
 <a href="{% url 'pm_machine_edit' machine.id %}">{% trans "Edit machine" %}</a>
 </p>
 
-<dl>
+<div class="panel panel-primary">
+<div class="panel-heading">{% trans "Machine info" %}</div>
+<div class="panel-body">
+<dl class="dl-horizontal">
 <dt>{% trans "Description" %}</dt>
 <dd>{{ machine.description }}</dd>
 <dt>{% trans "Created on" %}</dt>
@@ -25,22 +28,29 @@
 <dt>{% trans "Is retired?" %}</dt>
 <dd>{{ machine.is_retired|yesno }}</dd>
 </dl>
+</div>
+</div>
 
 <h2>{% trans "Comments" %}</h2>
+<ul class="list-group">
 {% for comment in machine.machinecomment_set.all %}
-<div class="comment">
-<div class="comment_date">{{ comment.created_on }}</div>
+<li class="list-group-item">
 {{ comment }}
-<div class="comment_menu">
-<a href="{% url 'pm_machinecomment_delete' comment.id %}">{% trans "Delete" %}</a>
+<span class="badge">{{ comment.created_on }}</span>
+<div>
+<a href="{% url 'pm_machinecomment_delete' comment.id %}" class="btn btn-xs btn-danger">{% trans "Delete" %}</a>
 </div>
-</div>
+</li>
 {% endfor %}
+</ul>
 
-<form action="{% url 'pm_machinecomment_create' %}" method="post" class="uniForm">{% csrf_token %}
+<form action="{% url 'pm_machinecomment_create' %}" method="post">{% csrf_token %}
 
 {{ comment_form|crispy }}
-<p><input type="submit" value="{% trans "Save" %}" />
+
+<div class="form-group">
+<button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+</div>
 
 </form>
 

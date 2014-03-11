@@ -9,15 +9,15 @@
 
 <p>{% blocktrans %}This comment will be deleted. Are you sure?{% endblocktrans %}</p>
 
-<div class="comment">
-<div class="comment_date">{{ object.created_on }}</div>
+<div class="well">
 {{ object }}
+<span class="badge">{{ object.created_on }}</span>
 </div>
 
 <p><a href="{% url 'pm_machine_detail' object.machine.id %}">{% trans "Go back." %}</a>
 
 <form action="" method="post">{% csrf_token %}
-	<input type="submit" value="{% trans "Delete" %}" />
+	<button type="submit" class="btn btn-primary">{% trans "Delete" %}</button>
 </form>
 
 {% endblock %}

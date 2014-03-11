@@ -7,7 +7,10 @@
 
 <h1>{% trans "Order" %} {{ order.reference }}</h1>
 
-<dl>
+<div class="panel panel-primary">
+<div class="panel-heading">{% trans "Order details" %}</div>
+<div class="panel-body">
+<dl class="dl-horizontal">
 <dt>{% trans "Date" %}</dt>
 <dd>{{ order.created_at }}</dd>
 <dt>{% trans "Supplier" %}</dt>
@@ -15,6 +18,8 @@
 <dt>{% trans "Notes" %}</dt>
 <dd>{{ order.notes }}</dd>
 </dl>
+</div>
+</div>
 
 <h2>{% trans "Order reception" %}</h2>
 
@@ -22,7 +27,7 @@
 
 {{ formset.management_form }}
 
-<table>
+<table class="table table-striped table-hover">
 <thead>
 <tr>
 <th class="center">{% trans "Ordered" %}</th>
@@ -35,7 +40,7 @@
 <th class="center">{% trans "Delivery date" %}</th>
 </tr>
 </thead>
-
+<tbody>
 {% for form in formset.forms %}
 <tr>
 <td class="center">{{ form.instance.ordered_quantity }}</td>
@@ -48,9 +53,11 @@
 <td class="center">{% if not form.instance.completed_on %}{{ form.estimated_delivery }}{% endif %}</td>
 </tr>
 {% endfor %}
-
+</tbody>
 </table>
-<p><input type="submit" value="{% trans "Update" %}" /></p>
+<div>
+<button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+</div>
 </form>
 
 {% endblock %}

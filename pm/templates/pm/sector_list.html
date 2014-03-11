@@ -10,28 +10,30 @@
 <a href="{% url 'pm_sector_create' %}">{% trans "New sector" %}</a>
 </p>
 
-<table>
+<table class="table table-striped table-hover">
+<thead>
 <tr>
 <th>{% trans "Code" %}</th>
 <th>{% trans "Description" %}</th>
 </tr>
+</thead>
+<tbody>
 {% for sector in sector_list %}
 <tr>
 <td><a href="{% url 'pm_sector_detail' sector.id %}">{{ sector.code }}</a></td>
 <td>{{ sector.description }}</td>
 </tr>
 {% endfor %}
+</tbody>
 </table>
 
-<div class="pagination">
+<div class="pager">
 	<ul>
 		{% if page_obj.has_previous %}
 		<li>
 			<a href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
 		</li>
 		{% endif %}
-		<li>{% trans "Page" %} {{ page_obj.number }}
-			{% trans "of" %} {{ paginator.num_pages }}.</li>
 		{% if page_obj.has_next %}
 		<li>
 			<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>

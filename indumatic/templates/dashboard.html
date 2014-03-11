@@ -4,11 +4,14 @@
 {% block title %}INDUMATIC{% endblock %}
 
 {% block body %}
+
+<div class="col-md-9">
+
 <h1>{% trans "Project summary" %}</h1>
 
 <h2>{% trans "Active projects" %}</h2>
 
-<table>
+<table class="table table-striped table-hover">
 <thead>
 <tr>
 <th>{% trans "Reference" %}</th>
@@ -17,6 +20,7 @@
 <th>{% trans "Estimated delivery" %}</th>
 </tr>
 </thead>
+<tbody>
 {% for project in active_projects %}
 <tr>
 <td><a href="{% url 'pm_project_detail' project.id %}">{{ project }}</a></td>
@@ -25,11 +29,12 @@
 <td>{{ project.estimated_delivery_on }}</td>
 </tr>
 {% endfor %}
+</tbody>
 </table>
 
 <h2>{% trans "Shipped projects" %}</h2>
 
-<table>
+<table class="table table-striped table-hover">
 <thead>
 <tr>
 <th>{% trans "Reference" %}</th>
@@ -37,6 +42,7 @@
 <th>{% trans "Customer" %}</th>
 </tr>
 </thead>
+<tbody>
 {% for project in shipped_projects %}
 <tr>
 <td><a href="{% url 'pm_project_detail' project.id %}">{{ project }}</a></td>
@@ -44,34 +50,51 @@
 <td><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a></td>
 </tr>
 {% endfor %}
+</tbody>
 </table>
 
-<h2>{% trans "Delayed orders" %}</h2>
-<ul>
+</div>
+<div class="col-md-3">
+
+<div class="panel panel-danger">
+  <div class="panel-heading">{% trans "Delayed orders" %}</div>
+  <div class="panel-body">
+<ul class="list-group">
 {% for order in delayed_orders %}
-	<li><a href="{% url 'om_order_detail' order.id %}">{{ order }}</a></li>
+	<li class="list-group-item"><a href="{% url 'om_order_detail' order.id %}">{{ order }}</a></li>
 {% empty %}
-	<li>{% trans "There are no delayed orders." %}</li>
+	<li class="list-group-item">{% trans "There are no delayed orders." %}</li>
 {% endfor %}
 </ul>
+  </div>
+</div>
 
-<h2>{% trans "Possible orders" %}</h2>
-<ul>
+<div class="panel panel-success">
+  <div class="panel-heading">{% trans "Possible orders" %}</div>
+  <div class="panel-body">
+<ul class="list-group">
 {% for company in suppliers_in_cart %}
-	<li><a href="{% url 'om_order_create' company.id %}">{{ company }}</a></li>
+	<li class="list-group-item"><a href="{% url 'om_order_create' company.id %}">{{ company }}</a></li>
 {% empty %}
-	<li>{% trans "The cart is empty." %}</li>
+	<li class="list-group-item">{% trans "The cart is empty." %}</li>
 {% endfor %}
 </ul>
+  </div>
+</div>
 
-<h2>{% trans "Suppliers with pending orders" %}</h2>
-<ul>
+<div class="panel panel-warning">
+  <div class="panel-heading">{% trans "Suppliers with pending orders" %}</div>
+  <div class="panel-body">
+<ul class="list-group">
 {% for company in pending_companies %}
-	<li><a href="{% url 'om_orderitem_pending' company.id %}">{{ company }}</a></li>
+	<li class="list-group-item"><a href="{% url 'om_orderitem_pending' company.id %}">{{ company }}</a></li>
 {% empty %}
-	<li>{% trans "There are no pending orders" %}</li>
+	<li class="list-group-item">{% trans "There are no pending orders" %}</li>
 {% endfor %}
 </ul>
+  </div>
+</div>
 
+</div>
 
 {% endblock %}

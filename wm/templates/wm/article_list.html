@@ -7,7 +7,7 @@
 
 <h1>{% trans "Articles" %}</h1>
 
-<table>
+<table class="table table-striped table-hover">
 <thead>
 <tr>
     <th>{% trans "Reference" %}</th>
@@ -26,15 +26,13 @@
 </tbody>
 </table>
 
-<div class="pagination">
+<div class="pager">
 	<ul>
 		{% if page_obj.has_previous %}
 		<li>
 			<a href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
 		</li>
 		{% endif %}
-		<li>{% trans "Page" %} {{ page_obj.number }}
-			{% trans "of" %} {{ paginator.num_pages }}.</li>
 		{% if page_obj.has_next %}
 		<li>
 			<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
