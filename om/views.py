@@ -11,6 +11,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from crm.models import Company
 from om.models import *
 from om import forms
+from indumatic.views import PdfView
 
 class CartItemCreateView(CreateView):
 	model = CartItem
@@ -127,6 +128,21 @@ class OrderDetailView(TemplateView):
 		return HttpResponseRedirect(
 			reverse('om_order_detail', args=[self.kwargs['pk']])
 		)
+
+class OrderPdfView(PdfView):
+	template_name = 'om/order_pdf.html'
+
+	def get_context_data(self, *args, **kwargs):
+		ctx = super(OrderPdfView, self).get_context_data(*args, **kwargs)
+		order = get_object_or_404(Order, id=self.kwargs['pk'])
+		items = OrderItem.objects.filter(order=order).extra(
+			select={"cost": "select (om_offer.invoice_price*om_orderitem.ordered_quantity) from om_offer where om_offer.id=om_orderitem.offer_id"}
+		)
+		ctx.update({
+			'order': order,
+			'items': items,
+		})
+		return ctx
 
 class OrderItemPendingView(ListView):
 	model = OrderItem

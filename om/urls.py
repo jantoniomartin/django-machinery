@@ -48,6 +48,10 @@ urlpatterns = patterns("om.views",
 		OrderDetailView.as_view(),
 		name="om_order_detail"
 	),
+	url(r'^order/pdf/(?P<pk>\d+)$',
+		OrderPdfView.as_view(),
+		name="om_order_pdf"
+	),
 	url(r'^order/pending/$',
 		ListView.as_view(
 			model = Order,

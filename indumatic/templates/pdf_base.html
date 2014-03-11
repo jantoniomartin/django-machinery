@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+body {
+	font-family: monospace;
+	font-size: 12px;
+}
+
+table {
+	table-layout: fixed;
+}
+
+table td,
+table th {
+	border: solid 1px #333;
+	padding: 0.2em;
+}
+</style>
+</head>
+<body>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

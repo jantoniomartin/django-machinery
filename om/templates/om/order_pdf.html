@@ -1,0 +1,69 @@
+{% extends 'pdf_base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<table>
+<tr>
+<td>
+<img src="{% static 'img/main_logo.png' %}" />
+</td>
+<td>
+<strong>Automatización y Diseño Industrial, S.L.</strong><br />
+Polígono Industrial Campollano, C/F, 23<br />
+02007 Albacete (España)<br />
+Teléfono: 967 609 807<br />
+Email: oficina.tecnica@indumatic.net<br />
+Web: http://www.indumatic.net
+</td>
+</tr>
+</table>
+
+<h1>Pedido</h1>
+<table>
+<tr>
+<th>Referencia</th>
+<th>Fecha</th>
+<th>Proveedor</th>
+</tr>
+<tr>
+<td>{{ order.reference }}</td>
+<td>{{ order.created_at }}</td>
+<td>{{ order.company }}</td>
+</tr>
+</table>
+
+<h2>Detalle</h2>
+
+<table>
+<thead>
+<tr>
+<th style="width: 10%">Cant.</th>
+<th style="width: 10%">Ud.</th>
+<th>Referencia</th>
+<th>Descripción</th>
+<th style="width: 10%">Precio (€/ud)</th>
+<th style="width: 10%">Importe (€)</th>
+</tr>
+</thead>
+<tbody>
+{% for item in items %}
+<tr>
+<td style="text-align: center">{{ item.ordered_quantity }}</td>
+<td style="text-align: center">{{ item.offer.article.measure_unit }}</td>
+<td>{{ item.offer.article.code }}</td>
+<td>{{ item.offer.article.description }}</td>
+<td style="text-align: right">{{ item.offer.invoice_price }}</td>
+<td style="text-align: right">{{ item.cost }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% if order.notes %}
+<h2>Observaciones</h2>
+{{ order.notes|linebreaks }}
+
+{% endif %}
+
+{% endblock %}

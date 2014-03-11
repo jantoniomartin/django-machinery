@@ -56,6 +56,8 @@ $(function() {
 <h1>{{ project }}</h1>
 <p>
 <a href="{% url 'pm_project_edit' project.id %}">{% trans "Edit project" %}</a>
+|
+<a href="{% url 'pm_project_parts_report' project.id %}">{% trans "Parts report" %}</a>
 </p>
 
 <div class="panel panel-primary">

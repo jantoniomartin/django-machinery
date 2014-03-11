@@ -1,11 +1,70 @@
 import datetime
+import os
 
 from django.views.generic.base import TemplateView
 from django.conf import settings
 
+## Libraries to generate pdf files
+import ho.pisa as pisa
+import cStringIO as StringIO
+import cgi
+from django.template import RequestContext
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+
 import crm.models as crm
 import om.models as om
 import pm.models as pm
+
+def fetch_resources(uri, rel):
+	sUrl = settings.STATIC_URL
+	sRoot = settings.STATIC_ROOT
+	mUrl = settings.MEDIA_URL
+	mRoot = settings.MEDIA_ROOT
+	if uri.startswith(mUrl):
+		path = os.path.join(mRoot, uri.replace(mUrl, ""))
+	elif uri.startswith(sUrl):
+		path = os.path.join(sRoot, uri.replace(sUrl, ""))
+
+	if not os.path.isfile(path):
+		raise Exception(
+			'media URI must start with %s or %s' % (sUrl, mUrl)
+		)
+	return path
+
+class PdfView(TemplateView):
+	http_method_names = ['get',]
+
+	def get_context_data(self, **kwargs):
+		ctx = super(PdfView, self).get_context_data(**kwargs)
+		ctx.update({'pagesize': 'A4'})
+		return ctx
+
+	def make_pdf(self, html):
+		""" Make the pdf file and return it as HttpResponse """
+		result = StringIO.StringIO()
+		pdf = pisa.pisaDocument(
+			StringIO.StringIO(html.encode("UTF-8")),
+			dest=result,
+			link_callback=fetch_resources
+		)
+		if not pdf.err:
+			response = HttpResponse(
+				result.getvalue(),
+				content_type="application/pdf"
+			)
+			#response['Content-Disposition'] = 'attachment; filename="some.pdf"'
+			return response
+		return HttpResponse('Error al generar el PDF: %s' % cgi.escape(html))
+
+	def get(self, request, *args, **kwargs):
+		context = self.get_context_data(**kwargs)
+		html = render_to_string(
+			self.template_name,
+			context,
+			context_instance=RequestContext(request)
+		)
+		return self.make_pdf(html)
 
 class DashboardView(TemplateView):
 	template_name = "dashboard.html"
