@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from django.contrib.auth.views import logout_then_login
+from django.contrib.auth.views import login, logout_then_login
 
 from django.contrib import admin
 admin.autodiscover()
@@ -10,11 +10,11 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', DashboardView.as_view(), name='home'),
     # url(r'^blog/', include('blog.urls')i),
-	url(r'^auth/logout/$',
+	url(r'^login/$', login, name="login"),
+	url(r'^logout/$',
 		logout_then_login,
 		{'login_url': '/auth/login/'},
 		name='logout_then_login'),
-	url(r'^auth/', include('django.contrib.auth.urls')),
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^search/', include('haystack.urls')),
 	url(r'^crm/', include('crm.urls')),
