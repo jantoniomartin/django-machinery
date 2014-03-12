@@ -1,6 +1,8 @@
 {% extends "site_base.html" %}
 {% load i18n %}
 
+{% block crm %}active{% endblock %}
+
 {% block app_menu %}
 <ul class="nav nav-pills">
 	<li><a href="{% url 'crm_group_list' %}">{% trans "Groups" %}</a></li>

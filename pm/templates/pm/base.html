@@ -1,6 +1,8 @@
 {% extends "site_base.html" %}
 {% load i18n %}
 
+{% block pm %}active{% endblock %}
+
 {% block app_menu %}
 <ul class="nav nav-pills">
 	<li><a href="{% url 'pm_sector_list' %}">{% trans "Sectors" %}</a></li>

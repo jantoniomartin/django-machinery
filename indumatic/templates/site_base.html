@@ -42,10 +42,10 @@ $(function() {
   <div class="navbar-collapse collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
 	  <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
-      <li><a href="{% url 'crm_company_list' %}">{% trans "Companies" %}</a></li>
-      <li><a href="{% url 'pm_project_list' %}">{% trans "Projects" %}</a></li>
-      <li><a href="{% url 'wm_group_tree' %}">{% trans "Articles" %}</a></li>
-      <li><a href="{% url 'om_order_list' %}">{% trans "Orders" %}</a></li>
+      <li class="{% block crm %}{% endblock %}"><a href="{% url 'crm_company_list' %}">{% trans "Companies" %}</a></li>
+      <li class="{% block pm %}{% endblock %}"><a href="{% url 'pm_project_list' %}">{% trans "Projects" %}</a></li>
+      <li class="{% block wm %}{% endblock %}"><a href="{% url 'wm_group_tree' %}">{% trans "Articles" %}</a></li>
+      <li class="{% block om %}{% endblock %}"><a href="{% url 'om_order_list' %}">{% trans "Orders" %}</a></li>
       <li><a href="{% url 'haystack_search' %}">{% trans "Search" %}</a></li>
       <li><a href="{% url 'om_cartitem_list' %}">{% trans "Cart" %} ({{ cart_count }})</a></li>
 	</ul>

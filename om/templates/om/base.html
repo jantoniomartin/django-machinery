@@ -1,6 +1,8 @@
 {% extends "site_base.html" %}
 {% load i18n %}
 
+{% block om %}active{% endblock %}
+
 {% block app_menu %}
 <ul class="nav nav-pills">
 <li><a href="{% url 'om_order_list' %}">{% trans "All orders" %}</a></li>
