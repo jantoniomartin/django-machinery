@@ -1,3 +1,5 @@
+import os
+
 try:
 	from settings_default import *
 except ImportError:
@@ -7,7 +9,6 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-	('Jose Antonio Martin', 'oficina.tecnica@indumatic.net'),
 )
 
 MANAGERS = ADMINS
@@ -16,12 +17,64 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    "migration": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "",
+        "USER": "",
+        "PASSWORD": "",
+        "HOST": "",
+        "PORT": "",
     }
 }
 
-#SECRET_KEY = ''
+MIGRATION_DB = ""
+
+SECRET_KEY = ''
 
 ## django-debug-toolbar
 INTERNAL_IPS = ('127.0.0.1',)
 MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
 INSTALLED_APPS += ('debug_toolbar',)
+
+## my apps
+INSTALLED_APPS += (
+	'haystack',
+	'mptt',
+	'crispy_forms',
+	'indumatic',
+	'crm',
+	'pm',
+	'wm',
+	'om',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS += (
+	'om.context_processors.cart_count',
+)
+
+STATICFILES_DIRS = (
+	os.path.join(BASE_DIR, "static"),
+)
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/tmp/ind-messages'
+
+## authentication settings
+MIDDLEWARE_CLASSES += ('indumatic.middleware.LoginRequiredMiddleware',)
+LOGIN_URL = "/login"
+LOGIN_REDIRECT_URL = "/"
+
+
+HAYSTACK_CONNECTIONS = {
+	'default': {
+		'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+		'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+	},
+}
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+## Project management settings
+## Machines created before PM_RUNNING_ALL_BEFORE are considered as running
+PM_RUNNING_ALL_BEFORE_YEAR = 2011
