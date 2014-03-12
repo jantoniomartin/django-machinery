@@ -72,9 +72,7 @@ def import_orders():
 		except ObjectDoesNotExist:
 			msg += u"Company does not exist for order id %s\n" % row[0]
 			continue
-		reference = int(row[1][2:])
-		order = models.Order(id=row[0], reference=reference, notes=row[3],
-			company=company)
+		order = models.Order(id=row[0], notes=row[3], company=company)
 		order.save()
 		order.created_at = row[2]
 		order.save()
