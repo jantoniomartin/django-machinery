@@ -38,6 +38,7 @@ $(function() {
 	</button>
 	<a class="navbar-brand" href="{% url 'home' %}">Indumatic</a>
   </div>
+  {% if user.is_authenticated %}
   <div class="navbar-collapse collapse navbar-responsive-collapse">
     <ul class="nav navbar-nav">
 	  <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
@@ -48,7 +49,11 @@ $(function() {
       <li><a href="{% url 'haystack_search' %}">{% trans "Search" %}</a></li>
       <li><a href="{% url 'om_cartitem_list' %}">{% trans "Cart" %} ({{ cart_count }})</a></li>
 	</ul>
+	<ul class="nav navbar-nav navbar-right">
+	  <li><a href="{% url 'logout_then_login' %}">{% trans "Logout" %}</a></li>
+	</ul>
   </div>
+  {% endif %}
 </div>
 
 {% block app_menu %}{% endblock %}

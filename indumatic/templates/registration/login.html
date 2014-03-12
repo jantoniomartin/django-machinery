@@ -1,0 +1,18 @@
+{% extends 'site_base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Log in" %}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+<form method="post" action="" class="form-signin">{% csrf_token %}
+{{ form|crispy }}
+<div>
+<button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
+</div>
+</form>
+</div>
+
+{% endblock %}
