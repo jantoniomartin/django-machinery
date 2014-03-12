@@ -1,0 +1,111 @@
+# Spanish translation for indumatic app.
+# Copyright (C) 2014
+# This file is distributed under the same license as the django-indumatic package.
+# Jose Antonio Martin <jantonio.martin@gmail.com>, 2014.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-12 13:44+0100\n"
+"PO-Revision-Date: 2014-03-12 13:44+0100\n"
+"Last-Translator: Jose Antonio Martin <jantonio.martin@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/dashboard.html:10
+msgid "Project summary"
+msgstr "Resumen de proyectos"
+
+#: templates/dashboard.html:12
+msgid "Active projects"
+msgstr "Proyectos activos"
+
+#: templates/dashboard.html:17 templates/dashboard.html.py:40
+msgid "Reference"
+msgstr "Referencia"
+
+#: templates/dashboard.html:18 templates/dashboard.html.py:41
+msgid "Description"
+msgstr "Descripción"
+
+#: templates/dashboard.html:19 templates/dashboard.html.py:42
+msgid "Customer"
+msgstr "Cliente"
+
+#: templates/dashboard.html:20
+msgid "Estimated delivery"
+msgstr "Entrega estimada"
+
+#: templates/dashboard.html:35
+msgid "Shipped projects"
+msgstr "Proyectos enviados"
+
+#: templates/dashboard.html:60
+msgid "Delayed orders"
+msgstr "Pedidos retrasados"
+
+#: templates/dashboard.html:66
+msgid "There are no delayed orders."
+msgstr "No hay pedidos retrasados"
+
+#: templates/dashboard.html:73
+msgid "Possible orders"
+msgstr "Posibles pedidos"
+
+#: templates/dashboard.html:79
+msgid "The cart is empty."
+msgstr "El carro está vacío"
+
+#: templates/dashboard.html:86
+msgid "Suppliers with pending orders"
+msgstr "Proveedores con pedidos pendientes"
+
+#: templates/dashboard.html:92
+msgid "There are no pending orders"
+msgstr "No hay pedidos pendientes"
+
+#: templates/site_base.html:44
+msgid "Home"
+msgstr "Inicio"
+
+#: templates/site_base.html:45
+msgid "Companies"
+msgstr "Empresas"
+
+#: templates/site_base.html:46
+msgid "Projects"
+msgstr "Proyectos"
+
+#: templates/site_base.html:47
+msgid "Articles"
+msgstr "Artículos"
+
+#: templates/site_base.html:48
+msgid "Orders"
+msgstr "Pedidos"
+
+#: templates/site_base.html:49
+msgid "Search"
+msgstr "Buscar"
+
+#: templates/site_base.html:50
+msgid "Cart"
+msgstr "Carro"
+
+#: templates/site_base.html:54
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/site_base.html:56
+msgid "Logout"
+msgstr "Salir"
+
+#: templates/registration/login.html:5 templates/registration/login.html:13
+msgid "Log in"
+msgstr "Iniciar sesión"

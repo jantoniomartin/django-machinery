@@ -1,0 +1,302 @@
+# Spanish translation for django-indumatic.crm app.
+# Copyright (C) 2014
+# This file is distributed under the same license as the django-indumatic package.
+# Jose Antonio Martin <jantonio.martin@gmail.com>, 2014.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-12 13:49+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:10 models.py:25 models.py:88
+msgid "name"
+msgstr "nombre"
+
+#: models.py:14 models.py:46
+msgid "group"
+msgstr "grupo"
+
+#: models.py:15
+msgid "groups"
+msgstr "grupos"
+
+#: models.py:26 templates/crm/company_detail.html:23
+msgid "VATIN"
+msgstr "CIF"
+
+#: models.py:27
+msgid "address"
+msgstr "domicilio"
+
+#: models.py:29
+msgid "city"
+msgstr "ciudad"
+
+#: models.py:30
+msgid "region"
+msgstr "provincia"
+
+#: models.py:31
+msgid "postal code"
+msgstr "código postal"
+
+#: models.py:33
+msgid "country"
+msgstr "país"
+
+#: models.py:35 models.py:94
+msgid "comment"
+msgstr "comentario"
+
+#: models.py:36
+msgid "website"
+msgstr "sitio web"
+
+#: models.py:38
+msgid "global email"
+msgstr "email general"
+
+#: models.py:39
+msgid "main phone"
+msgstr "teléfono principal"
+
+#: models.py:40
+msgid "secondary_phone"
+msgstr "teléfono secundario"
+
+#: models.py:41
+msgid "fax"
+msgstr "fax"
+
+#: models.py:42
+msgid "created at"
+msgstr "creado el"
+
+#: models.py:43
+msgid "updated at"
+msgstr "actualizado el"
+
+#: models.py:44
+msgid " is customer"
+msgstr " es cliente"
+
+#: models.py:45
+msgid " is supplier"
+msgstr " es proveedor"
+
+#: models.py:51 models.py:97
+msgid "company"
+msgstr "empresa"
+
+#: models.py:52
+msgid "companies"
+msgstr "empresas"
+
+#: models.py:76
+msgid "customer"
+msgstr "cliente"
+
+#: models.py:77
+msgid "customers"
+msgstr "clientes"
+
+#: models.py:84
+msgid "supplier"
+msgstr "proveedor"
+
+#: models.py:85
+msgid "suppliers"
+msgstr "proveedores"
+
+#: models.py:89
+msgid "person"
+msgstr "persona"
+
+#: models.py:91
+msgid "phone"
+msgstr "teléfono"
+
+#: models.py:92
+msgid "email"
+msgstr "email"
+
+#: models.py:93
+msgid "send orders"
+msgstr "enviar pedidos"
+
+#: models.py:101
+msgid "department"
+msgstr "departamento"
+
+#: models.py:102
+msgid "departments"
+msgstr "departamentos"
+
+#: templates/crm/base.html:6 templates/crm/group_list.html:4
+#: templates/crm/group_list.html.py:8
+msgid "Groups"
+msgstr "Grupos"
+
+#: templates/crm/base.html:7 templates/crm/company_list.html:5
+#: templates/crm/company_list.html.py:9
+msgid "Companies"
+msgstr "Empresas"
+
+#: templates/crm/base.html:8
+msgid "New company"
+msgstr "Nueva empresa"
+
+#: templates/crm/company_detail.html:11 templates/crm/company_form.html:5
+#: templates/crm/company_form.html.py:9
+msgid "Edit company"
+msgstr "Editar empresa"
+
+#: templates/crm/company_detail.html:16
+msgid "General data"
+msgstr "Datos generales"
+
+#: templates/crm/company_detail.html:21 templates/crm/company_list.html:19
+msgid "Group"
+msgstr "Grupo"
+
+#: templates/crm/company_detail.html:24
+msgid "Address"
+msgstr "Domicilio"
+
+#: templates/crm/company_detail.html:29
+msgid "Phone numbers"
+msgstr "Teléfonos"
+
+#: templates/crm/company_detail.html:35
+msgid "Fax"
+msgstr "Fax"
+
+#: templates/crm/company_detail.html:36
+msgid "Website"
+msgstr "Sitio web"
+
+#: templates/crm/company_detail.html:37
+msgid "Global email"
+msgstr "Email general"
+
+#: templates/crm/company_detail.html:38 templates/crm/company_detail.html:57
+#: templates/crm/department_detail.html:27
+msgid "Comment"
+msgstr "Comentario"
+
+#: templates/crm/company_detail.html:39
+msgid "Creation date"
+msgstr "Fecha de alta"
+
+#: templates/crm/company_detail.html:40
+msgid "Last updated"
+msgstr "Actualizado"
+
+#: templates/crm/company_detail.html:45
+msgid "Departments"
+msgstr "Departamentos"
+
+#: templates/crm/company_detail.html:47
+msgid "New department"
+msgstr "Nuevo departamento"
+
+#: templates/crm/company_detail.html:52
+msgid "Department"
+msgstr "Departamento"
+
+#: templates/crm/company_detail.html:53
+#: templates/crm/department_detail.html:19
+msgid "Person"
+msgstr "Persona"
+
+#: templates/crm/company_detail.html:54 templates/crm/company_list.html:18
+#: templates/crm/department_detail.html:21 templates/crm/group_detail.html:20
+msgid "Phone"
+msgstr "Teléfono"
+
+#: templates/crm/company_detail.html:55
+#: templates/crm/department_detail.html:23
+msgid "Email"
+msgstr "Email"
+
+#: templates/crm/company_detail.html:56
+#: templates/crm/department_detail.html:25
+msgid "Use for orders"
+msgstr "Usar para pedidos"
+
+#: templates/crm/company_detail.html:76
+msgid "Projects"
+msgstr "Proyectos"
+
+#: templates/crm/company_detail.html:80
+msgid "Reference"
+msgstr "Referencia"
+
+#: templates/crm/company_detail.html:81
+msgid "Description"
+msgstr "Descripción"
+
+#: templates/crm/company_detail.html:82
+msgid "Created on"
+msgstr "Creado el"
+
+#: templates/crm/company_form.html:18 templates/crm/department_form.html:17
+#: templates/crm/group_form.html:17
+msgid "Save"
+msgstr "Guardar"
+
+#: templates/crm/company_list.html:14 templates/crm/group_detail.html:16
+#: templates/crm/group_list.html:17
+msgid "Name"
+msgstr "Nombre"
+
+#: templates/crm/company_list.html:15 templates/crm/group_detail.html:17
+msgid "City"
+msgstr "Ciudad"
+
+#: templates/crm/company_list.html:16 templates/crm/group_detail.html:18
+msgid "Region"
+msgstr "Provincia"
+
+#: templates/crm/company_list.html:17 templates/crm/group_detail.html:19
+msgid "Country"
+msgstr "País"
+
+#: templates/crm/company_list.html:20
+msgid "Actions"
+msgstr "Acciones"
+
+#: templates/crm/company_list.html:36 templates/crm/department_detail.html:15
+msgid "Edit"
+msgstr "Editar"
+
+#: templates/crm/company_list.html:45 templates/crm/group_list.html:33
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/crm/company_list.html:50 templates/crm/group_list.html:38
+msgid "Next"
+msgstr "Siguiente"
+
+#: templates/crm/department_form.html:5 templates/crm/department_form.html:9
+msgid "Edit department"
+msgstr "Editar departamento"
+
+#: templates/crm/group_detail.html:10 templates/crm/group_form.html:5
+#: templates/crm/group_form.html.py:9
+msgid "Edit group"
+msgstr "Editar grupo"
+
+#: templates/crm/group_list.html:11
+msgid "New group"
+msgstr "Nuevo grupo"

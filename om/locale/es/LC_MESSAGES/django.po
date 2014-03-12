@@ -1,0 +1,297 @@
+# Spanish translation for django-indumatic.om app.
+# Copyright (C) 2014
+# This file is distributed under the same license as the django-indumatic package.
+# Jose Antonio Martin <jantonio.martin@gmail.com>, 2014.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-12 13:55+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:8
+msgid "article"
+msgstr "artículo"
+
+#: models.py:9 models.py:29
+msgid "company"
+msgstr "empresa"
+
+#: models.py:10
+msgid "created on"
+msgstr "creado el"
+
+#: models.py:11
+msgid "confirmed on"
+msgstr "confirmado el"
+
+#: models.py:12
+msgid "expired on"
+msgstr "caducado el"
+
+#: models.py:13
+msgid "offer code"
+msgstr "código de oferta"
+
+#: models.py:14
+msgid "retail price"
+msgstr "P.V.P."
+
+#: models.py:15
+msgid "invoice price"
+msgstr "precio neto"
+
+#: models.py:19 models.py:60 models.py:70
+msgid "offer"
+msgstr "oferta"
+
+#: models.py:20
+msgid "offers"
+msgstr "ofertas"
+
+#: models.py:23
+#, python-format
+msgid "Offer for %s"
+msgstr "Oferta para %s"
+
+#: models.py:27
+msgid "created at"
+msgstr "creado el"
+
+#: models.py:28
+msgid "notes"
+msgstr "notas"
+
+#: models.py:33 models.py:59
+msgid "order"
+msgstr "pedido"
+
+#: models.py:34
+msgid "orders"
+msgstr "pedidos"
+
+#: models.py:55
+msgid "ordered quantity"
+msgstr "cantidad pedida"
+
+#: models.py:56
+msgid "received quantity"
+msgstr "cantidad recibida"
+
+#: models.py:57
+msgid "completed on"
+msgstr "completado el"
+
+#: models.py:58
+msgid "estimated delivery"
+msgstr "entrega estimada"
+
+#: models.py:63
+msgid "order line"
+msgstr "línea de pedido"
+
+#: models.py:64
+msgid "order lines"
+msgstr "líneas de pedido"
+
+#: models.py:71
+msgid "quantity"
+msgstr "cantidad"
+
+#: models.py:74
+msgid "cart item"
+msgstr ""
+
+#: models.py:75
+msgid "cart items"
+msgstr ""
+
+#: views.py:125
+msgid "The pdf report for the order could not be made."
+msgstr "No se ha podido generar el archivo pdf"
+
+#: views.py:148
+msgid "The order was successfully sent."
+msgstr "El pedido se ha enviado correctamente."
+
+#: templates/om/base.html:6
+msgid "All orders"
+msgstr "Todos los pedidos"
+
+#: templates/om/base.html:7
+msgid "Pending orders"
+msgstr "Pedidos pendientes"
+
+#: templates/om/base.html:8 templates/om/orderitem_pending_list.html:4
+#: templates/om/orderitem_pending_list.html:8
+msgid "Pending items"
+msgstr "Artículos pendientes"
+
+#: templates/om/cartitem_confirm_delete.html:4
+msgid "Delete cart item"
+msgstr "Eliminar artículo del carro"
+
+#: templates/om/cartitem_confirm_delete.html:8
+msgid "Delete confirmation"
+msgstr "Confirmar eliminación"
+
+#: templates/om/cartitem_confirm_delete.html:10
+#, python-format
+msgid "The item %(name)s will be deleted. Are you sure?"
+msgstr "El artículo %(name)s se borrará. ¿Estás seguro?"
+
+#: templates/om/cartitem_confirm_delete.html:12
+msgid "Go back."
+msgstr "Volver."
+
+#: templates/om/cartitem_confirm_delete.html:15
+#: templates/om/cartitem_list.html:29
+msgid "Delete"
+msgstr "Borrar"
+
+#: templates/om/cartitem_list.html:4 templates/om/cartitem_list.html.py:8
+msgid "Articles ready to be ordered"
+msgstr "Artículos listos para ser pedidos"
+
+#: templates/om/cartitem_list.html:13 templates/om/order_list.html:15
+#: templates/om/order_receive.html:16
+#: templates/om/orderitem_pending_list.html:13
+msgid "Supplier"
+msgstr "Proveedor"
+
+#: templates/om/cartitem_list.html:14
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: templates/om/cartitem_list.html:15 templates/om/order_list.html:13
+#: templates/om/order_receive.html:37
+#: templates/om/orderitem_pending_list.html:17
+msgid "Reference"
+msgstr "Referencia"
+
+#: templates/om/cartitem_list.html:16 templates/om/order_receive.html:38
+#: templates/om/orderitem_pending_list.html:18
+msgid "Description"
+msgstr "Descripción"
+
+#: templates/om/cartitem_list.html:17 templates/om/order_list.html:16
+#: templates/om/orderitem_pending_list.html:20
+msgid "Actions"
+msgstr "Acciones"
+
+#: templates/om/cartitem_list.html:28
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: templates/om/offer_form.html:5 templates/om/offer_form.html.py:9
+msgid "Edit offer"
+msgstr "Editar oferta"
+
+#: templates/om/offer_form.html:15 templates/om/order_form.html:89
+msgid "Save"
+msgstr "Guardar"
+
+#: templates/om/order_detail.html:4 templates/om/order_detail.html.py:8
+#: templates/om/order_receive.html:4 templates/om/order_receive.html.py:8
+msgid "Order"
+msgstr "Pedido"
+
+#: templates/om/order_detail.html:13
+msgid "Order will be sent to"
+msgstr "El pedido se enviará a"
+
+#: templates/om/order_detail.html:19
+msgid "Send"
+msgstr "Enviar"
+
+#: templates/om/order_form.html:5 templates/om/order_form.html.py:36
+msgid "New order"
+msgstr "Nuevo pedido"
+
+#: templates/om/order_form.html:39
+msgid "Supplier data"
+msgstr "Datos del proveedor"
+
+#: templates/om/order_form.html:42
+msgid "Company"
+msgstr "Empresa"
+
+#: templates/om/order_form.html:44
+msgid "Main phone"
+msgstr "Teléfono principal"
+
+#: templates/om/order_form.html:46
+msgid "Emails for orders"
+msgstr "Emails para pedidos"
+
+#: templates/om/order_form.html:69
+msgid "Sum"
+msgstr "Total"
+
+#: templates/om/order_list.html:4 templates/om/order_list.html.py:8
+msgid "Order list"
+msgstr "Lista de pedidos"
+
+#: templates/om/order_list.html:14 templates/om/order_receive.html:14
+msgid "Date"
+msgstr "Fecha"
+
+#: templates/om/order_list.html:26 templates/om/order_receive.html:35
+#: templates/om/orderitem_pending_list.html:34
+msgid "Receive"
+msgstr "Recibir"
+
+#: templates/om/order_receive.html:11
+msgid "Order details"
+msgstr "Detalles del pedido"
+
+#: templates/om/order_receive.html:18
+msgid "Notes"
+msgstr "Notas"
+
+#: templates/om/order_receive.html:24
+msgid "Order reception"
+msgstr "Recepción del pedido"
+
+#: templates/om/order_receive.html:33
+#: templates/om/orderitem_pending_list.html:14
+msgid "Ordered"
+msgstr "Pedidos"
+
+#: templates/om/order_receive.html:34
+msgid "Pending"
+msgstr "Pendientes"
+
+#: templates/om/order_receive.html:36
+#: templates/om/orderitem_pending_list.html:16
+msgid "Unit"
+msgstr "Unidad"
+
+#: templates/om/order_receive.html:39
+msgid "Price"
+msgstr "Precio"
+
+#: templates/om/order_receive.html:40
+msgid "Delivery date"
+msgstr "Fecha de entrega"
+
+#: templates/om/order_receive.html:59
+msgid "Update"
+msgstr "Actualizar"
+
+#: templates/om/orderitem_pending_list.html:15
+msgid "Received"
+msgstr "Recibir"
+
+#: templates/om/orderitem_pending_list.html:19
+msgid "Estimated delivery"
+msgstr "Entrega estimada"
