@@ -44,7 +44,6 @@ class OrderForm(forms.ModelForm):
 
 	class Meta:
 		model = models.Order
-		exclude = ['reference',]
 	
 class OrderItemReceptionForm(forms.ModelForm):
 	receive = forms.IntegerField(required=False)

@@ -27,13 +27,19 @@ Web: http://www.indumatic.net
 <th>Proveedor</th>
 </tr>
 <tr>
-<td>{{ order.reference }}</td>
+<td style="text-align: center">{{ order }}</td>
 <td>{{ order.created_at }}</td>
 <td>{{ order.company }}</td>
+</tr>
+<tr>
+<th>Destinatarios:</th>
+<td colspan="2">{{ order.recipient_list|join:", " }}</td>
 </tr>
 </table>
 
 <h2>Detalle</h2>
+
+<p style="font-size: 80%">Si el precio de los artículos pedidos no está actualizado, por favor, envíe una relación con los precios netos corregidos a oficina.tecnica@indumatic.net.</p>
 
 <table>
 <thead>

@@ -1,10 +1,16 @@
 from datetime import date
 
+from django.conf import settings
+from django.contrib import messages
+from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.db.models import ObjectDoesNotExist
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.template import RequestContext, Context
+from django.template.loader import render_to_string, get_template
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
@@ -12,6 +18,7 @@ from crm.models import Company
 from om.models import *
 from om import forms
 from indumatic.views import PdfView
+from indumatic.pdftools import make_pdf
 
 class CartItemCreateView(CreateView):
 	model = CartItem
@@ -73,9 +80,6 @@ class OrderCreateView(CreateView):
 		return "/"
 
 	def form_valid(self, form):
-		order = form.save(commit=False)
-		last_order = Order.objects.latest('reference')
-		order.reference = last_order.reference + 1
 		order.save()
 		for item in form.cleaned_data["items"]:
 			OrderItem.objects.create(
@@ -88,7 +92,61 @@ class OrderCreateView(CreateView):
 
 class OrderDetailView(DetailView):
 	model = Order
-	template_object_name = 'order'
+	context_object_name = 'order'
+
+	def get_subject_template(self):
+		return get_template('om/order_subject.txt')
+
+	def get_body_template(self):
+		return get_template('om/order_body.txt')
+
+	def post(self, request, *args, **kwargs):
+		"""Send an email with the order report to the supplier."""
+		self.object = self.get_object()
+		ctx = self.get_context_data(**kwargs)
+		ctx.update({'pagesize': 'A4'})
+		items = OrderItem.objects.filter(order=self.object).extra(
+			select={"cost": "select (om_offer.invoice_price*om_orderitem.ordered_quantity) from om_offer where om_offer.id=om_orderitem.offer_id"}
+		)
+		ctx.update({'items': items})
+		html = render_to_string(
+			'om/order_pdf.html',
+			ctx,
+			context_instance=RequestContext(request)
+		)
+		try:
+			document = make_pdf(html)
+		except Exception as e:
+			if settings.DEBUG:
+				return HttpResponse(e.strerror)
+			else:
+				messages.error(
+					self.request,
+					_("The pdf report for the order could not be made.")
+				)
+		else:
+			subject = self.get_subject_template().render(Context(ctx))
+			body = self.get_body_template().render(Context(ctx))
+			message = EmailMessage(
+				subject=subject.rstrip(),
+				body=body,
+				from_email='erp@indumatic.net',
+				to=self.object.recipient_list,
+				cc=['oficina.tecnica@indumatic.net',],
+				attachments=[
+					('%s.pdf' % self.object,
+						document.getvalue(),
+						'application/pdf'),
+				],
+				headers={'Reply-To': 'oficina.tecnica@indumatic.net'}
+			)
+			try:
+				message.send()
+			except Exception as e:
+				messages.error(self.request, e)
+			else:
+				messages.success(self.request, _("The order was successfully sent."))
+		return HttpResponseRedirect(reverse('om_order_pending'))
 
 class OrderReceiveView(TemplateView):
 	template_name = "om/order_receive.html"
