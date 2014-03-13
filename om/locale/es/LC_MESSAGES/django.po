@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-12 13:55+0100\n"
+"POT-Creation-Date: 2014-03-13 13:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,23 +115,23 @@ msgstr ""
 msgid "cart items"
 msgstr ""
 
-#: views.py:125
+#: views.py:122
 msgid "The pdf report for the order could not be made."
 msgstr "No se ha podido generar el archivo pdf"
 
-#: views.py:148
+#: views.py:145
 msgid "The order was successfully sent."
 msgstr "El pedido se ha enviado correctamente."
 
-#: templates/om/base.html:6
+#: templates/om/base.html:8
 msgid "All orders"
 msgstr "Todos los pedidos"
 
-#: templates/om/base.html:7
+#: templates/om/base.html:9
 msgid "Pending orders"
 msgstr "Pedidos pendientes"
 
-#: templates/om/base.html:8 templates/om/orderitem_pending_list.html:4
+#: templates/om/base.html:10 templates/om/orderitem_pending_list.html:4
 #: templates/om/orderitem_pending_list.html:8
 msgid "Pending items"
 msgstr "Artículos pendientes"
@@ -201,7 +201,7 @@ msgid "Save"
 msgstr "Guardar"
 
 #: templates/om/order_detail.html:4 templates/om/order_detail.html.py:8
-#: templates/om/order_receive.html:4 templates/om/order_receive.html.py:8
+#: templates/om/order_receive.html:4
 msgid "Order"
 msgstr "Pedido"
 
@@ -250,6 +250,10 @@ msgstr "Fecha"
 msgid "Receive"
 msgstr "Recibir"
 
+#: templates/om/order_receive.html:8
+msgid "Receive order"
+msgstr "Recibir pedido"
+
 #: templates/om/order_receive.html:11
 msgid "Order details"
 msgstr "Detalles del pedido"
@@ -284,7 +288,7 @@ msgstr "Precio"
 msgid "Delivery date"
 msgstr "Fecha de entrega"
 
-#: templates/om/order_receive.html:59
+#: templates/om/order_receive.html:63
 msgid "Update"
 msgstr "Actualizar"
 

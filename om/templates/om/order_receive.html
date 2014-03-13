@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h1>{% trans "Order" %} {{ order }}</h1>
+<h1>{% trans "Receive order" %} {{ order }}</h1>
 
 <div class="panel panel-primary">
 <div class="panel-heading">{% trans "Order details" %}</div>
@@ -47,7 +47,11 @@
 <td class="center">{{ form.instance.pending }}</td>
 <td class="center">{{ form.id }}{% if not form.instance.completed_on %}{{ form.receive }}{% endif %}</td>
 <td class="center">{{ form.instance.offer.article.measure_unit }}</td>
-<td class="center">{{ form.instance.offer.article.code }}</td>
+<td class="center">
+<a href="{% url 'wm_article_detail' form.instance.offer.article.id %}">
+{{ form.instance.offer.article.code }}
+</a>
+</td>
 <td class="center">{{ form.instance.offer.article.description }}</td>
 <td class="center">{{ form.instance.offer.invoice_price|floatformat:2 }}</td>
 <td class="center">{% if not form.instance.completed_on %}{{ form.estimated_delivery }}{% endif %}</td>

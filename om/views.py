@@ -76,19 +76,16 @@ class OrderCreateView(CreateView):
 		})
 		return ctx
 
-	def get_success_url(self):
-		return "/"
-
 	def form_valid(self, form):
-		order.save()
+		obj = form.save()
 		for item in form.cleaned_data["items"]:
 			OrderItem.objects.create(
-				order=order,
+				order=obj,
 				ordered_quantity=item.quantity,
 				offer=item.offer
 			)
 			item.delete()
-		return HttpResponseRedirect(self.get_success_url())
+		return HttpResponseRedirect(obj.get_absolute_url())
 
 class OrderDetailView(DetailView):
 	model = Order
