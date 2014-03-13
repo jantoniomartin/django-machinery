@@ -173,6 +173,7 @@ class OrderReceiveView(TemplateView):
 		order = get_object_or_404(Order, id=self.kwargs['pk'])
 		OrderItemFormSet = self.get_formset_class()
 		formset = OrderItemFormSet(self.request.POST)
+		completed = True
 		for form in formset:
 			if form.is_valid():
 				receive = form.cleaned_data['receive']
@@ -181,11 +182,18 @@ class OrderReceiveView(TemplateView):
 					item.received_quantity += receive
 					if item.received_quantity >= item.ordered_quantity:
 						item.completed_on = date.today()
+					else:
+						completed = False
+				else:
+					completed = False
 				item.save()
-		## check if the order is completed
+		## mark the order as completed
+		if completed:
+			order.completed_on = date.today()
+			order.save()
 
 		return HttpResponseRedirect(
-			reverse('om_order_detail', args=[self.kwargs['pk']])
+			reverse('om_order_receive', args=[self.kwargs['pk']])
 		)
 
 class OrderPdfView(PdfView):

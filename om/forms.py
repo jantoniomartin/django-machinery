@@ -20,15 +20,6 @@ class OfferForm(forms.ModelForm):
 	class Meta:
 		model = models.Offer
 
-class _OrderForm(forms.ModelForm):
-	company = forms.ModelChoiceField(
-		queryset=Company.objects.filter(is_supplier=True),
-		widget=forms.TextInput
-	)
-	
-	class Meta:
-		model = models.Order
-
 class OrderForm(forms.ModelForm):
 	company = forms.ModelChoiceField(
 		queryset=Company.objects.filter(is_supplier=True),
@@ -44,6 +35,7 @@ class OrderForm(forms.ModelForm):
 
 	class Meta:
 		model = models.Order
+		exclude = ['completed_on',]
 	
 class OrderItemReceptionForm(forms.ModelForm):
 	receive = forms.IntegerField(required=False)

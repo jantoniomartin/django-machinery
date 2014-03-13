@@ -23,8 +23,8 @@ class Offer(models.Model):
 		return _("Offer for %s") % self.article
 
 class Order(models.Model):
-	#reference = models.PositiveIntegerField(_("reference"), unique=True)
 	created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+	completed_on = models.DateField(_("completed on"), null=True, blank=True)
 	notes = models.CharField(_("notes"), max_length=255, null=True, blank=True)
 	company = models.ForeignKey(crm.Company, verbose_name=_("company"))
 

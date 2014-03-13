@@ -10,6 +10,7 @@ import wm.models as wm
 def import_all():
 	msg = import_sectors()
 	msg += import_projects()
+	msg += import_thumbs()
 	msg += import_machines()
 	msg += import_comments()
 	return msg

@@ -9,6 +9,7 @@ def import_all():
 	msg = import_offers()
 	msg += import_orders()
 	msg += import_orderitems()
+	msg += update_completed()
 	return msg
 
 def setup_cursor():
@@ -108,3 +109,16 @@ def import_orderitems():
 		n += 1
 	print "Imported %s order items" % n
 	return msg
+
+def update_completed():
+	for order in models.Order.objects.all():
+		pend = order.orderitem_set.exclude(completed_on__isnull=False).count()
+		if pend == 0:
+			try:
+				last_item = order.orderitem_set.order_by('-completed_on')[0]
+			except:
+				pass
+			else:
+				order.completed_on = last_item.completed_on
+				order.save()
+	return u"Updated completion dates"

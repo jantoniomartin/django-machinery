@@ -61,7 +61,7 @@ $(document).ready(function() {
 <td>{{ item.offer.article.code }}</td>
 <td>{{ item.offer.article.description }}</td>
 <td style="text-align: right">{{ item.offer.invoice_price|default_if_none:0|floatformat:2 }}</td>
-<td id="cost_{{ item.id }}" style="text-align: right">{{ item.cost|default_if_none:0|floatformat:2 }}</td>
+<td id="cost_{{ item.id }}" class="cost" style="text-align: right">{{ item.cost|default_if_none:0|floatformat:2 }}</td>
 </tr>
 {% endfor %}
 </tbody>
