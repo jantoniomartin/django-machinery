@@ -1,5 +1,6 @@
 {% extends "pm/base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 {% load crispy_forms_tags %}
 
 {% block extra_head %}
@@ -60,6 +61,7 @@ $(function() {
 <a href="{% url 'pm_project_parts_report' project.id %}">{% trans "Parts report" %}</a>
 </p>
 
+<div class="col-md-6">
 <div class="panel panel-primary">
   <div class="panel-heading">{% trans "Project info" %}</div>
   <div class="panel-body">
@@ -73,6 +75,15 @@ $(function() {
 <dt>{% trans "Company" %}</dt>
 <dd><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a></dd>
 </dl>
+  </div>
+</div>
+</div>
+
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-body" style="text-align: center">
+      <img src="{{ MEDIA_URL }}thumbnails/{{project.thumbnail}}" />
+	</div>
   </div>
 </div>
 

@@ -8,11 +8,7 @@ from pm.views import *
 
 urlpatterns = patterns("pm.views",
     url(r'^$',
-		ListView.as_view(
-			model=Project,
-        	paginate_by=10,
-			context_object_name="project_list"
-		),
+		ProjectListView.as_view(),
 		name="pm_project_list"
 	),
 	url(r'^sector/list/$',

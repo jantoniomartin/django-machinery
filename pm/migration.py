@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -37,6 +39,40 @@ def import_sectors():
 		else:
 			n += 1
 	print "Created %s sectors" % n
+	return msg
+
+def import_thumbs():
+	cursor = setup_cursor()
+	if cursor is None:
+		return
+	sql = """SELECT id, thumbnail FROM projects"""
+	cursor.execute(sql)
+	msg = u"Error report for Thumbnails:\n"
+	n = 0
+	for row in cursor.fetchall():
+		try:
+			project = models.Project.objects.get(id=row[0])
+		except ObjectDoesNotExist:
+			msg += u"Project not found: %s" % row[0]
+		else:
+			if row[1] is not None:
+				fname = "%s.jpg" % row[0]
+				path = os.path.join(
+					settings.MEDIA_ROOT, 
+					"thumbnails",
+					fname
+				)
+				f = open(path, 'w')
+				f.write(row[1])
+				try:
+					project.thumbnail = fname
+					project.save()
+					f.close()
+				except:
+					msg += u"Thumbnail not saved: %s" % row[0]
+				else:
+					n +=1
+	print "Imported %s thumbnails" % n
 	return msg
 
 def import_projects():

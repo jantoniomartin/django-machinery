@@ -29,6 +29,7 @@ class Project(models.Model):
 	is_retired = models.BooleanField(_("retired"), default=False)
 	created_on = models.DateField(_("created on"), auto_now_add=True, null=True)
 	company = models.ForeignKey(Company, verbose_name=_("company"))
+	thumbnail = models.ImageField(_("thumbnail"), upload_to="thumbnails", null=True, blank=True)
 
 	class Meta:
 		verbose_name = _("project")

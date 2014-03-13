@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
+from django.conf.urls.static import static
 from django.contrib.auth.views import login, logout_then_login
 
 from django.contrib import admin
@@ -22,3 +24,5 @@ urlpatterns = patterns('',
 	url(r'^pm/', include('pm.urls')),
 	url(r'^wm/', include('wm.urls')),
 )
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,9 +1,10 @@
 import json
 
+from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from pm.forms import NewMachineForm, PartForm, MachineCommentForm
@@ -69,7 +70,18 @@ class ProjectDetailView(DetailView):
 	def get_context_data(self, **kwargs):
 		ctx = super(ProjectDetailView, self).get_context_data(**kwargs)
 		machine_form = NewMachineForm(initial={'project': self.object.pk })
-		ctx.update({ 'machine_form': machine_form })
+		ctx.update({ 'machine_form': machine_form,
+					'MEDIA_URL': settings.MEDIA_URL,})
+		return ctx
+
+class ProjectListView(ListView):
+	model = Project
+	context_object_name = "project_list"
+	paginate_by = 10
+
+	def get_context_data(self, **kwargs):
+		ctx = super(ProjectListView, self).get_context_data(**kwargs)
+		ctx.update({ 'MEDIA_URL': settings.MEDIA_URL })
 		return ctx
 
 def create_machine(request):
