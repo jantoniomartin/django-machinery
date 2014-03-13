@@ -58,15 +58,12 @@ class Company(models.Model):
 	def get_absolute_url(self):
 		return ('crm_company_detail', [self.id])
 
-	def _get_main_site(self):
-		try:
-			site = Site.objects.get(company=self, main=True)
-		except ObjectDoesNotExist:
-			return Site.objects.none()
-		else:
-			return site
-	
-	main_site = property(_get_main_site)
+	@property
+	def order_emails_list(self):
+		return self.department_set.filter(
+			email__isnull=False,
+			send_orders=True
+		).values_list('email', flat=True)
 
 class Customer(Company):
 	pass

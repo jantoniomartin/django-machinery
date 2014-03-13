@@ -14,12 +14,12 @@ function get_sum() {
 		var item_id = $(this).attr("id").substr(5);
 		var cb = $( "input:checkbox[value=" + item_id + "]" );
 		if ( cb.is(":checked") ) {
-			var cost = parseFloat($(this).text());
+			var cost = parseFloat($(this).text().replace(',', '.'));
 			if ( isNaN(cost) ) cost = 0;
 			cart_sum += cost;
 		}
 	});
-	$('#sum').text(cart_sum.toFixed(2));
+	$('#sum').text(cart_sum.toFixed(2).toString().replace(".", ","));
 }
 
 $(document).ready(function() {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 <dt>{% trans "Main phone" %}</dt>
 <dd>{{ supplier.main_phone }}</dd>
 <dt>{% trans "Emails for orders" %}</dt>
-<dd>&nbsp;</dd>
+<dd>{{ supplier.order_emails_list|join:", " }}</dd>
 </dl>
 </div>
 </div>
@@ -86,7 +86,11 @@ $(document).ready(function() {
 {% endfor %}
 
 <div>
+{% if supplier.order_emails_list %}
 <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+{% else %}
+<div class="alert alert-danger">{% blocktrans %}This supplier has not an email for orders. Add first an email, and then create the order.{% endblocktrans %}</div>
+{% endif %}
 </div>
 </form>
 
