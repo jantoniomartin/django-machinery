@@ -13,7 +13,7 @@
 <td>{% trans "Reference" %}</td>
 <td>{% trans "Date" %}</td>
 <td>{% trans "Supplier" %}</td>
-<td>{% trans "Actions" %}</td>
+<td>{% trans "Completed" %}</td>
 </tr>
 </thead>
 <tbody>
@@ -23,7 +23,13 @@
 <td>{{ order.created_at }}</td>
 <td><a href="{% url 'crm_company_detail' order.company.id %}">{{ order.company }}</a></td>
 <td>
-<a href="{% url 'om_order_receive' order.id %}">{% trans "Receive" %}</a>
+{% if order.completed_on %}
+{{ order.completed_on }}
+{% else %}
+<a href="{% url 'om_order_receive' order.id %}" class="btn btn-xs btn-primary">
+{% trans "Receive" %}
+</a>
+{% endif %}
 </td>
 </tr>
 {% endfor %}
