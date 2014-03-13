@@ -45,7 +45,7 @@ def import_thumbs():
 	cursor = setup_cursor()
 	if cursor is None:
 		return
-	sql = """SELECT id, thumbnail FROM projects"""
+	sql = """SELECT id, serial, thumbnail FROM projects"""
 	cursor.execute(sql)
 	msg = u"Error report for Thumbnails:\n"
 	n = 0
@@ -56,14 +56,13 @@ def import_thumbs():
 			msg += u"Project not found: %s" % row[0]
 		else:
 			if row[1] is not None:
-				fname = "%s.jpg" % row[0]
+				fname = os.path.join("thumbnails", "%s.jpg" % row[1])
 				path = os.path.join(
 					settings.MEDIA_ROOT, 
-					"thumbnails",
 					fname
 				)
 				f = open(path, 'w')
-				f.write(row[1])
+				f.write(row[2])
 				try:
 					project.thumbnail = fname
 					project.save()

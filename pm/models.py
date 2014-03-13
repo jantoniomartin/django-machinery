@@ -1,3 +1,7 @@
+import os
+
+from PIL import Image
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -19,6 +23,9 @@ class Sector(models.Model):
 	def get_absolute_url(self):
 		return ('pm_sector_detail', [self.id])
 
+def project_thumbnail(instance, filename):
+	return os.path.join("thumbnails", "%s.jpg" % instance.serial)
+
 class Project(models.Model):
 	sector = models.ForeignKey(Sector, verbose_name=_("sector"))
 	serial = models.CharField(_("serial number"), max_length=4)
@@ -29,7 +36,7 @@ class Project(models.Model):
 	is_retired = models.BooleanField(_("retired"), default=False)
 	created_on = models.DateField(_("created on"), auto_now_add=True, null=True)
 	company = models.ForeignKey(Company, verbose_name=_("company"))
-	thumbnail = models.ImageField(_("thumbnail"), upload_to="thumbnails", null=True, blank=True)
+	thumbnail = models.ImageField(_("thumbnail"), upload_to=project_thumbnail, null=True, blank=True)
 
 	class Meta:
 		verbose_name = _("project")
@@ -46,6 +53,19 @@ class Project(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return ('pm_project_detail', [self.id])
+
+	def save(self, force_insert=False, force_update=False):
+		super(Project, self).save(force_insert, force_update)
+		pw = self.thumbnail.width
+		ph = self.thumbnail.height
+		## max height = 240px
+		if ph > 240:
+			height = 240
+			width = int(pw * 240.0 / ph)
+			filename = str(self.thumbnail.path)
+			im = Image.open(filename)
+			im = im.resize((width, height), Image.ANTIALIAS)
+			im.save(self.thumbnail.path)
 
 class Machine(models.Model):
 	model = models.CharField(_("model"), max_length=3)
