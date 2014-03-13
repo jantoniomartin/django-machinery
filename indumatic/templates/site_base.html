@@ -17,6 +17,9 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 	<script src="{% static 'js/jquery.ui.datepicker-es.js' %}"></script>
 
+	<!-- session security -->
+	{% include 'session_security/all.html' %}
+
 	{% block extra_head %}{% endblock %}
 
 <script type="text/javascript">
