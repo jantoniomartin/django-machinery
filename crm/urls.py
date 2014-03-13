@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
 
 from crm.models import Company, Group, Department
+from crm.views import *
 
 urlpatterns = patterns("crm.views",
     url(r'^$',
@@ -67,15 +68,11 @@ urlpatterns = patterns("crm.views",
 		name="crm_department_detail"
 	),
     url(r'^department/edit/(?P<pk>\d+)/$',
-		UpdateView.as_view(
-			model=Department,
-		),
+		DepartmentUpdateView.as_view(),
 		name="crm_department_edit"
 	),
-	url(r'^department/create/$',
-		CreateView.as_view(
-			model=Department
-		),
+    url(r'^company/add_department/(?P<pk>\d+)/$',
+		DepartmentCreateView.as_view(),
 		name="crm_department_create"
 	),
 )

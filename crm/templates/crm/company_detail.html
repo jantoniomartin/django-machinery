@@ -44,7 +44,7 @@
 
 <h2>{% trans "Departments" %}</h2>
 <p>
-<a href="{% url 'crm_department_create' %}">{% trans "New department" %}</a>
+<a href="{% url 'crm_department_create' company.id %}">{% trans "New department" %}</a>
 </p>
 <table class="table table-striped table-hover">
 <thead>
