@@ -1,13 +1,17 @@
 import json
 
 from django.conf import settings
+from django.contrib import messages
+from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
-from pm.forms import NewMachineForm, PartForm, MachineCommentForm
+from pm.forms import *
 from pm.models import Project, Machine, MachineComment, Part
 from wm.models import Group
 from indumatic.views import PdfView
@@ -47,7 +51,11 @@ class MachinePartsView(DetailView):
 
 	def get_context_data(self, **kwargs):
 		ctx = super(MachinePartsView, self).get_context_data(**kwargs)
-		ctx.update({'nodes': Group.objects.all()})
+		ctx.update({
+			'nodes': Group.objects.all(),
+			'import_form': MachineSelectForm(),
+		})
+
 		return ctx
 
 class PartDeleteView(DeleteView):
@@ -143,6 +151,55 @@ def create_part(request):
 					errors_dict[error] = unicode(e)
 				return HttpResponseBadRequest(json.dumps(errors_dict))
 
+def get_machine_ids(request, pk):
+	if not request.is_ajax():
+		raise Http404
+	data = serializers.serialize("json", Machine.objects.filter(project__id=pk))
+	return HttpResponse(data, content_type="application/json")
+
+class CopyPartsView(FormView):
+	template_name = 'pm/copy_parts.html'
+	form_class = CopyPartsForm
+
+	def get_form_kwargs(self):
+		kwargs = super(CopyPartsView, self).get_form_kwargs()
+		kwargs.update({
+			"source_id": self.request.GET.get('machine_id', ''),
+			#"initial": self.get_initial(),
+		})
+		return kwargs
+
+	def get_initial(self):
+		machine = get_object_or_404(Machine, id=self.kwargs['pk'])
+		return {"machine_to": machine}
+
+	def get_context_data(self, **kwargs):
+		ctx = super(CopyPartsView, self).get_context_data(**kwargs)
+		machine = get_object_or_404(Machine, id=self.kwargs['pk'])
+		ctx.update({
+			'machine': machine,
+			'machine_from': self.request.GET.get('machine_id', ''),
+		})
+		return ctx
+
+	def form_valid(self, form):
+		parts = form.cleaned_data['parts']
+		machine_to = form.cleaned_data['machine_to']
+		n = 0
+		for part in parts:
+			Part.objects.create(
+				article=part.article,
+				machine=machine_to,
+				quantity=part.quantity,
+				function=part.function
+			)
+			n += 1
+		messages.success(self.request,
+			_("%s parts were successfully copied." % n))
+		return HttpResponseRedirect(
+			reverse('pm_machine_parts', args=[machine_to.id])
+		)
+
 class PartsReportView(PdfView):
 	template_name = 'pm/parts_pdf.html'
 
@@ -151,3 +208,4 @@ class PartsReportView(PdfView):
 		project = get_object_or_404(Project, id=self.kwargs['pk'])
 		ctx.update({ 'project': project})
 		return ctx
+

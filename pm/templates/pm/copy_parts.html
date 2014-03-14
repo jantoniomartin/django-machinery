@@ -1,0 +1,23 @@
+{% extends 'pm/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Copy parts" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Copy parts" %}</h1>
+
+<p>{% blocktrans %}Select the parts that you want to copy. The parts will be copied with the same quantities and function.{% endblocktrans %}</p>
+<p>{% trans "The parts will be copied to" %} {{ machine.full_reference }}</p> 
+
+<form method="post" action="{% url 'pm_copy_parts' machine.id %}?machine_id={{ machine_from }}">{% csrf_token %}
+
+{{ form|crispy }}
+<div>
+<button type="submit" class="btn btn-primary">{% trans "Copy" %}</button>
+</div>
+
+</form>
+
+{% endblock %}

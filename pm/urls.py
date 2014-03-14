@@ -95,6 +95,11 @@ urlpatterns = patterns("pm.views",
 		PartDeleteView.as_view(),
 		name="pm_part_delete"
 	),
+	url(r'machine/copy_parts/(?P<pk>\d+)/',
+		CopyPartsView.as_view(),
+		name="pm_copy_parts"
+	),
 	url(r'^part/create/$', 'create_part', name="pm_part_create"),
 	url(r'^machine/create/$', 'create_machine', name="pm_machine_create"),
+	url(r'^machine_ids/(?P<pk>\d+)/$', 'get_machine_ids',name="pm_machine_ids"),
 )

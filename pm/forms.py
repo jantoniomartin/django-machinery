@@ -1,5 +1,6 @@
 from django import forms
 from django.db.models import Max
+from django.utils.translation import ugettext_lazy as _
 
 from crm.models import Company
 from pm.models import Machine, Project, Part, MachineComment
@@ -64,4 +65,32 @@ class ProjectForm(forms.ModelForm):
 		if commit:
 			m.save()
 		return m
+
+class MachineSelectForm(forms.Form):
+	project = forms.ModelChoiceField(
+		label=_('Project'),
+		queryset=Project.objects.all()
+	)
+	machine_id = forms.IntegerField(
+		label=_('Machine'),
+		widget=forms.Select
+	)
+
+class CopyPartsForm(forms.Form):
+	machine_to = forms.ModelChoiceField(
+		queryset = Machine.objects.all(),
+		widget = forms.HiddenInput
+	)
+	parts = forms.ModelMultipleChoiceField(
+		label = _('Select parts'),
+		queryset = Part.objects.none(),
+		widget = forms.CheckboxSelectMultiple
+	)
+
+	def __init__(self, *args, **kwargs):
+		source_id = kwargs.pop('source_id')
+		super(CopyPartsForm, self).__init__(*args, **kwargs)
+		self.fields['parts'].queryset = Part.objects.filter(
+			machine__id=source_id
+		)
 

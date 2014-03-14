@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load mptt_tags %}
+{% load crispy_forms_tags %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'vakata-jstree/themes/default/style.min.css' %}" />
@@ -11,7 +12,6 @@ $(function() {
 	$('#tree').on('changed.jstree', function(e, data) {
 		var obj = data.selected;
 		var group_id = obj[0].substr(5);
-		console.log(group_id);
 		$.getJSON("/wm/group/" + group_id + "/articles/", function(data){
 			var tbl_body = "";
 			$.each( data, function() {
@@ -84,7 +84,21 @@ $(function() {
 <h1>{% trans "Parts in" %} {{ machine.project }}-{{ machine.model }}{{ machine.number }}</h1>
 <p>
 <a href="{% url 'pm_project_detail' machine.project.id %}">{{ machine.project }}</a>
+|
+<a href="#" id="toggle-import">{% trans "Import" %}</a>
 </p>
+
+<div class="panel panel-primary" id="import-panel" style="display: none">
+<div class="panel-heading">{% trans "Copy from another machine" %}</div>
+<div class="panel-body">
+<form method="get" action="{% url 'pm_copy_parts' machine.id %}">
+{{ import_form|crispy }}
+<div>
+<button type="input" class="btn btn-primary btn-sm">{% trans "Next" %}</button>
+</div>
+</form>
+</div>
+</div>
 
 <table id="parts" class="table table-striped table-hover">
 <thead>
@@ -164,12 +178,31 @@ $(function() {
 </form>
 </div>
 </div>
+
 </div>
 </div>
 
 <script>
 $(function() {
 	$('#tree').jstree(true).select_node('child_node');
+	$('#toggle-import').click(function() {
+		$('#import-panel').toggle();
+	});
+	$('#id_project').change(function() {
+		var project = $(this).val();
+		$.getJSON("/pm/machine_ids/" + project, function(data){
+			var opt = '';
+			$.each(data, function() {
+				opt += '<option value="';
+				opt += this.pk;
+				opt += '">';
+				opt += this.fields.description;
+				opt += '</option>';
+			});
+			$('#id_machine_id').html(opt);
+		});
+		
+	});
 });
 </script>
 
