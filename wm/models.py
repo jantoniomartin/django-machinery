@@ -46,6 +46,8 @@ class Article(models.Model):
 	enabled = models.BooleanField(_("enabled"), default=True)
 	brand = models.ForeignKey(Brand, verbose_name=_("brand"), null=True, blank=True)
 	group = models.ForeignKey(Group, verbose_name=_("group"))
+	stock = models.PositiveIntegerField(_("stock"), default=0)
+	stock_alert = models.PositiveIntegerField(_("stock alert"), default=0)
 
 	class Meta:
 		ordering = ['-id',]

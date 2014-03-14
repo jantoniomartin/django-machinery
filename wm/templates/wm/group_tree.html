@@ -19,6 +19,7 @@ $(function() {
 				row += '<td><a href="' + this.url + '">' + this.code + '</a></td>';
 				row += "<td>" + this.brand + "</td>";
 				row += "<td>" + this.description + "</td>";
+				row += "<td>" + this.stock + " " + this.unit + "</td>";
 				row += "</tr>";
 				tbl_body += row;
 			});
@@ -85,6 +86,7 @@ $(function() {
 <th>{% trans "Reference" %}</th>
 <th>{% trans "Brand" %}</th>
 <th>{% trans "Description" %}</th>
+<th>{% trans "Stock" %}</th>
 </thead>
 <tbody></tbody>
 </table>

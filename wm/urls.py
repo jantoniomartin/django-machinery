@@ -22,6 +22,11 @@ urlpatterns = patterns("wm.views",
 		),
 		name="wm_article_list"
 	),
+	url(r'^article/shortage/$',
+		ArticleShortageView.as_view(
+	),
+		name="wm_article_shortage"
+	),
 	url(r'^article/detail/(?P<pk>\d+)/$',
 		ArticleDetailView.as_view(),
 		name="wm_article_detail"
@@ -43,8 +48,11 @@ urlpatterns = patterns("wm.views",
 		name="wm_group_edit"
 	),
 	url(r'^group/(?P<pk>\d+)/articles/$',
-		GroupArticlesJSONView.as_view(
-		),
+		GroupArticlesJSONView.as_view(),
 		name="wm_group_articles"
+	),
+	url(r'^stock_report/$',
+		StockReportView.as_view(),
+		name="wm_stock_report"
 	),
 )

@@ -3,6 +3,8 @@ import os
 from PIL import Image
 from django.conf import settings
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
 from crm.models import Company
@@ -122,3 +124,10 @@ class Part(models.Model):
     def __unicode__(self):
 		return unicode(self.article)
 
+@receiver(post_save, sender=Part)
+def decrease_stock(sender, instance, created, raw, using, **kwargs):
+	if created:
+		instance.article.stock -= instance.quantity
+		if instance.article.stock < 0:
+			instance.article.stock = 0
+		instance.article.save()

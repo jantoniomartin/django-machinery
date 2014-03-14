@@ -1,0 +1,44 @@
+{% extends 'wm/pdf_base.html' %}
+{% load mptt_tags %}
+
+{% block content %}
+
+<div id="headerContent">
+<h1>Informe de inventario a {{ date }}</h1>
+</div>
+
+<table repeat=1>
+<thead>
+<tr>
+<th style="width: 20%">Referencia</th>
+<th style="width: 10%">Marca</th>
+<th>Descripción</th>
+<th style="width: 10%">Unidad</th>
+<th style="width: 10%">Existencias</th>
+</tr>
+</thead>
+<tbody>
+
+{% recursetree groups %}
+<tr>
+<td colspan=5>{{ node.get_ancestors|tree_path:" > "}} > {{ node.name }}</td>
+</tr>
+{% for article in node.article_set.all %}
+{% if article.stock > 0 %}
+<tr>
+<td>{{ article.code }}</td>
+<td>{{ article.brand }}</td>
+<td>{{ article.description }}</td>
+<td>{{ article.measure_unit|default_if_none:"" }}</td>
+<td>{{ article.stock }}</td>
+</tr>
+{% endif %}
+{% endfor %}
+{% if not node.is_leaf_node %}
+{{ children }}
+{% endif %}
+{% endrecursetree %}
+</tbody>
+</table>
+
+{% endblock %}

@@ -13,6 +13,7 @@
     <th>{% trans "Reference" %}</th>
     <th>{% trans "Brand" %}</th>
     <th>{% trans "Description" %}</th>
+	<th>{% trans "Stock" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -21,6 +22,7 @@
     <td><a href="{% url 'wm_article_detail' article.id %}">{{ article.code }}</a></td>
     <td>{{ article.brand|default_if_none:"" }}</td>
     <td>{{ article.description }}</td>
+	<td>{{ article.stock }} {{ article.measure_unit }}</td>
 </tr>
 {% endfor %}
 </tbody>
