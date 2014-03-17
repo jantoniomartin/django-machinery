@@ -49,7 +49,6 @@ $(function() {
       <li class="{% block pm %}{% endblock %}"><a href="{% url 'pm_project_list' %}">{% trans "Projects" %}</a></li>
       <li class="{% block wm %}{% endblock %}"><a href="{% url 'wm_group_tree' %}">{% trans "Articles" %}</a></li>
       <li class="{% block om %}{% endblock %}"><a href="{% url 'om_order_list' %}">{% trans "Orders" %}</a></li>
-      <li><a href="{% url 'haystack_search' %}">{% trans "Search" %}</a></li>
       <li><a href="{% url 'om_cartitem_list' %}">{% trans "Cart" %} ({{ cart_count }})</a></li>
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
