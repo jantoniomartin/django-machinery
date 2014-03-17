@@ -7,4 +7,9 @@ sqlparse==0.1.10
 Whoosh==2.6.0
 wsgiref==0.1.2
 yolk==0.4.3
--e git://github.com/toastdriven/django-haystack.git#egg=django-haystack
+django-crispy-forms==1.4.0
+django-mptt==0.6.0
+Pillow==2.3.0
+pisa==3.0.33
+html5lib
+reportlab
