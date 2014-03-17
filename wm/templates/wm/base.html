@@ -13,6 +13,11 @@
 	{% if user.is_staff %}
 	<li><a href="{% url 'wm_stock_report' %}">{% trans "Stock" %}</a></li>
 	{% endif %}
+<li>
+<form method="GET" action="{% url 'wm_article_search' %}">
+  <input class="form-control" placeholder="{% trans "Search" %}" type="text" name="q" />
+</form>
+</li>
 </ul>
 {% endblock %}
 

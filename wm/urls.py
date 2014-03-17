@@ -22,6 +22,10 @@ urlpatterns = patterns("wm.views",
 		),
 		name="wm_article_list"
 	),
+	url(r'^article/search/$',
+		ArticleSearchView.as_view(),
+		name="wm_article_search"
+	),
 	url(r'^article/shortage/$',
 		ArticleShortageView.as_view(
 	),

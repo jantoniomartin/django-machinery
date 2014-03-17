@@ -12,6 +12,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from om.forms import OfferForm
 from wm import models
 from wm import forms
+from indumatic.search import get_query
 from indumatic.views import PdfView
 
 class GroupArticlesJSONView(TemplateView):
@@ -125,3 +126,19 @@ class StockReportView(PdfView):
 			'date': date.today(),
 		})
 		return ctx
+
+class ArticleSearchView(ListView):
+	model = models.Article
+	context_object_name = 'article_list'
+	template_name = 'wm/article_list.html'
+
+	def get_queryset(self):
+		query_string = self.request.GET.get('q', '')
+		entry_query = get_query(query_string,
+			['code',
+			'description',]
+		)
+		print entry_query
+		found_entries = models.Article.objects.filter(entry_query)
+		return found_entries
+
