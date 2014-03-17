@@ -103,7 +103,6 @@ class MachineComment(models.Model):
 	created_on = models.DateField(_("created on"), auto_now_add=True)
 
 	class Meta:
-		unique_together = [('machine', 'body'),]
 		verbose_name = _("machine comment")
 		verbose_name_plural = _("machine comments")
 
