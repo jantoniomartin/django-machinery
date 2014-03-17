@@ -72,7 +72,10 @@ class ArticleShortageView(ListView):
 	template_object_name = "article_list"
 	template_name = "wm/article_list"
 	paginate_by = 10
-	queryset = models.Article.objects.filter(stock__lt=F('stock_alert'))
+	queryset = models.Article.objects.filter(
+		control_stock=True,
+		stock__lt=F('stock_alert')
+	)
 
 class ArticleUpdateView(UpdateView):
 	model = models.Article
