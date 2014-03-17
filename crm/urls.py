@@ -60,6 +60,10 @@ urlpatterns = patterns("crm.views",
 		),
 		name="crm_company_create"
 	),
+	url(r'^company/search/$',
+		CompanySearchView.as_view(),
+		name="crm_company_search"
+	),
     url(r'^department/detail/(?P<pk>\d+)/$',
 		DetailView.as_view(
 			model=Department,
