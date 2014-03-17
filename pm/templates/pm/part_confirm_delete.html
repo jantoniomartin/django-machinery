@@ -9,7 +9,9 @@
 
 <p>{% blocktrans with object.article.code as code %}The part {{ code }} will be deleted. Are you sure?{% endblocktrans %}</p>
 
+{% if object.article.control_stock %}
 <p class="text-danger">{% blocktrans %}After deleting the part, the stock will be outdated. You shold adjust the stock manually.{% endblocktrans %}</p>
+{% endif %}
 
 <p><a href="{% url 'pm_machine_parts' object.machine.id %}">{% trans "Go back." %}</a>
 

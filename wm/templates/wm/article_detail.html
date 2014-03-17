@@ -38,12 +38,16 @@
 <div class="panel panel-primary">
 <div class="panel-heading">{% trans "Stock" %}</div>
 <div class="panel-body">
+{% if article.control_stock %}
 <dl class="dl-horizontal">
 <dt>{% trans "Current stock" %}</dt>
 <dd>{{ article.stock }}</dd>
 <dt>{% trans "Notify when stock is lower than" %}</dt>
 <dd>{{ article.stock_alert }}</dd>
 </dl>
+{% else %}
+<p>{% trans "Stock is not accounted." %}</p>
+{% endif %}
 </div>
 </div>
 </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-14 10:40+0100\n"
+"POT-Creation-Date: 2014-03-17 08:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,115 +30,115 @@ msgstr "Máquina"
 msgid "Select parts"
 msgstr "Selecciona componentes"
 
-#: models.py:12
+#: models.py:14
 msgid "code"
 msgstr "código"
 
-#: models.py:13 models.py:34 models.py:73
+#: models.py:15 models.py:36 models.py:75
 msgid "description"
 msgstr "descripción"
 
-#: models.py:16 models.py:30
+#: models.py:18 models.py:32
 msgid "sector"
 msgstr "sector"
 
-#: models.py:17
+#: models.py:19
 msgid "sectors"
 msgstr "sectores"
 
-#: models.py:31
+#: models.py:33
 msgid "serial number"
 msgstr "número de serie"
 
-#: models.py:32
+#: models.py:34
 msgid "old model"
 msgstr "antiguo modelo"
 
-#: models.py:35
+#: models.py:37
 msgid "notes"
 msgstr "notas"
 
-#: models.py:36 models.py:78
+#: models.py:38 models.py:80
 msgid "retired"
 msgstr "retirado"
 
-#: models.py:37 models.py:74 models.py:101
+#: models.py:39 models.py:76 models.py:103
 msgid "created on"
 msgstr "creado el"
 
-#: models.py:38
+#: models.py:40
 msgid "company"
 msgstr "empresa"
 
-#: models.py:39
+#: models.py:41
 msgid "thumbnail"
 msgstr "miniatura"
 
-#: models.py:42 models.py:79
+#: models.py:44 models.py:81
 msgid "project"
 msgstr "proyecto"
 
-#: models.py:43
+#: models.py:45
 msgid "projects"
 msgstr "proyectos"
 
-#: models.py:71
+#: models.py:73
 msgid "model"
 msgstr "modelo"
 
-#: models.py:72
+#: models.py:74
 msgid "number"
 msgstr "número"
 
-#: models.py:75
+#: models.py:77
 msgid "shipped on"
 msgstr "enviado el"
 
-#: models.py:76
+#: models.py:78
 msgid "running on"
 msgstr "en marcha el"
 
-#: models.py:77
+#: models.py:79
 msgid "estimated delivery"
 msgstr "entrega estimada"
 
-#: models.py:83 models.py:99 models.py:113
+#: models.py:85 models.py:101 models.py:115
 msgid "machine"
 msgstr "máquina"
 
-#: models.py:84
+#: models.py:86
 msgid "machines"
 msgstr "máquinas"
 
-#: models.py:100
+#: models.py:102
 msgid "body"
 msgstr "cuerpo"
 
-#: models.py:105
+#: models.py:107
 msgid "machine comment"
 msgstr "comentario de máquina"
 
-#: models.py:106
+#: models.py:108
 msgid "machine comments"
 msgstr "comentarios de máquina"
 
-#: models.py:112
+#: models.py:114
 msgid "article"
 msgstr "artículo"
 
-#: models.py:114
+#: models.py:116
 msgid "quantity"
 msgstr "cantidad"
 
-#: models.py:115
+#: models.py:117
 msgid "function"
 msgstr "función"
 
-#: models.py:119
+#: models.py:121
 msgid "part"
 msgstr "componente"
 
-#: models.py:120
+#: models.py:122
 msgid "parts"
 msgstr "componentes"
 
@@ -170,8 +170,8 @@ msgid ""
 "Select the parts that you want to copy. The parts will be copied with the "
 "same quantities and function."
 msgstr ""
-"Elige los componentes que quieres copiar. Los componentes se copiarán con las "
-"mismas cantidades y funciones."
+"Elige los componentes que quieres copiar. Los componentes se copiarán con "
+"las mismas cantidades y funciones."
 
 #: templates/pm/copy_parts.html:12
 msgid "The parts will be copied to"
@@ -202,7 +202,7 @@ msgstr ""
 
 #: templates/pm/machine_confirm_delete.html:12
 #: templates/pm/machinecomment_confirm_delete.html:17
-#: templates/pm/part_confirm_delete.html:12
+#: templates/pm/part_confirm_delete.html:16
 msgid "Go back."
 msgstr "Volver."
 
@@ -210,7 +210,7 @@ msgstr "Volver."
 #: templates/pm/machine_detail.html:41 templates/pm/machine_parts.html:63
 #: templates/pm/machine_parts.html:124
 #: templates/pm/machinecomment_confirm_delete.html:20
-#: templates/pm/part_confirm_delete.html:15
+#: templates/pm/part_confirm_delete.html:19
 #: templates/pm/project_detail.html:32 templates/pm/project_detail.html:118
 msgid "Delete"
 msgstr "Borrar"
@@ -351,6 +351,14 @@ msgstr "Borrar componente"
 #, python-format
 msgid "The part %(code)s will be deleted. Are you sure?"
 msgstr "El componente %(code)s se borrará. ¿Estás seguro?"
+
+#: templates/pm/part_confirm_delete.html:13
+msgid ""
+"After deleting the part, the stock will be outdated. You shold adjust the "
+"stock manually."
+msgstr ""
+"Tras borrar el componente, el stock estará desactualizado. Deberías ajustar "
+"el stock a mano."
 
 #: templates/pm/part_form.html:5 templates/pm/part_form.html.py:9
 msgid "Edit part"

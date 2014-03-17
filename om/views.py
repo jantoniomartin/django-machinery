@@ -185,8 +185,9 @@ class OrderReceiveView(TemplateView):
 					else:
 						completed = False
 					## update the article stock
-					item.offer.article.stock += receive
-					item.offer.article.save()
+					if item.offer.article.control_stock:
+						item.offer.article.stock += receive
+						item.offer.article.save()
 				else:
 					completed = False
 				item.save()

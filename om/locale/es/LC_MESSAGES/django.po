@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-13 13:07+0100\n"
+"POT-Creation-Date: 2014-03-17 08:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,9 +63,13 @@ msgstr "ofertas"
 msgid "Offer for %s"
 msgstr "Oferta para %s"
 
-#: models.py:27
+#: models.py:26
 msgid "created at"
 msgstr "creado el"
+
+#: models.py:27 models.py:57
+msgid "completed on"
+msgstr "completado el"
 
 #: models.py:28
 msgid "notes"
@@ -87,10 +91,6 @@ msgstr "cantidad pedida"
 msgid "received quantity"
 msgstr "cantidad recibida"
 
-#: models.py:57
-msgid "completed on"
-msgstr "completado el"
-
 #: models.py:58
 msgid "estimated delivery"
 msgstr "entrega estimada"
@@ -109,11 +109,11 @@ msgstr "cantidad"
 
 #: models.py:74
 msgid "cart item"
-msgstr ""
+msgstr "artículo en el carro"
 
 #: models.py:75
 msgid "cart items"
-msgstr ""
+msgstr "artículos en el carro"
 
 #: views.py:122
 msgid "The pdf report for the order could not be made."
@@ -183,7 +183,7 @@ msgstr "Referencia"
 msgid "Description"
 msgstr "Descripción"
 
-#: templates/om/cartitem_list.html:17 templates/om/order_list.html:16
+#: templates/om/cartitem_list.html:17
 #: templates/om/orderitem_pending_list.html:20
 msgid "Actions"
 msgstr "Acciones"
@@ -196,7 +196,7 @@ msgstr "Confirmar"
 msgid "Edit offer"
 msgstr "Editar oferta"
 
-#: templates/om/offer_form.html:15 templates/om/order_form.html:89
+#: templates/om/offer_form.html:15 templates/om/order_form.html:90
 msgid "Save"
 msgstr "Guardar"
 
@@ -237,6 +237,14 @@ msgstr "Emails para pedidos"
 msgid "Sum"
 msgstr "Total"
 
+#: templates/om/order_form.html:92
+msgid ""
+"This supplier has not an email for orders. Add first an email, and then "
+"create the order."
+msgstr ""
+"El proveedor no tiene un email para pedidos. Añade primero un email, y "
+"después envía el pedido."
+
 #: templates/om/order_list.html:4 templates/om/order_list.html.py:8
 msgid "Order list"
 msgstr "Lista de pedidos"
@@ -245,7 +253,11 @@ msgstr "Lista de pedidos"
 msgid "Date"
 msgstr "Fecha"
 
-#: templates/om/order_list.html:26 templates/om/order_receive.html:35
+#: templates/om/order_list.html:16
+msgid "Completed"
+msgstr "Completado"
+
+#: templates/om/order_list.html:30 templates/om/order_receive.html:35
 #: templates/om/orderitem_pending_list.html:34
 msgid "Receive"
 msgstr "Recibir"
