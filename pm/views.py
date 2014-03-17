@@ -14,6 +14,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormVi
 from pm.forms import *
 from pm.models import Project, Machine, MachineComment, Part
 from wm.models import Group
+from indumatic.search import get_query
 from indumatic.views import PdfView
 
 class MachineCommentCreateView(CreateView):
@@ -208,4 +209,19 @@ class PartsReportView(PdfView):
 		project = get_object_or_404(Project, id=self.kwargs['pk'])
 		ctx.update({ 'project': project})
 		return ctx
+
+class ProjectSearchView(ListView):
+	model = Project
+	context_object_name = 'project_list'
+	template_name = 'pm/project_list.html'
+
+	def get_queryset(self):
+		query_string = self.request.GET.get('q', '')
+		entry_query = get_query(query_string,
+			['description',
+			'machine__description',]
+		)
+		print entry_query
+		found_entries = Project.objects.filter(entry_query)
+		return found_entries
 

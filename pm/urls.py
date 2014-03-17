@@ -57,6 +57,10 @@ urlpatterns = patterns("pm.views",
 		),
 		name="pm_project_create"
 	),
+	url(r'^project/search/$',
+		ProjectSearchView.as_view(),
+		name="pm_project_search"
+	),
     url(r'^project/parts/report/(?P<pk>\d+)/$',
 		PartsReportView.as_view(),
 		name="pm_project_parts_report"
