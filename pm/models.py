@@ -117,7 +117,7 @@ class Part(models.Model):
     function = models.CharField(_("function"), max_length=255)
 
     class Meta:
-        ordering = ["-pk",]
+        ordering = ["pk",]
         verbose_name = _("part")
         verbose_name_plural = _("parts")
 
