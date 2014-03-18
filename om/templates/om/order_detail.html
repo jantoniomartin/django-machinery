@@ -7,8 +7,9 @@
 
 <h1>{% trans "Order" %} {{ order }}</h1>
 
-<embed src="{% url 'om_order_pdf' order.id %}" width="800" height="360" type="application/pdf">
+<embed src="{% url 'om_order_pdf' order.id %}" width="800" height="600" type="application/pdf">
 
+{% if not order.completed_on %}
 <div>
 <h3>{% trans "Order will be sent to" %}</h3>
 <p>{{ order.recipient_list|join:", " }}</p>
@@ -19,5 +20,6 @@
 <button type="submit" class="btn btn-primary">{% trans "Send" %}</button>
 </form>
 </div>
+{% endif %}
 
 {% endblock %}
