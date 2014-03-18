@@ -22,9 +22,9 @@
 {% endif %}
 <dt>{% trans "VATIN" %}</dt><dd>{{ company.vatin|default_if_none:"" }}</dd>
 <dt>{% trans "Address" %}</dt>
-<dd>{{ company.address }}<br/>
-	{{ company.postal_code }} {{ company.city }}<br/>
-	{{ company.region }} - {{ company.country }}
+<dd>{{ company.address|default_if_none:"" }}<br/>
+	{{ company.postal_code }} {{ company.city|default_if_none:"" }}<br/>
+	{{ company.region|default_if_none:"" }} - {{ company.country|default_if_none:"" }}
 </dd>
 <dt>{% trans "Phone numbers" %}</dt>
 <dd>

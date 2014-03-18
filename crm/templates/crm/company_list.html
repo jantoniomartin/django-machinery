@@ -33,7 +33,7 @@
 		<a href="{% url 'crm_group_detail' c.group.id %}">{{ c.group }}</a>
 	{% endif %}
 	</td>
-	<td><a href="{% url 'crm_company_edit' c.id %}">{% trans "Edit" %}</a></td>
+	<td><a href="{% url 'crm_company_edit' c.id %}" class="btn btn-sm btn-primary">{% trans "Edit" %}</a></td>
 </tr>
 {% endfor %}
 </tbody>
