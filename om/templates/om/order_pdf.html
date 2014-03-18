@@ -59,8 +59,8 @@ Web: http://www.indumatic.net
 <td style="text-align: center">{{ item.offer.article.measure_unit }}</td>
 <td>{{ item.offer.article.code }}</td>
 <td>{{ item.offer.article.description }}</td>
-<td style="text-align: right">{{ item.offer.invoice_price }}</td>
-<td style="text-align: right">{{ item.cost }}</td>
+<td style="text-align: right">{{ item.offer.invoice_price|floatformat:2 }}</td>
+<td style="text-align: right">{{ item.cost|floatformat:2 }}</td>
 </tr>
 {% endfor %}
 </tbody>

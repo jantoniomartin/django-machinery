@@ -79,8 +79,8 @@
 	<td>{{ offer.created_on }}</td>
 	<td>{{ offer.expired_on|default_if_none:"" }}</td>
 	<td>{{ offer.code }}</td>
-	<td>{{ offer.retail_price|default_if_none:"" }}</td>
-	<td>{{ offer.invoice_price|default_if_none:"" }}</td>
+	<td>{{ offer.retail_price|floatformat:2 }}</td>
+	<td>{{ offer.invoice_price|floatformat:2 }}</td>
 	<td><a href="{% url 'om_offer_edit' offer.id %}">{% trans "Edit" %}</a></td>
 </td>
 {% endfor %}
