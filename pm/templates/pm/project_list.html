@@ -31,7 +31,7 @@
 	</td>
     <td><a href="{% url 'pm_project_detail' project.id %}">{{ project }}</a></td>
     <td>{{ project.description }}</td>
-    <td><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.customer }}</a></td>
+    <td><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a></td>
     <td>{{ project.created_on }}</td>
 </tr>
 {% endfor %}
