@@ -52,6 +52,9 @@ $(function() {
       <li><a href="{% url 'om_cartitem_list' %}">{% trans "Cart" %} ({{ cart_count }})</a></li>
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
+	  {% if user.is_authenticated %}
+	  <li class="navbar-text">{{ user.first_name }} {{ user.last_name }}</li>
+	  {% endif %}
 	  {% if user.is_staff %}
       <li><a href="/admin">{% trans "Admin" %}</a></li>
 	  {% endif %}
