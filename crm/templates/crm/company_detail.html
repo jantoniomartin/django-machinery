@@ -9,6 +9,10 @@
 <h1>{{ company.name|title }}</h1>
 <p>
 <a href="{% url 'crm_company_edit' company.id %}">{% trans "Edit company" %}</a>
+{% if company.is_supplier %}
+|
+<a href="{% url 'om_order_by_company' company.id %}">{% trans "Orders" %}</a>
+{% endif %}
 </p>
 
 <div class="panel panel-primary">

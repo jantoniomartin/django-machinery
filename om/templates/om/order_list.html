@@ -5,7 +5,11 @@
 
 {% block content %}
 
-<h1>{% trans "Order list" %}</h1>
+<h1>{% trans "Order list" %}
+{% if company %}
+({{ company }})
+{% endif %}
+</h1>
 
 <table class="table table-striped table-hover">
 <thead>

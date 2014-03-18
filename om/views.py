@@ -145,6 +145,22 @@ class OrderDetailView(DetailView):
 				messages.success(self.request, _("The order was successfully sent."))
 		return HttpResponseRedirect(reverse('om_order_pending'))
 
+class OrderByCompanyListView(ListView):
+	context_object_name = "order_list"
+	paginate_by = 10
+	template_name = 'om/order_list.html'
+
+	def get_queryset(self):
+		return Order.objects.filter(company__id=self.kwargs['pk'])
+
+	def get_context_data(self, *args, **kwargs):
+		ctx = super(OrderByCompanyListView, self).get_context_data(*args, **kwargs)
+		company = get_object_or_404(Company, id=self.kwargs['pk'])
+		ctx.update({
+			'company': company,
+		})
+		return ctx
+
 class OrderReceiveView(TemplateView):
 	template_name = "om/order_receive.html"
 	

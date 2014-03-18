@@ -48,6 +48,10 @@ urlpatterns = patterns("om.views",
 		OrderDetailView.as_view(),
 		name="om_order_detail"
 	),
+	url(r'^order/list/(?P<pk>\d+)$',
+		OrderByCompanyListView.as_view(),
+		name="om_order_by_company"
+	),
 	url(r'^order/receive/(?P<pk>\d+)$',
 		OrderReceiveView.as_view(),
 		name="om_order_receive"
