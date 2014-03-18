@@ -29,7 +29,7 @@ class Order(models.Model):
 	company = models.ForeignKey(crm.Company, verbose_name=_("company"))
 
 	class Meta:
-		ordering = ["id",]
+		ordering = ["-id",]
 		verbose_name = _("order")
 		verbose_name_plural = _("orders")
 
