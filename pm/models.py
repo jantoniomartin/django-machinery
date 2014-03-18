@@ -58,16 +58,17 @@ class Project(models.Model):
 
 	def save(self, force_insert=False, force_update=False):
 		super(Project, self).save(force_insert, force_update)
-		pw = self.thumbnail.width
-		ph = self.thumbnail.height
-		## max height = 240px
-		if ph > 240:
-			height = 240
-			width = int(pw * 240.0 / ph)
-			filename = str(self.thumbnail.path)
-			im = Image.open(filename)
-			im = im.resize((width, height), Image.ANTIALIAS)
-			im.save(self.thumbnail.path)
+		if self.thumbnail:
+			pw = self.thumbnail.width
+			ph = self.thumbnail.height
+			## max height = 240px
+			if ph > 240:
+				height = 240
+				width = int(pw * 240.0 / ph)
+				filename = str(self.thumbnail.path)
+				im = Image.open(filename)
+				im = im.resize((width, height), Image.ANTIALIAS)
+				im.save(self.thumbnail.path)
 
 class Machine(models.Model):
 	model = models.CharField(_("model"), max_length=3)
