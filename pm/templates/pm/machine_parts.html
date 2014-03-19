@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load mptt_tags %}
 {% load crispy_forms_tags %}
+{% load cache %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'vakata-jstree/themes/default/style.min.css' %}" />
@@ -132,6 +133,7 @@ $(function() {
 <div class="panel panel-primary">
 <div class="panel-heading">{% trans "Select category" %}</div>
 <div id="tree" class="panel-body">
+{% cache 1800 groups_tree %}
 <ul>
 	{% recursetree nodes %}
 		<li id="node_{{ node.id }}">
@@ -144,6 +146,7 @@ $(function() {
 		</li>
 	{% endrecursetree %}
 </ul>
+{% endcache %}
 </div>
 </div>
 </div>

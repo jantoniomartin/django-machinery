@@ -1,4 +1,7 @@
+from django.core import cache
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
 from mptt.models import MPTTModel, TreeForeignKey
@@ -36,6 +39,11 @@ class Group(MPTTModel):
 	@models.permalink
 	def get_absolute_url(self):
 		return('wm_group_detail', [self.id])
+
+@receiver(post_save, sender=Group)
+def clear_tree_cache(sender, instance, created, raw, using, **kwargs):
+	if cache.get('groups_tree'):
+		cache.clear('groups_tree')
 
 class Article(models.Model):
 	code = models.CharField(_("code"), max_length=128)
