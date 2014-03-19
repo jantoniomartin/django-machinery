@@ -29,8 +29,8 @@ class NewMachineForm(forms.ModelForm):
 		m = super(NewMachineForm, self).save(commit=False)
 		if not m.number:
 			try:
-				n = Machine.objects.filter(
-					project=m.project).order_by("-number")[0].number
+				n = int(Machine.objects.filter(
+					project=m.project).order_by("-number")[0].number)
 			except IndexError:
 				n = 0
 			m.number = str(n + 1).zfill(2)
