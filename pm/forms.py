@@ -53,7 +53,7 @@ class ProjectForm(forms.ModelForm):
 
 	class Meta:
 		model = Project
-		exclude = ['serial', 'old_model', 'is_retired']
+		exclude = ['serial', 'old_model',]
 
 	def save(self, force_insert=False, force_update=False, commit=True):
 		m = super(ProjectForm, self).save(commit=False)
