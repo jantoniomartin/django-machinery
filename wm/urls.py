@@ -1,8 +1,8 @@
 from django.conf.urls import patterns, url
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from wm.models import Group, Article
+from wm.models import Group, Article, SupplierCode
 from wm.views import *
 
 urlpatterns = patterns("wm.views",
@@ -58,5 +58,25 @@ urlpatterns = patterns("wm.views",
 	url(r'^stock_report/$',
 		StockReportView.as_view(),
 		name="wm_stock_report"
+	),
+	url(r'^scodes/(?P<pk>\d+)/$',
+		DetailView.as_view(
+			model = Article,
+			context_object_name = 'article',
+			template_name = 'wm/article_supplier_codes.html'
+		),
+		name="wm_scode_list"
+	),
+	url(r'^scodes/(?P<pk>\d+)/create/$',
+		SupplierCodeCreateView.as_view(),
+		name="wm_scode_create"
+	),
+	url(r'^scodes/edit/(?P<pk>\d+)/$',
+		SupplierCodeEditView.as_view(),
+		name="wm_scode_edit"
+	),
+	url(r'^scodes/delete/(?P<pk>\d+)/$',
+		SupplierCodeDeleteView.as_view(),
+		name="wm_scode_delete"
 	),
 )

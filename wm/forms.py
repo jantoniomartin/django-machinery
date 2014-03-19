@@ -1,6 +1,6 @@
 from django import forms
 
-from wm.models import Article, Group
+from wm.models import Article, Group, SupplierCode
 
 class ArticleForm(forms.ModelForm):
 	group = forms.ModelChoiceField(queryset=Group.objects.all(),
@@ -15,3 +15,10 @@ class GroupForm(forms.ModelForm):
 	
 	class Meta:
 		model = Group
+
+class SupplierCodeForm(forms.ModelForm):
+	article = forms.ModelChoiceField(queryset=Article.objects.all(),
+		widget=forms.HiddenInput)
+	
+	class Meta:
+		model = SupplierCode

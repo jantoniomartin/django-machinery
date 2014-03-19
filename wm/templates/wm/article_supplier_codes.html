@@ -1,0 +1,37 @@
+{% extends 'wm/base.html' %}
+{% load i18n %}
+
+{% block title %}{% blocktrans with article.code as code %}Supplier codes for {{ code }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<h1>{% blocktrans with article.code as code %}Supplier codes for {{ code }}{% endblocktrans %}</h1>
+
+<p>
+<a href="{% url 'wm_scode_create' article.id %}">{% trans "New supplier code" %}</a>
+|
+<a href="{% url 'wm_article_detail' article.id %}">{% trans "Return to article" %}</a>
+</p>
+
+<table class="table table-stripe table-hover">
+<thead>
+<th>{% trans "Supplier" %}</th>
+<th>{% trans "Code" %}</th>
+<th>{% trans "Actions" %}</th>
+</thead>
+<tbody>
+{% for s in article.suppliercode_set.all %}
+<tr>
+<td>{{ s.company }}</td>
+<td>{{ s.code }}</td>
+<td>
+<a href="{% url 'wm_scode_edit' s.id %}" class="btn btn-primary btn-xs">{% trans "Edit" %}</a>
+<a href="{% url 'wm_scode_delete' s.id %}" class="btn btn-danger btn-xs">{% trans "Delete" %}</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
+
+
