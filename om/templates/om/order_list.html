@@ -15,6 +15,7 @@
 <thead>
 <tr>
 <td>{% trans "Reference" %}</td>
+<td>{% trans "Ordered by" %}</td>
 <td>{% trans "Date" %}</td>
 <td>{% trans "Supplier" %}</td>
 <td>{% trans "Completed" %}</td>
@@ -24,6 +25,7 @@
 {% for order in order_list %}
 <tr>
 <td class="center"><a href="{% url 'om_order_detail' order.id %}">{{ order }}</a></td>
+<td>{{ order.created_by }}</td>
 <td>{{ order.created_at }}</td>
 <td><a href="{% url 'crm_company_detail' order.company.id %}">{{ order.company }}</a></td>
 <td>

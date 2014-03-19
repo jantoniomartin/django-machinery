@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-19 12:05+0100\n"
+"POT-Creation-Date: 2014-03-19 12:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,108 +22,112 @@ msgstr ""
 msgid "Password"
 msgstr "Contraseña"
 
-#: models.py:8
+#: models.py:9
 msgid "article"
 msgstr "artículo"
 
-#: models.py:9 models.py:29
+#: models.py:10 models.py:30
 msgid "company"
 msgstr "empresa"
 
-#: models.py:10
+#: models.py:11
 msgid "created on"
 msgstr "creado el"
 
-#: models.py:11
+#: models.py:12
 msgid "confirmed on"
 msgstr "confirmado el"
 
-#: models.py:12
+#: models.py:13
 msgid "expired on"
 msgstr "caducado el"
 
-#: models.py:13
+#: models.py:14
 msgid "offer code"
 msgstr "código de oferta"
 
-#: models.py:14
+#: models.py:15
 msgid "retail price"
 msgstr "P.V.P."
 
-#: models.py:15
+#: models.py:16
 msgid "invoice price"
 msgstr "precio neto"
 
-#: models.py:19 models.py:60 models.py:70
+#: models.py:20 models.py:62 models.py:73
 msgid "offer"
 msgstr "oferta"
 
-#: models.py:20
+#: models.py:21
 msgid "offers"
 msgstr "ofertas"
 
-#: models.py:23
+#: models.py:24
 #, python-format
 msgid "Offer for %s"
 msgstr "Oferta para %s"
 
-#: models.py:26
+#: models.py:27
 msgid "created at"
 msgstr "creado el"
 
-#: models.py:27 models.py:57
+#: models.py:28 models.py:59
 msgid "completed on"
 msgstr "completado el"
 
-#: models.py:28
+#: models.py:29
 msgid "notes"
 msgstr "notas"
 
-#: models.py:33 models.py:59
+#: models.py:31
+msgid "created by"
+msgstr "creado por"
+
+#: models.py:35 models.py:61
 msgid "order"
 msgstr "pedido"
 
-#: models.py:34
+#: models.py:36
 msgid "orders"
 msgstr "pedidos"
 
-#: models.py:55
+#: models.py:57
 msgid "ordered quantity"
 msgstr "cantidad pedida"
 
-#: models.py:56
+#: models.py:58
 msgid "received quantity"
 msgstr "cantidad recibida"
 
-#: models.py:58
+#: models.py:60
 msgid "estimated delivery"
 msgstr "entrega estimada"
 
-#: models.py:63
+#: models.py:66
 msgid "order line"
 msgstr "línea de pedido"
 
-#: models.py:64
+#: models.py:67
 msgid "order lines"
 msgstr "líneas de pedido"
 
-#: models.py:71
+#: models.py:74
 msgid "quantity"
 msgstr "cantidad"
 
-#: models.py:74
+#: models.py:77
 msgid "cart item"
 msgstr "artículo en el carro"
 
-#: models.py:75
+#: models.py:78
 msgid "cart items"
 msgstr "artículos en el carro"
 
-#: views.py:125
+#: views.py:127
 msgid "The pdf report for the order could not be made."
 msgstr "No se ha podido generar el archivo pdf"
 
-#: views.py:148
+#: views.py:150
 msgid "The order was successfully sent."
 msgstr "El pedido se ha enviado correctamente."
 
@@ -166,7 +170,7 @@ msgstr "Borrar"
 msgid "Articles ready to be ordered"
 msgstr "Artículos listos para ser pedidos"
 
-#: templates/om/cartitem_list.html:13 templates/om/order_list.html:19
+#: templates/om/cartitem_list.html:13 templates/om/order_list.html:20
 #: templates/om/order_receive.html:16
 #: templates/om/orderitem_pending_list.html:13
 msgid "Supplier"
@@ -255,25 +259,29 @@ msgstr ""
 msgid "Order list"
 msgstr "Lista de pedidos"
 
-#: templates/om/order_list.html:18 templates/om/order_receive.html:14
+#: templates/om/order_list.html:18
+msgid "Ordered by"
+msgstr "Pedido por"
+
+#: templates/om/order_list.html:19 templates/om/order_receive.html:14
 msgid "Date"
 msgstr "Fecha"
 
-#: templates/om/order_list.html:20
+#: templates/om/order_list.html:21
 msgid "Completed"
 msgstr "Completado"
 
-#: templates/om/order_list.html:34 templates/om/order_receive.html:35
+#: templates/om/order_list.html:36 templates/om/order_receive.html:35
 #: templates/om/orderitem_pending_list.html:34
 msgid "Receive"
 msgstr "Recibir"
 
-#: templates/om/order_list.html:47 templates/om/orderitem_by_company.html:37
+#: templates/om/order_list.html:49 templates/om/orderitem_by_company.html:37
 #: templates/om/orderitem_pending_list.html:45
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/om/order_list.html:52 templates/om/orderitem_by_company.html:42
+#: templates/om/order_list.html:54 templates/om/orderitem_by_company.html:42
 #: templates/om/orderitem_pending_list.html:50
 msgid "Next"
 msgstr "Siguiente"
@@ -334,7 +342,7 @@ msgstr "Referencia del pedido"
 
 #: templates/om/orderitem_pending_list.html:15
 msgid "Received"
-msgstr "Recibir"
+msgstr "Recibido"
 
 #: templates/om/orderitem_pending_list.html:19
 msgid "Estimated delivery"

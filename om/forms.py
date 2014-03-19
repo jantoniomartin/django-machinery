@@ -38,7 +38,7 @@ class OrderForm(forms.ModelForm):
 
 	class Meta:
 		model = models.Order
-		exclude = ['completed_on',]
+		exclude = ['completed_on', 'created_by',]
 
 class OrderItemReceptionForm(forms.ModelForm):
 	receive = forms.IntegerField(required=False)

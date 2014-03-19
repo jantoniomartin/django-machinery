@@ -24,16 +24,18 @@ Web: http://www.indumatic.net
 <tr>
 <th>Referencia</th>
 <th>Fecha</th>
+<th>Pedido por</th>
 <th>Proveedor</th>
 </tr>
 <tr>
 <td style="text-align: center">{{ order }}</td>
 <td>{{ order.created_at }}</td>
+<td>{{ order.created_by.first_name }} {{ order.created_by.last_name }}</td>
 <td>{{ order.company }}</td>
 </tr>
 <tr>
 <th>Destinatarios:</th>
-<td colspan="2">{{ order.recipient_list|join:", " }}</td>
+<td colspan="3">{{ order.recipient_list|join:", " }}</td>
 </tr>
 </table>
 

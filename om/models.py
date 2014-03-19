@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -27,6 +28,7 @@ class Order(models.Model):
 	completed_on = models.DateField(_("completed on"), null=True, blank=True)
 	notes = models.CharField(_("notes"), max_length=255, null=True, blank=True)
 	company = models.ForeignKey(crm.Company, verbose_name=_("company"))
+	created_by = models.ForeignKey(User, verbose_name=_("created by"))
 
 	class Meta:
 		ordering = ["-id",]
