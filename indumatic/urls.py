@@ -11,7 +11,7 @@ from indumatic.views import DashboardView
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', DashboardView.as_view(), name='home'),
-	#url(r'session_security/', include('session_security.urls')),
+	url(r'session_security/', include('session_security.urls')),
 	url(r'^login/$', login, name="login"),
 	url(r'^logout/$',
 		logout_then_login,
