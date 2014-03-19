@@ -6,6 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from mptt.models import MPTTModel, TreeForeignKey
 
+from crm.models import Company
+
 class Brand(models.Model):
 	name = models.CharField(_("name"), max_length=50)
 
@@ -70,4 +72,16 @@ class Article(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return('wm_article_detail', [self.id])
+
+class SupplierCode(models.Model):
+	article = models.ForeignKey(Article, verbose_name=_("article"))
+	company = models.ForeignKey(Company, verbose_name=_("company"))
+	code = models.CharField(_("code"), max_length=50)
+
+	class Meta:
+		verbose_name = _("supplier code")
+		verbose_name_plural = _("supplier codes")
+
+	def __unicode__(self):
+		return self.code
 
