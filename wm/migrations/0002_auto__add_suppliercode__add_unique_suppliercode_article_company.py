@@ -17,8 +17,14 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'wm', ['SupplierCode'])
 
+        # Adding unique constraint on 'SupplierCode', fields ['article', 'company']
+        db.create_unique(u'wm_suppliercode', ['article_id', 'company_id'])
+
 
     def backwards(self, orm):
+        # Removing unique constraint on 'SupplierCode', fields ['article', 'company']
+        db.delete_unique(u'wm_suppliercode', ['article_id', 'company_id'])
+
         # Deleting model 'SupplierCode'
         db.delete_table(u'wm_suppliercode')
 
@@ -81,7 +87,7 @@ class Migration(SchemaMigration):
             u'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
         },
         u'wm.suppliercode': {
-            'Meta': {'object_name': 'SupplierCode'},
+            'Meta': {'unique_together': "[('article', 'company')]", 'object_name': 'SupplierCode'},
             'article': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['wm.Article']"}),
             'code': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'company': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['crm.Company']"}),

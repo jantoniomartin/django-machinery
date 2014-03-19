@@ -10,6 +10,8 @@
 <h1>{{ article.code }}</h1>
 <p>
 <a href="{% url 'wm_article_edit' article.id %}">{% trans "Edit article" %}</a>
+|
+<a href="{% url 'wm_scode_list' article.id %}">{% trans "Supplier codes" %}</a>
 </p>
 
 <div class="col-md-6">

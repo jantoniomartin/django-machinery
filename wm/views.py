@@ -7,7 +7,7 @@ from django.db.models import ObjectDoesNotExist, F
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView, ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from om.forms import OfferForm
 from wm import models
@@ -142,3 +142,26 @@ class ArticleSearchView(ListView):
 		found_entries = models.Article.objects.filter(entry_query)
 		return found_entries
 
+class SupplierCodeCreateView(CreateView):
+	model = models.SupplierCode
+	form_class = forms.SupplierCodeForm
+	
+	def get_initial(self):
+		return {'article': self.kwargs['pk']}
+
+	def get_success_url(self):
+		return reverse('wm_scode_list', args=[self.kwargs['pk']])
+		
+class SupplierCodeEditView(UpdateView):
+	model = models.SupplierCode
+	form_class = forms.SupplierCodeForm
+	
+	def get_success_url(self):
+		return reverse('wm_scode_list', args=[self.object.article.id])
+		
+class SupplierCodeDeleteView(DeleteView):
+	model = models.SupplierCode
+	
+	def get_success_url(self):
+		return reverse('wm_scode_list', args=[self.object.article.id])
+		

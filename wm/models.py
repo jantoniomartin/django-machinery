@@ -79,6 +79,7 @@ class SupplierCode(models.Model):
 	code = models.CharField(_("code"), max_length=50)
 
 	class Meta:
+		unique_together = [('article', 'company'),]
 		verbose_name = _("supplier code")
 		verbose_name_plural = _("supplier codes")
 

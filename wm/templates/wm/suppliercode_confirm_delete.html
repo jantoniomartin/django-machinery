@@ -1,0 +1,18 @@
+{% extends 'wm/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete supplier code" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Delete confirmation" %}</h1>
+
+<p>{% blocktrans %}The code {{ object }} will be deleted. Are you sure?{% endblocktrans %}</p>
+
+<p><a href="{% url 'wm_scode_list' object.article.id %}">{% trans "Go back." %}</a>
+
+<form action="" method="post">{% csrf_token %}
+	<button type="submit" class="btn btn-primary">{% trans "Delete" %}</button>
+</form>
+
+{% endblock %}
