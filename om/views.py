@@ -77,6 +77,9 @@ class OrderCreateView(CreateView):
 		return ctx
 
 	def form_valid(self, form):
+		pwd = form.cleaned_data.get('password', None)
+		if not self.request.user.check_password(pwd):
+			return HttpResponseRedirect(reverse('logout_then_login'))
 		obj = form.save()
 		for item in form.cleaned_data["items"]:
 			OrderItem.objects.create(

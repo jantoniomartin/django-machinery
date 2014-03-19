@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from om import models
 from crm.models import Company
@@ -32,11 +33,13 @@ class OrderForm(forms.ModelForm):
 		required=False,
 		widget=forms.Textarea
 	)
+	password = forms.CharField(label=_("Password"),
+		widget=forms.PasswordInput)
 
 	class Meta:
 		model = models.Order
 		exclude = ['completed_on',]
-	
+
 class OrderItemReceptionForm(forms.ModelForm):
 	receive = forms.IntegerField(required=False)
 	estimated_delivery = forms.DateField(required=False,
