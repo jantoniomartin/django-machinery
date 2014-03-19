@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-17 08:42+0100\n"
+"POT-Creation-Date: 2014-03-19 12:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:36
+msgid "Password"
+msgstr "Contraseña"
 
 #: models.py:8
 msgid "article"
@@ -115,11 +119,11 @@ msgstr "artículo en el carro"
 msgid "cart items"
 msgstr "artículos en el carro"
 
-#: views.py:122
+#: views.py:125
 msgid "The pdf report for the order could not be made."
 msgstr "No se ha podido generar el archivo pdf"
 
-#: views.py:145
+#: views.py:148
 msgid "The order was successfully sent."
 msgstr "El pedido se ha enviado correctamente."
 
@@ -162,7 +166,7 @@ msgstr "Borrar"
 msgid "Articles ready to be ordered"
 msgstr "Artículos listos para ser pedidos"
 
-#: templates/om/cartitem_list.html:13 templates/om/order_list.html:15
+#: templates/om/cartitem_list.html:13 templates/om/order_list.html:19
 #: templates/om/order_receive.html:16
 #: templates/om/orderitem_pending_list.html:13
 msgid "Supplier"
@@ -172,13 +176,15 @@ msgstr "Proveedor"
 msgid "Quantity"
 msgstr "Cantidad"
 
-#: templates/om/cartitem_list.html:15 templates/om/order_list.html:13
+#: templates/om/cartitem_list.html:15 templates/om/order_list.html:17
 #: templates/om/order_receive.html:37
+#: templates/om/orderitem_by_company.html:16
 #: templates/om/orderitem_pending_list.html:17
 msgid "Reference"
 msgstr "Referencia"
 
 #: templates/om/cartitem_list.html:16 templates/om/order_receive.html:38
+#: templates/om/orderitem_by_company.html:17
 #: templates/om/orderitem_pending_list.html:18
 msgid "Description"
 msgstr "Descripción"
@@ -205,11 +211,11 @@ msgstr "Guardar"
 msgid "Order"
 msgstr "Pedido"
 
-#: templates/om/order_detail.html:13
+#: templates/om/order_detail.html:14
 msgid "Order will be sent to"
 msgstr "El pedido se enviará a"
 
-#: templates/om/order_detail.html:19
+#: templates/om/order_detail.html:20
 msgid "Send"
 msgstr "Enviar"
 
@@ -249,18 +255,28 @@ msgstr ""
 msgid "Order list"
 msgstr "Lista de pedidos"
 
-#: templates/om/order_list.html:14 templates/om/order_receive.html:14
+#: templates/om/order_list.html:18 templates/om/order_receive.html:14
 msgid "Date"
 msgstr "Fecha"
 
-#: templates/om/order_list.html:16
+#: templates/om/order_list.html:20
 msgid "Completed"
 msgstr "Completado"
 
-#: templates/om/order_list.html:30 templates/om/order_receive.html:35
+#: templates/om/order_list.html:34 templates/om/order_receive.html:35
 #: templates/om/orderitem_pending_list.html:34
 msgid "Receive"
 msgstr "Recibir"
+
+#: templates/om/order_list.html:47 templates/om/orderitem_by_company.html:37
+#: templates/om/orderitem_pending_list.html:45
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/om/order_list.html:52 templates/om/orderitem_by_company.html:42
+#: templates/om/orderitem_pending_list.html:50
+msgid "Next"
+msgstr "Siguiente"
 
 #: templates/om/order_receive.html:8
 msgid "Receive order"
@@ -279,6 +295,7 @@ msgid "Order reception"
 msgstr "Recepción del pedido"
 
 #: templates/om/order_receive.html:33
+#: templates/om/orderitem_by_company.html:14
 #: templates/om/orderitem_pending_list.html:14
 msgid "Ordered"
 msgstr "Pedidos"
@@ -288,6 +305,7 @@ msgid "Pending"
 msgstr "Pendientes"
 
 #: templates/om/order_receive.html:36
+#: templates/om/orderitem_by_company.html:15
 #: templates/om/orderitem_pending_list.html:16
 msgid "Unit"
 msgstr "Unidad"
@@ -303,6 +321,16 @@ msgstr "Fecha de entrega"
 #: templates/om/order_receive.html:63
 msgid "Update"
 msgstr "Actualizar"
+
+#: templates/om/orderitem_by_company.html:4
+#: templates/om/orderitem_by_company.html:8
+#, python-format
+msgid "Orders to %(company)s"
+msgstr "Pedidos a %(company)s"
+
+#: templates/om/orderitem_by_company.html:13
+msgid "Order reference"
+msgstr "Referencia del pedido"
 
 #: templates/om/orderitem_pending_list.html:15
 msgid "Received"

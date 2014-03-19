@@ -149,12 +149,12 @@ class OrderDetailView(DetailView):
 		return HttpResponseRedirect(reverse('om_order_pending'))
 
 class OrderByCompanyListView(ListView):
-	context_object_name = "order_list"
+	context_object_name = "item_list"
 	paginate_by = 10
-	template_name = 'om/order_list.html'
+	template_name = 'om/orderitem_by_company.html'
 
 	def get_queryset(self):
-		return Order.objects.filter(company__id=self.kwargs['pk'])
+		return OrderItem.objects.filter(offer__company__id=self.kwargs['pk'])
 
 	def get_context_data(self, *args, **kwargs):
 		ctx = super(OrderByCompanyListView, self).get_context_data(*args, **kwargs)
