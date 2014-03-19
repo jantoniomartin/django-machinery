@@ -45,11 +45,13 @@ class DashboardView(TemplateView):
 		context = super(DashboardView, self).get_context_data(**kwargs)
 		min_year = getattr(settings, "PM_RUNNING_ALL_BEFORE_YEAR", 1900)
 		active_projects = pm.Project.objects.filter(
+			is_retired=False,
 			machine__shipped_on__isnull=True,
 			machine__running_on__isnull=True,
 			machine__created_on__gt=datetime.date(min_year, 1, 1)
 		).distinct()
 		shipped_projects = pm.Project.objects.filter(
+			is_retired=False,
 			machine__shipped_on__isnull=False,
 			machine__running_on__isnull=True,
 			machine__created_on__gt=datetime.date(min_year, 1, 1)
