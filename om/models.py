@@ -60,6 +60,7 @@ class OrderItem(models.Model):
 	offer = models.ForeignKey(Offer, verbose_name=_("offer"))
 
 	class Meta:
+		ordering = ['-id',]
 		verbose_name = _("order line")
 		verbose_name_plural = _("order lines")
 
