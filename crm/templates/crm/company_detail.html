@@ -67,11 +67,11 @@
 <td>
 <a href="{% url 'crm_department_detail' d.id %}">{{ d.name }}</a>
 </td>
-<td>{{ d.person }}</td>
-<td>{{ d.phone }}</td>
-<td>{{ d.email }}</td>
+<td>{{ d.person|default_if_none:"" }}</td>
+<td>{{ d.phone|default_if_none:"" }}</td>
+<td>{{ d.email|default_if_none:"" }}</td>
 <td>{{ d.send_orders|yesno }}</td>
-<td>{{ d.comment }}</td>
+<td>{{ d.comment|default_if_none:"" }}</td>
 </tr>
 {% endfor %}
 </tbody>
