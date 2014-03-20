@@ -16,6 +16,12 @@ class OfferForm(forms.ModelForm):
 		input_formats=['%d/%m/%Y', '%Y-%m-%d'],
 		label=_("Expiration"),
 		widget=forms.DateInput(attrs={'class': 'dateinput'}))
+	retail_price = forms.FloatField(localize=True, required=False,
+		label = _("Retail price")
+	)
+	invoice_price = forms.FloatField(localize=True, required=False,
+		label = _("Invoice price")
+	)
 	
 	class Meta:
 		model = models.Offer
