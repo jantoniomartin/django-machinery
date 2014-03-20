@@ -69,6 +69,23 @@ class OrderItem(models.Model):
 	def __unicode__(self):
 		return self.id
 
+	def as_csv(self, template, sep=u","):
+		template = template.replace(" ", "")
+		fields = template.split(",")
+		csv_list = []
+		for field in fields:
+			if field == "suppliercode":
+				try:
+					sc = wm.SupplierCode.objects.get(
+						article=self.offer.article,
+						company=self.offer.company).code
+				except models.ObjectDoesNotExist:
+					sc = u" "
+				csv_list.append(sc)
+			elif field == "quantity":
+				csv_list.append(unicode(self.ordered_quantity))
+		return csv_list
+
 class CartItem(models.Model):
 	offer = models.ForeignKey(Offer, verbose_name=_("offer"))
 	quantity = models.FloatField(_("quantity"))
@@ -79,4 +96,15 @@ class CartItem(models.Model):
 
 	def __unicode__(self):
 		return self.id
-	
+
+class CsvTemplate(models.Model):
+	company = models.ForeignKey(crm.Company, verbose_name=_("company"))
+	template = models.CharField(_("template"), max_length=255)
+
+	class Meta:
+		verbose_name = _("csv template")
+		verbose_name_plural = _("csv templates")
+
+	def __unicode__(self):
+		return unicode(self.company)
+

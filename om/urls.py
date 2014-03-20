@@ -60,6 +60,10 @@ urlpatterns = patterns("om.views",
 		OrderPdfView.as_view(),
 		name="om_order_pdf"
 	),
+	url(r'^order/csv/(?P<pk>\d+)$',
+		OrderCsvView.as_view(),
+		name="om_order_csv"
+	),
 	url(r'^order/pending/$',
 		ListView.as_view(
 			model = Order,

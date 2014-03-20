@@ -1,3 +1,4 @@
+import csv
 from datetime import date
 
 from django.conf import settings
@@ -6,12 +7,13 @@ from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.db.models import ObjectDoesNotExist
 from django.forms.models import modelformset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext, Context
 from django.template.loader import render_to_string, get_template
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic.base import View
 from django.views.generic.edit import CreateView, UpdateView
 
 from crm.models import Company
@@ -235,6 +237,18 @@ class OrderPdfView(PdfView):
 			'items': items,
 		})
 		return ctx
+
+class OrderCsvView(View):
+	def get(self, request, *args, **kwargs):
+		order = get_object_or_404(Order, id=self.kwargs['pk'])
+		csvtemplate = get_object_or_404(CsvTemplate, company=order.company)
+		response = HttpResponse(content_type="text/plain")
+		response['Content-Disposition'] = 'inline; filename="%s.txt"' % order.id
+		writer = csv.writer(response)
+		for line in order.orderitem_set.all():
+			writer.writerow(line.as_csv(csvtemplate.template))
+
+		return response
 
 class OrderItemPendingView(ListView):
 	model = OrderItem
