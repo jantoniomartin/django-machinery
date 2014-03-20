@@ -18,10 +18,8 @@
 <div>
 <form method="post" action="">{% csrf_token %}
 <button type="submit" class="btn btn-primary">{% trans "Send" %}</button>
-</form>
-</div>
-<div>
 <a href="{% url 'om_order_csv' order.id %}" target="_blank">{% trans "Get CSV" %}</a>
+</form>
 </div>
 {% endif %}
 
