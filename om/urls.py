@@ -22,6 +22,10 @@ urlpatterns = patterns("om.views",
 		OfferUpdateView.as_view(),
 		name="om_offer_edit"
 	),
+	url(r'^offer/expire/(?P<pk>\d+)$',
+		OfferExpireView.as_view(),
+		name="om_offer_expire"
+	),
 	url(r'^cartitem/create/$',
 		CartItemCreateView.as_view(),
 		name="om_cartitem_create"

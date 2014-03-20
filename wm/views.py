@@ -61,12 +61,15 @@ class ArticleDetailView(DetailView):
 
 	def get_context_data(self, **kwargs):
 		ctx = super(ArticleDetailView, self).get_context_data(**kwargs)
-		latest_parts = self.object.part_set.all()[:10]
-		offer_form = OfferForm(initial={"article": self.object.pk,})
-		ctx.update({
-			'latest_parts': latest_parts,
-			'offer_form': offer_form,
-		})
+		if self.template_name == 'wm/article_detail.html':
+			latest_parts = self.object.part_set.all()[:10]
+			offer_form = OfferForm(initial={"article": self.object.pk,})
+			offers = self.object.offer_set.filter(expired_on__isnull=True)
+			ctx.update({
+				'latest_parts': latest_parts,
+				'offer_form': offer_form,
+				'offers': offers,
+			})
 		return ctx
 
 class ArticleShortageView(ListView):

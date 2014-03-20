@@ -35,6 +35,12 @@ urlpatterns = patterns("wm.views",
 		ArticleDetailView.as_view(),
 		name="wm_article_detail"
 	),
+	url(r'^article/offers/(?P<pk>\d+)/$',
+		ArticleDetailView.as_view(
+			template_name = 'wm/article_offers.html'
+		),
+		name="wm_article_offers"
+	),
 	url(r'^article/edit/(?P<pk>\d+)/$',
 		ArticleUpdateView.as_view(),
 		name="wm_article_edit"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 09:13+0100\n"
+"POT-Creation-Date: 2014-03-20 13:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,11 +135,15 @@ msgstr "plantilla csv"
 msgid "csv templates"
 msgstr "plantillas csv"
 
-#: views.py:129
+#: views.py:68
+msgid "Offer has expired."
+msgstr "La oferta ha caducado."
+
+#: views.py:138
 msgid "The pdf report for the order could not be made."
 msgstr "No se ha podido generar el archivo pdf"
 
-#: views.py:152
+#: views.py:161
 msgid "The order was successfully sent."
 msgstr "El pedido se ha enviado correctamente."
 
@@ -235,7 +239,7 @@ msgstr "El pedido se enviará a"
 msgid "Send"
 msgstr "Enviar"
 
-#: templates/om/order_detail.html:24
+#: templates/om/order_detail.html:21
 msgid "Get CSV"
 msgstr "Ver CSV"
 

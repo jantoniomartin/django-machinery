@@ -59,6 +59,15 @@ class OfferUpdateView(UpdateView):
 	def get_success_url(self):
 		return self.object.article.get_absolute_url()
 
+class OfferExpireView(View):
+	def get(self, request, *args, **kwargs):
+		offer = get_object_or_404(Offer, id=self.kwargs['pk'])
+		if not offer.expired_on:
+			offer.expired_on = date.today()
+			offer.save()
+			messages.success(request, _("Offer has expired."))
+		return HttpResponseRedirect(offer.article.get_absolute_url())
+
 class OrderCreateView(CreateView):
 	form_class = forms.OrderForm
 	template_name = "om/order_form.html"

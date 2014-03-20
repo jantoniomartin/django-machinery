@@ -57,7 +57,7 @@
 <div class="col-md-12">
 
 <div class="panel panel-primary">
-<div class="panel-heading">{% trans "Offers for this article" %}</div>
+<div class="panel-heading">{% trans "Active offers for this article" %}</div>
 <div class="panel-body">
 <form method="post" action="{% url 'om_cartitem_create' %}" class="form-inline">{% csrf_token %}
 <table class="table table-striped table-hover">
@@ -74,12 +74,18 @@
 </tr>
 </thead>
 <tbody>
-{% for offer in article.offer_set.all %}
+{% for offer in offers %}
 <tr>
 	<td><input name="offer" type="radio" value="{{ offer.id }}" /></td>
 	<td>{{ offer.company }}</td>
 	<td>{{ offer.created_on }}</td>
-	<td>{{ offer.expired_on|default_if_none:"" }}</td>
+	<td>
+	{% if offer.expired_on %}
+		{{ offer.expired_on }}
+	{% else %}
+	<a href="{% url 'om_offer_expire' offer.id %}">{% trans "Expire" %}</a>
+	{% endif %}
+	</td>
 	<td>{{ offer.code }}</td>
 	<td>{{ offer.retail_price|floatformat:2 }}</td>
 	<td>{{ offer.invoice_price|floatformat:2 }}</td>
@@ -94,6 +100,7 @@
 </div>
 <button type="submit" class="btn btn-primary">{% trans "Order" %}</button>
 </form>
+<p><a href="{% url 'wm_article_offers' article.id %}">{% trans "See all offers" %}</a></p>
 </div>
 </div>
 

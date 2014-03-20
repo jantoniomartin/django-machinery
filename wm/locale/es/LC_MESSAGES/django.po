@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-19 17:43+0100\n"
+"POT-Creation-Date: 2014-03-20 13:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,7 +103,7 @@ msgstr "Códigos de proveedor"
 msgid "Article details"
 msgstr "Detalles del artículo"
 
-#: templates/wm/article_detail.html:22 templates/wm/article_detail.html:122
+#: templates/wm/article_detail.html:22 templates/wm/article_detail.html:129
 #: templates/wm/article_list.html:15 templates/wm/group_detail.html:29
 #: templates/wm/group_tree.html:91
 msgid "Description"
@@ -144,75 +144,83 @@ msgid "Stock is not accounted."
 msgstr "El stock no se contabiliza."
 
 #: templates/wm/article_detail.html:60
-msgid "Offers for this article"
-msgstr "Ofertas para este artículo"
+msgid "Active offers for this article"
+msgstr "Ofertas activas para este artículo"
 
-#: templates/wm/article_detail.html:66 templates/wm/article_detail.html:95
+#: templates/wm/article_detail.html:66 templates/wm/article_detail.html:101
 msgid "Order"
 msgstr "Pedir"
 
-#: templates/wm/article_detail.html:67
+#: templates/wm/article_detail.html:67 templates/wm/article_offers.html:16
 #: templates/wm/article_supplier_codes.html:17
 msgid "Supplier"
 msgstr "Proveedor"
 
-#: templates/wm/article_detail.html:68
+#: templates/wm/article_detail.html:68 templates/wm/article_offers.html:17
 msgid "Date"
 msgstr "Fecha"
 
-#: templates/wm/article_detail.html:69
+#: templates/wm/article_detail.html:69 templates/wm/article_offers.html:18
 msgid "Expires"
 msgstr "Caduca"
 
-#: templates/wm/article_detail.html:70
+#: templates/wm/article_detail.html:70 templates/wm/article_offers.html:19
 #: templates/wm/article_supplier_codes.html:18
 msgid "Code"
 msgstr "Código"
 
-#: templates/wm/article_detail.html:71
+#: templates/wm/article_detail.html:71 templates/wm/article_offers.html:20
 msgid "Retail price"
 msgstr "P.V.P."
 
-#: templates/wm/article_detail.html:72
+#: templates/wm/article_detail.html:72 templates/wm/article_offers.html:21
 msgid "Invoice price"
 msgstr "Precio neto"
 
-#: templates/wm/article_detail.html:73
+#: templates/wm/article_detail.html:73 templates/wm/article_offers.html:22
 #: templates/wm/article_supplier_codes.html:19
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/wm/article_detail.html:86
+#: templates/wm/article_detail.html:86 templates/wm/article_offers.html:34
+msgid "Expire"
+msgstr "Caducar"
+
+#: templates/wm/article_detail.html:92 templates/wm/article_offers.html:40
 #: templates/wm/article_supplier_codes.html:27
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/wm/article_detail.html:93
+#: templates/wm/article_detail.html:99
 msgid "Quantity"
 msgstr "Cantidad"
 
-#: templates/wm/article_detail.html:93
+#: templates/wm/article_detail.html:99
 msgid "units"
 msgstr "unidades"
 
-#: templates/wm/article_detail.html:101
+#: templates/wm/article_detail.html:103
+msgid "See all offers"
+msgstr "Ver todas las ofertas"
+
+#: templates/wm/article_detail.html:108
 msgid "New offer"
 msgstr "Nueva oferta"
 
-#: templates/wm/article_detail.html:108 templates/wm/article_form.html:48
+#: templates/wm/article_detail.html:115 templates/wm/article_form.html:48
 #: templates/wm/group_form.html:48 templates/wm/suppliercode_form.html:13
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/wm/article_detail.html:116
+#: templates/wm/article_detail.html:123
 msgid "Latest machines where the article is installed"
 msgstr "Últimas máquinas en las que se ha instalado"
 
-#: templates/wm/article_detail.html:121
+#: templates/wm/article_detail.html:128
 msgid "Machine"
 msgstr "Máquina"
 
-#: templates/wm/article_detail.html:123
+#: templates/wm/article_detail.html:130
 msgid "Function"
 msgstr "Función"
 
@@ -237,6 +245,15 @@ msgstr "Anterior"
 #: templates/wm/article_list.html:44
 msgid "Next"
 msgstr "Siguiente"
+
+#: templates/wm/article_offers.html:8
+#, python-format
+msgid "Offers for %(article)s"
+msgstr "Ofertas para %(article)s"
+
+#: templates/wm/article_offers.html:10
+msgid "Go back"
+msgstr "Volver"
 
 #: templates/wm/article_supplier_codes.html:4
 #: templates/wm/article_supplier_codes.html:7
