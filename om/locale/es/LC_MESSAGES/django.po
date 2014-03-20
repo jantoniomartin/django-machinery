@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 13:56+0100\n"
+"POT-Creation-Date: 2014-03-20 17:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:36
+#: forms.py:13 templates/om/order_form.html:42
+msgid "Company"
+msgstr "Empresa"
+
+#: forms.py:17
+msgid "Expiration"
+msgstr "Caducidad"
+
+#: forms.py:35
 msgid "Password"
 msgstr "Contraseña"
 
@@ -26,7 +34,7 @@ msgstr "Contraseña"
 msgid "article"
 msgstr "artículo"
 
-#: models.py:10 models.py:30 models.py:101
+#: models.py:10 models.py:29 models.py:100
 msgid "company"
 msgstr "empresa"
 
@@ -35,103 +43,99 @@ msgid "created on"
 msgstr "creado el"
 
 #: models.py:12
-msgid "confirmed on"
-msgstr "confirmado el"
-
-#: models.py:13
 msgid "expired on"
 msgstr "caducado el"
 
-#: models.py:14
+#: models.py:13
 msgid "offer code"
 msgstr "código de oferta"
 
-#: models.py:15
+#: models.py:14
 msgid "retail price"
 msgstr "P.V.P."
 
-#: models.py:16
+#: models.py:15
 msgid "invoice price"
 msgstr "precio neto"
 
-#: models.py:20 models.py:62 models.py:90
+#: models.py:19 models.py:61 models.py:89
 msgid "offer"
 msgstr "oferta"
 
-#: models.py:21
+#: models.py:20
 msgid "offers"
 msgstr "ofertas"
 
-#: models.py:24
+#: models.py:23
 #, python-format
 msgid "Offer for %s"
 msgstr "Oferta para %s"
 
-#: models.py:27
+#: models.py:26
 msgid "created at"
 msgstr "creado el"
 
-#: models.py:28 models.py:59
+#: models.py:27 models.py:58
 msgid "completed on"
 msgstr "completado el"
 
-#: models.py:29
+#: models.py:28
 msgid "notes"
 msgstr "notas"
 
-#: models.py:31
+#: models.py:30
 msgid "created by"
 msgstr "creado por"
 
-#: models.py:35 models.py:61
+#: models.py:34 models.py:60
 msgid "order"
 msgstr "pedido"
 
-#: models.py:36
+#: models.py:35
 msgid "orders"
 msgstr "pedidos"
 
-#: models.py:57
+#: models.py:56
 msgid "ordered quantity"
 msgstr "cantidad pedida"
 
-#: models.py:58
+#: models.py:57
 msgid "received quantity"
 msgstr "cantidad recibida"
 
-#: models.py:60
+#: models.py:59
 msgid "estimated delivery"
 msgstr "entrega estimada"
 
-#: models.py:66
+#: models.py:65
 msgid "order line"
 msgstr "línea de pedido"
 
-#: models.py:67
+#: models.py:66
 msgid "order lines"
 msgstr "líneas de pedido"
 
-#: models.py:91
+#: models.py:90
 msgid "quantity"
 msgstr "cantidad"
 
-#: models.py:94
+#: models.py:93
 msgid "cart item"
 msgstr "artículo en el carro"
 
-#: models.py:95
+#: models.py:94
 msgid "cart items"
 msgstr "artículos en el carro"
 
-#: models.py:102
+#: models.py:101
 msgid "template"
 msgstr "plantilla"
 
-#: models.py:105
+#: models.py:104
 msgid "csv template"
 msgstr "plantilla csv"
 
-#: models.py:106
+#: models.py:105
 msgid "csv templates"
 msgstr "plantillas csv"
 
@@ -251,10 +255,6 @@ msgstr "Nuevo pedido"
 msgid "Supplier data"
 msgstr "Datos del proveedor"
 
-#: templates/om/order_form.html:42
-msgid "Company"
-msgstr "Empresa"
-
 #: templates/om/order_form.html:44
 msgid "Main phone"
 msgstr "Teléfono principal"
@@ -367,3 +367,6 @@ msgstr "Recibido"
 #: templates/om/orderitem_pending_list.html:19
 msgid "Estimated delivery"
 msgstr "Entrega estimada"
+
+#~ msgid "confirmed on"
+#~ msgstr "confirmado el"

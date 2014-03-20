@@ -9,7 +9,6 @@ class Offer(models.Model):
 	article = models.ForeignKey(wm.Article, verbose_name=_("article"))
 	company = models.ForeignKey(crm.Company, verbose_name=_("company"))
 	created_on = models.DateField(_("created on"), auto_now_add=True)
-	confirmed_on = models.DateField(_("confirmed on"), null=True, blank=True)
 	expired_on = models.DateField(_("expired on"), null=True, blank=True)
 	code = models.CharField(_("offer code"), max_length=50, null=True, blank=True)
 	retail_price = models.FloatField(_("retail price"), null=True, blank=True)
