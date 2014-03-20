@@ -82,6 +82,7 @@ class Machine(models.Model):
 	project = models.ForeignKey(Project, verbose_name=_("project"))
 
 	class Meta:
+		ordering = ['number',]
 		unique_together = [('number', 'project'),]
 		verbose_name = _("machine")
 		verbose_name_plural = _("machines")
