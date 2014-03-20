@@ -1,3 +1,4 @@
+import csv
 from datetime import date
 import json
 
@@ -7,13 +8,13 @@ from django.db.models import ObjectDoesNotExist, F
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic.base import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from om.forms import OfferForm
 from wm import models
 from wm import forms
 from indumatic.search import get_query
-from indumatic.views import PdfView
 
 class GroupArticlesJSONView(TemplateView):
 	def get(self, request, *args, **kwargs):
@@ -115,17 +116,23 @@ class GroupUpdateView(UpdateView):
 	def get_success_url(self):
 		return reverse('wm_group_tree')
 
-class StockReportView(PdfView):
-	template_name = 'wm/stock_report.html'
-
-	def get_context_data(self, **kwargs):
-		ctx = super(StockReportView, self).get_context_data(**kwargs)
-		groups = models.Group.objects.filter(article__stock__gt=0).distinct()
-		ctx.update({
-			'groups': groups,
-			'date': date.today(),
-		})
-		return ctx
+class StockReportView(View):
+	def get(self, *args, **kwargs):
+		nodes = models.Group.objects.all()
+		response = HttpResponse(content_type="text/plain")
+		response['Content-Disposition'] = 'attachment; filename="stock.csv"'
+		w = csv.writer(response)
+		for node in nodes:
+			for a in node.article_set.all():
+				if a.stock > 0:
+					w.writerow([
+						'"%s"' % a.code.encode('utf-8'),
+						a.description.encode('utf-8'),
+						a.measure_unit,
+						getattr(a, 'brand', ''),
+						a.stock,
+					])
+		return response
 
 class ArticleSearchView(ListView):
 	model = models.Article
