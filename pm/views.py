@@ -218,10 +218,11 @@ class ProjectSearchView(ListView):
 	def get_queryset(self):
 		query_string = self.request.GET.get('q', '')
 		entry_query = get_query(query_string,
-			['description',
+			['serial',
+			'description',
 			'machine__description',]
 		)
 		print entry_query
-		found_entries = Project.objects.filter(entry_query)
+		found_entries = Project.objects.filter(entry_query).distinct()
 		return found_entries
 
