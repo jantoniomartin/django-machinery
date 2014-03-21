@@ -13,3 +13,4 @@ Pillow==2.3.0
 pisa==3.0.33
 html5lib
 reportlab
+-e git+https://github.com/davidvuong/django-brutebuster#egg=django_brutebuster
