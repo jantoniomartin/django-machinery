@@ -18,7 +18,7 @@
 <div class="panel panel-primary">
 <div class="panel-heading">{% trans "Article details" %}</div>
 <div class="panel-body">
-<dl class="dl-horizontal">
+<dl class="dl-tab">
 <dt>{% trans "Description" %}</dt>
 <dd>{{ article.description }}</dd>
 <dt>{% trans "Category" %}</dt>
@@ -41,7 +41,7 @@
 <div class="panel-heading">{% trans "Stock" %}</div>
 <div class="panel-body">
 {% if article.control_stock %}
-<dl class="dl-horizontal">
+<dl class="dl-tab">
 <dt>{% trans "Current stock" %}</dt>
 <dd>{{ article.stock }}</dd>
 <dt>{% trans "Notify when stock is lower than" %}</dt>
