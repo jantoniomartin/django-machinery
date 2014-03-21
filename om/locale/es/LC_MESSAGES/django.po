@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 17:34+0100\n"
+"POT-Creation-Date: 2014-03-21 07:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -347,14 +347,18 @@ msgid "Unit"
 msgstr "Unidad"
 
 #: templates/om/order_receive.html:39
-msgid "Price"
-msgstr "Precio"
+msgid "Retail Price"
+msgstr "P.V.P."
 
 #: templates/om/order_receive.html:40
+msgid "Invoice Price"
+msgstr "Precio Neto"
+
+#: templates/om/order_receive.html:41
 msgid "Delivery date"
 msgstr "Fecha de entrega"
 
-#: templates/om/order_receive.html:63
+#: templates/om/order_receive.html:77
 msgid "Update"
 msgstr "Actualizar"
 
@@ -375,6 +379,9 @@ msgstr "Recibido"
 #: templates/om/orderitem_pending_list.html:19
 msgid "Estimated delivery"
 msgstr "Entrega estimada"
+
+#~ msgid "Price"
+#~ msgstr "Precio"
 
 #~ msgid "confirmed on"
 #~ msgstr "confirmado el"
