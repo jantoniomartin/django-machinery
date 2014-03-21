@@ -215,6 +215,11 @@ class ProjectSearchView(ListView):
 	context_object_name = 'project_list'
 	template_name = 'pm/project_list.html'
 
+	def get_context_data(self, **kwargs):
+		ctx = super(ProjectSearchView, self).get_context_data(**kwargs)
+		ctx.update({ 'MEDIA_URL': settings.MEDIA_URL })
+		return ctx
+
 	def get_queryset(self):
 		query_string = self.request.GET.get('q', '')
 		entry_query = get_query(query_string,
