@@ -11,6 +11,8 @@
 <thead>
 <tr>
 <td>{% trans "Order reference" %}</td>
+<td>{% trans "Ordered by" %}</td>
+<td>{% trans "Date" %}</td>
 <td>{% trans "Ordered" %}</td>
 <td>{% trans "Unit" %}</td>
 <td>{% trans "Reference" %}</td>
@@ -21,6 +23,8 @@
 {% for item in item_list %}
 <tr>
 <td><a href="{% url 'om_order_detail' item.order.id %}">{{ item.order }}</a></td>
+<td>{{ item.order.created_by }}</td>
+<td>{{ item.order.created_at }}</td>
 <td>{{ item.ordered_quantity }}</td>
 <td>{{ item.offer.article.measure_unit }}</td>
 <td><a href="{% url 'wm_article_detail' item.offer.article.id %}">{{ item.offer.article.code }}</a></td>
