@@ -36,7 +36,8 @@
 <th class="center">{% trans "Unit" %}</th>
 <th class="center">{% trans "Reference" %}</th>
 <th class="center">{% trans "Description" %}</th>
-<th class="center">{% trans "Price" %}</th>
+<th class="center">{% trans "Retail Price" %}</th>
+<th class="center">{% trans "Invoice Price" %}</th>
 <th class="center">{% trans "Delivery date" %}</th>
 </tr>
 </thead>
@@ -53,7 +54,20 @@
 </a>
 </td>
 <td class="center">{{ form.instance.offer.article.description }}</td>
-<td class="center">{{ form.instance.offer.invoice_price|floatformat:2 }}</td>
+<td class="center">
+{% if form.instance.offer.retail_price %}
+	{{ form.instance.offer.retail_price|floatformat:2 }}
+{% else %}
+	{% if not form.instance.completed_on %}{{ form.retail_price }}{% endif %}
+{% endif %}
+</td>
+<td class="center">
+{% if form.instance.offer.invoice_price %}
+	{{ form.instance.offer.invoice_price|floatformat:2 }}
+{% else %}
+	{% if not form.instance.completed_on %}{{ form.invoice_price }}{% endif %}
+{% endif %}
+</td>
 <td class="center">{% if not form.instance.completed_on %}{{ form.estimated_delivery }}{% endif %}</td>
 </tr>
 {% endfor %}

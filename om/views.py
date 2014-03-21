@@ -209,7 +209,14 @@ class OrderReceiveView(TemplateView):
 		for form in formset:
 			if form.is_valid():
 				receive = form.cleaned_data['receive']
+				retail_price = form.cleaned_data['retail_price']
+				invoice_price = form.cleaned_data['invoice_price']
 				item = form.save(commit=False)
+				if retail_price is not None or invoice_price is not None:
+					item.offer.retail_price = retail_price
+					item.offer.invoice_price = invoice_price
+					item.offer.created_on = date.today()
+					item.offer.save()
 				if receive is not None:
 					item.received_quantity += receive
 					if item.received_quantity >= item.ordered_quantity:

@@ -51,6 +51,9 @@ class OrderItemReceptionForm(forms.ModelForm):
 		input_formats=['%d/%m/%Y', '%Y-%m-%d'],
 		widget=forms.TextInput(attrs={"class": "dateinput"})
 	)
+	retail_price = forms.FloatField(localize=True, required=False)
+	invoice_price = forms.FloatField(localize=True, required=False)
+	
 	
 	class Meta:
 		fields = ['estimated_delivery',]
