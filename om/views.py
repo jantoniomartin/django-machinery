@@ -212,9 +212,11 @@ class OrderReceiveView(TemplateView):
 				retail_price = form.cleaned_data['retail_price']
 				invoice_price = form.cleaned_data['invoice_price']
 				item = form.save(commit=False)
-				if retail_price is not None or invoice_price is not None:
+				if retail_price is not None:
 					item.offer.retail_price = retail_price
+				if invoice_price is not None:
 					item.offer.invoice_price = invoice_price
+				if retail_price is not None or invoice_price is not None:
 					item.offer.created_on = date.today()
 					item.offer.save()
 				if receive is not None:
