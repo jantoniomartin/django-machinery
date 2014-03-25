@@ -82,7 +82,11 @@ $(function() {
 <div class="col-md-6">
   <div class="panel panel-default">
     <div class="panel-body" style="text-align: center">
+	{% if project.thumbnail %}
       <img src="{{ MEDIA_URL }}{{ project.thumbnail }}" />
+	{% else %}
+	  <img src="{% static 'img/no-picture.png' %}" />
+	{% endif %}
 	</div>
   </div>
 </div>

@@ -1,5 +1,6 @@
 {% extends "pm/base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block title %}{% trans "Projects" %}{% endblock %}
 
@@ -27,6 +28,8 @@
 	<td>
 	{% if project.thumbnail %}
 	<img src="{{ MEDIA_URL }}{{ project.thumbnail }}" style="width: 80px" />
+	{% else %}
+	<img src="{% static 'img/no-picture.png' %}" style="width: 80px" />
 	{% endif %}
 	</td>
     <td><a href="{% url 'pm_project_detail' project.id %}">{{ project }}</a></td>
