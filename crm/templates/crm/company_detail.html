@@ -26,7 +26,10 @@
 <div class="panel-body">
 <dl class="dl-tab">
 {% if company.group %}
-<dt>{% trans "Group" %}</dt><dd>{{ company.group }}</dd>
+<dt>{% trans "Group" %}</dt>
+<dd>
+<a href="{% url 'crm_group_detail' company.group.id %}">{{ company.group }}</a>
+</dd>
 {% endif %}
 <dt>{% trans "VATIN" %}</dt><dd>{{ company.vatin|default_if_none:"" }}</dd>
 <dt>{% trans "Address" %}</dt>
