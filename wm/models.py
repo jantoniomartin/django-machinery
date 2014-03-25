@@ -46,7 +46,7 @@ class Group(MPTTModel):
 @receiver(post_save, sender=Group)
 def clear_tree_cache(sender, instance, created, raw, using, **kwargs):
 	if cache.get('groups_tree'):
-		cache.clear('groups_tree')
+		cache.delete('groups_tree')
 
 class Article(models.Model):
 	code = models.CharField(_("code"), max_length=128)
