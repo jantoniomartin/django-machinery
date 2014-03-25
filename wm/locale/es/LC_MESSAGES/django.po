@@ -346,7 +346,7 @@ msgstr "Editar marca"
 #: templates/wm/document_link_form.html:5
 #: templates/wm/document_link_form.html:8
 msgid "Link document"
-msgstr ""
+msgstr "Vincular documento"
 
 #: templates/wm/group_form.html:32 templates/wm/group_form.html.py:36
 msgid "Edit category"
