@@ -45,6 +45,18 @@ class GroupArticlesJSONView(TemplateView):
 		response_data = json.dumps(to_json)
 		return HttpResponse(response_data, content_type='application/json')
 
+class BrandListView(ListView):
+	model = models.Brand
+	paginate_by = 20
+
+class BrandCreateView(CreateView):
+	model = models.Brand
+	success_url = '/wm/brand/list/'
+
+class BrandUpdateView(UpdateView):
+	model = models.Brand
+	success_url = '/wm/brand/list/'
+
 class ArticleCreateView(CreateView):
 	model = models.Article
 	form_class = forms.ArticleForm

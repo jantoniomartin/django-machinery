@@ -49,6 +49,18 @@ urlpatterns = patterns("wm.views",
 		ArticleCreateView.as_view(),
 		name="wm_article_create"
 	),
+	url(r'^brand/list/$',
+		BrandListView.as_view(),
+		name="wm_brand_list"
+	),
+	url(r'^brand/create/$',
+		BrandCreateView.as_view(),
+		name="wm_brand_create"
+	),
+	url(r'^brand/update/(?P<pk>\d+)/$',
+		BrandUpdateView.as_view(),
+		name="wm_brand_update"
+	),
 	url(r'^group/create/$',
 		GroupCreateView.as_view(),
 		name="wm_group_create"

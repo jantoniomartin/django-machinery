@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-20 13:57+0100\n"
+"POT-Creation-Date: 2014-03-25 08:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,7 +114,8 @@ msgid "Category"
 msgstr "Categoría"
 
 #: templates/wm/article_detail.html:28 templates/wm/article_list.html:14
-#: templates/wm/group_detail.html:28 templates/wm/group_tree.html:90
+#: templates/wm/brand_list.html:13 templates/wm/group_detail.html:28
+#: templates/wm/group_tree.html:90
 msgid "Brand"
 msgstr "Marca"
 
@@ -127,7 +128,7 @@ msgid "Standard packaging"
 msgstr "Paquete estándar"
 
 #: templates/wm/article_detail.html:41 templates/wm/article_list.html:16
-#: templates/wm/base.html:14 templates/wm/group_tree.html:92
+#: templates/wm/base.html:15 templates/wm/group_tree.html:92
 msgid "Stock"
 msgstr "Stock"
 
@@ -178,7 +179,7 @@ msgid "Invoice price"
 msgstr "Precio neto"
 
 #: templates/wm/article_detail.html:73 templates/wm/article_offers.html:22
-#: templates/wm/article_supplier_codes.html:19
+#: templates/wm/article_supplier_codes.html:19 templates/wm/brand_list.html:14
 msgid "Actions"
 msgstr "Acciones"
 
@@ -187,7 +188,7 @@ msgid "Expire"
 msgstr "Caducar"
 
 #: templates/wm/article_detail.html:92 templates/wm/article_offers.html:40
-#: templates/wm/article_supplier_codes.html:27
+#: templates/wm/article_supplier_codes.html:27 templates/wm/brand_list.html:22
 msgid "Edit"
 msgstr "Editar"
 
@@ -208,7 +209,8 @@ msgid "New offer"
 msgstr "Nueva oferta"
 
 #: templates/wm/article_detail.html:115 templates/wm/article_form.html:48
-#: templates/wm/group_form.html:48 templates/wm/suppliercode_form.html:13
+#: templates/wm/brand_form.html:13 templates/wm/group_form.html:48
+#: templates/wm/suppliercode_form.html:13
 msgid "Save"
 msgstr "Guardar"
 
@@ -238,11 +240,11 @@ msgstr "Artículos"
 msgid "Reference"
 msgstr "Referencia"
 
-#: templates/wm/article_list.html:39
+#: templates/wm/article_list.html:39 templates/wm/brand_list.html:34
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/wm/article_list.html:44
+#: templates/wm/article_list.html:44 templates/wm/brand_list.html:39
 msgid "Next"
 msgstr "Siguiente"
 
@@ -269,7 +271,7 @@ msgstr "Nuevo código de proveedor"
 msgid "Return to article"
 msgstr "Volver al artículo"
 
-#: templates/wm/article_supplier_codes.html:28
+#: templates/wm/article_supplier_codes.html:28 templates/wm/brand_list.html:23
 #: templates/wm/suppliercode_confirm_delete.html:15
 msgid "Delete"
 msgstr "Eliminar"
@@ -290,13 +292,22 @@ msgstr "Todos los artículos"
 msgid "New article"
 msgstr "Nuevo artículo"
 
-#: templates/wm/base.html:12
+#: templates/wm/base.html:12 templates/wm/brand_list.html:4
+#: templates/wm/brand_list.html.py:8
+msgid "Brands"
+msgstr "Marcas"
+
+#: templates/wm/base.html:13
 msgid "Shortages"
 msgstr "Carencias"
 
-#: templates/wm/base.html:18
+#: templates/wm/base.html:19
 msgid "Search"
 msgstr "Buscar"
+
+#: templates/wm/brand_form.html:5 templates/wm/brand_form.html.py:8
+msgid "Edit brand"
+msgstr "Editar marca"
 
 #: templates/wm/group_form.html:32 templates/wm/group_form.html.py:36
 msgid "Edit category"

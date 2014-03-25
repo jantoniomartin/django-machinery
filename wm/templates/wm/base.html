@@ -9,6 +9,7 @@
 	<li><a href="{% url 'wm_group_create' %}">{% trans "New category" %}</a></li>
 	<li><a href="{% url 'wm_article_list' %}">{% trans "All articles" %}</a></li>
 	<li><a href="{% url 'wm_article_create' %}">{% trans "New article" %}</a></li>
+	<li><a href="{% url 'wm_brand_list' %}">{% trans "Brands" %}</a></li>
 	<li><a href="{% url 'wm_article_shortage' %}">{% trans "Shortages" %}</a></li>
 	{% if user.is_staff %}
 	<li><a href="{% url 'wm_stock_report' %}">{% trans "Stock" %}</a></li>

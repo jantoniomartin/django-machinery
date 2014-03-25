@@ -1,0 +1,17 @@
+{% extends 'wm/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Edit brand" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Edit brand" %}</h1>
+
+<form method="post" action="">{% csrf_token %}
+{{ form|crispy }}
+<div>
+<button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+</div>
+</form>
+
+{% endblock %}
