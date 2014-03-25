@@ -7,6 +7,8 @@
 {% block content %}
 
 <h1>{{ company.name|title }}</h1>
+
+
 <p>
 <a href="{% url 'crm_company_edit' company.id %}">{% trans "Edit company" %}</a>
 {% if company.is_supplier %}
@@ -14,6 +16,8 @@
 <a href="{% url 'om_order_by_company' company.id %}">{% trans "Orders" %}</a>
 {% endif %}
 </p>
+
+<div class="col-md-6">
 
 <div class="panel panel-primary">
 <div class="panel-heading">
@@ -46,7 +50,12 @@
 </div>
 </div>
 
-<h2>{% trans "Departments" %}</h2>
+</div>
+<div class="col-md-6">
+
+<div class="panel panel-default">
+<div class="panel-heading">{% trans "Departments" %}</div>
+<div class="panel-body">
 <p>
 <a href="{% url 'crm_department_create' company.id %}">{% trans "New department" %}</a>
 </p>
@@ -76,6 +85,13 @@
 {% endfor %}
 </tbody>
 </table>
+</div>
+</div>
+
+</div>
+
+{% if company.is_customer %}
+<div class="col-md-12">
 
 <h2>{% trans "Projects" %}</h2>
 <table class="table table-striped table-hover">
@@ -97,5 +113,7 @@
 </tbody>
 </table>
 
+</div>
+{% endif %}
 
 {% endblock %}
