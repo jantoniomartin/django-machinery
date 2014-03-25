@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
 from crm.models import Company
+from dm.models import Document
 
 class Brand(models.Model):
 	name = models.CharField(_("name"), max_length=50)
@@ -59,6 +60,12 @@ class Article(models.Model):
 	control_stock = models.BooleanField(_("control stock"), default=False)
 	stock = models.PositiveIntegerField(_("stock"), default=0)
 	stock_alert = models.PositiveIntegerField(_("stock alert"), default=0)
+	documents = models.ManyToManyField(Document,
+		blank=True,
+		null=True,
+		related_name="articles",
+		verbose_name=_("documents")
+	)
 
 	class Meta:
 		ordering = ['-id',]

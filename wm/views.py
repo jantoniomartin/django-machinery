@@ -5,12 +5,13 @@ import json
 from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import ObjectDoesNotExist, F
-from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, DetailView, ListView
 from django.views.generic.base import View
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
+from dm.models import Document
 from om.forms import OfferForm
 from wm import models
 from wm import forms
@@ -103,7 +104,31 @@ class ArticleUpdateView(UpdateView):
 		nodes = models.Group.objects.all()
 		ctx.update( {'nodes' : nodes })
 		return ctx
-		
+
+class DocumentLinkView(FormView):
+	template_name = 'wm/document_link_form.html'
+	form_class = forms.DocumentLinkForm
+	
+	def get_initial(self):
+		article = get_object_or_404(models.Article, id=self.kwargs['pk'])
+		return {'article': article,}
+
+	def form_valid(self, form):
+		uuid = form.cleaned_data['uuid']
+		article = form.cleaned_data['article']
+		doc = get_object_or_404(Document, uuid=uuid)
+		article.documents.add(doc)
+		return HttpResponseRedirect(article.get_absolute_url())
+
+class DocumentUnlinkView(View):
+	def get(self, request, *args, **kwargs):
+		article = get_object_or_404(models.Article,
+			id=self.kwargs['article_pk'])
+		document = get_object_or_404(models.Document,
+			id=self.kwargs['document_pk'])
+		article.documents.remove(document)
+		return HttpResponseRedirect(article.get_absolute_url())
+
 class GroupCreateView(CreateView):
 	model = models.Group
 	form_class = forms.GroupForm

@@ -143,6 +143,43 @@
 </div>
 </div>
 
+<div class="panel panel-info">
+<div class="panel-heading">{% trans "Documents" %}</div>
+<div class="panel-body">
+
+<table class="table table-striped table-hover">
+<thead>
+	<tr>
+	<th>{% trans "Document" %}</th>
+	<th>{% trans "Description" %}</th>
+	<th>{% trans "Date" %}</th>
+	<th>{% trans "Actions" %}</th>
+	</tr>
+</thead>
+<tbody>
+	{% for doc in article.documents.all %}
+	<tr>
+	<td>
+	<a href="{{ MEDIA_URL }}{{ doc.document }}" target="_blank">{{ doc.title }}</a></td>
+	<td>{{ doc.description }}</td>
+	<td>{{ doc.created_at }}</td>
+	<td>
+	<a href="{% url 'wm_document_unlink' article.id doc.id %}" class="btn btn-primary btn-xs">{% trans "Unlink" %}</a>
+	</td>
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+<p>
+<a href="{% url 'dm_document_list' %}">{% trans "All documents" %}</a>
+|
+<a href="{% url 'dm_document_create' %}">{% trans "New document" %}</a>
+|
+<a href="{% url 'wm_document_link' article.id %}">{% trans "Link existing document" %}</a>
+</p>
+</div>
+</div>
+
 
 </div>
 

@@ -49,6 +49,14 @@ urlpatterns = patterns("wm.views",
 		ArticleCreateView.as_view(),
 		name="wm_article_create"
 	),
+	url(r'^article/link/(?P<pk>\d+)/$',
+		DocumentLinkView.as_view(),
+		name="wm_document_link"
+	),
+	url(r'^article/unlink/(?P<article_pk>\d+)/(?P<document_pk>\d+)/$',
+		DocumentUnlinkView.as_view(),
+		name="wm_document_unlink"
+	),
 	url(r'^brand/list/$',
 		BrandListView.as_view(),
 		name="wm_brand_list"
