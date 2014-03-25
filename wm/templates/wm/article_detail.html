@@ -164,7 +164,7 @@
 	<td>{{ doc.description }}</td>
 	<td>{{ doc.created_at }}</td>
 	<td>
-	<a href="{% url 'wm_document_unlink' article.id doc.id %}" class="btn btn-primary btn-xs">{% trans "Unlink" %}</a>
+	<a href="{% url 'wm_document_unlink' article.id doc.id %}" class="btn btn-danger btn-xs">{% trans "Unlink" %}</a>
 	</td>
 	</tr>
 	{% endfor %}
