@@ -1,0 +1,20 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block app_menu %}
+<ul class="nav nav-pills">
+	<li><a href="{% url 'dm_document_list' %}">{% trans "All documents" %}</a></li>
+<li>
+
+<form method="GET" action="">
+  <input class="form-control" placeholder="{% trans "Search" %}" type="text" name="q" />
+</form>
+</li>
+</ul>
+{% endblock %}
+
+{% block body %}
+{% block content %}{% endblock %}
+
+{% endblock %}
+
