@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-25 17:12+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: models.py:8 models.py:16
+msgid "document"
+msgstr "documento"
+
+#: models.py:9
+msgid "title"
+msgstr "título"
+
+#: models.py:10
+msgid "description"
+msgstr "descripción"
+
+#: models.py:12
+msgid "created at"
+msgstr "creado"
+
+#: models.py:17
+msgid "documents"
+msgstr "documentos"
+
+#: templates/dm/base.html:6
+msgid "All documents"
+msgstr "Todos los documentos"
+
+#: templates/dm/base.html:10
+msgid "Search"
+msgstr "Buscar"
+
+#: templates/dm/document_form.html:5 templates/dm/document_form.html.py:9
+msgid "Edit document"
+msgstr "Editar documento"
+
+#: templates/dm/document_form.html:15
+msgid "Save"
+msgstr "Guardar"
+
+#: templates/dm/document_list.html:4 templates/dm/document_list.html.py:8
+msgid "Document list"
+msgstr "Lista de documentos"
+
+#: templates/dm/document_list.html:10
+msgid "New"
+msgstr "Nuevo"
+
+#: templates/dm/document_list.html:15
+msgid "Document"
+msgstr "Documento"
+
+#: templates/dm/document_list.html:16
+msgid "Description"
+msgstr "Descripción"
+
+#: templates/dm/document_list.html:17
+msgid "Date"
+msgstr "Fecha"
+
+#: templates/dm/document_list.html:18
+msgid "UUID"
+msgstr ""
+
+#: templates/dm/document_list.html:19
+msgid "Actions"
+msgstr "Acciones"
+
+#: templates/dm/document_list.html:31
+msgid "Edit"
+msgstr "Editar"
+
+#: templates/dm/document_list.html:41
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/dm/document_list.html:46
+msgid "Next"
+msgstr "Siguiente"

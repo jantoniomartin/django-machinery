@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-25 08:46+0100\n"
+"POT-Creation-Date: 2014-03-25 17:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,75 +18,83 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: models.py:12 models.py:27
+#: forms.py:18
+msgid "Paste the uuid of the document."
+msgstr "Pega el uuid del documento."
+
+#: models.py:13 models.py:28
 msgid "name"
 msgstr "nombre"
 
-#: models.py:16 models.py:57
+#: models.py:17 models.py:58
 msgid "brand"
 msgstr "marca"
 
-#: models.py:17
+#: models.py:18
 msgid "brands"
 msgstr "marcas"
 
-#: models.py:35 models.py:58
+#: models.py:36 models.py:59
 msgid "group"
 msgstr "grupo"
 
-#: models.py:36
+#: models.py:37
 msgid "groups"
 msgstr "grupos"
 
-#: models.py:51 models.py:79
+#: models.py:52 models.py:86
 msgid "code"
 msgstr "código"
 
-#: models.py:52
+#: models.py:53
 msgid "description"
 msgstr "descripción"
 
-#: models.py:53
+#: models.py:54
 msgid "measure unit"
 msgstr "unidad de medida"
 
-#: models.py:55
+#: models.py:56
 msgid "standard packaging"
 msgstr "paquete estándar"
 
-#: models.py:56
+#: models.py:57
 msgid "enabled"
 msgstr "habilitado"
 
-#: models.py:59
+#: models.py:60
 msgid "control stock"
 msgstr "controlar stock"
 
-#: models.py:60
+#: models.py:61
 msgid "stock"
 msgstr "stock"
 
-#: models.py:61
+#: models.py:62
 msgid "stock alert"
 msgstr "alerta de stock"
 
-#: models.py:66 models.py:77
+#: models.py:67
+msgid "documents"
+msgstr ""
+
+#: models.py:73 models.py:84
 msgid "article"
 msgstr "artículo"
 
-#: models.py:67
+#: models.py:74
 msgid "articles"
 msgstr "artículos"
 
-#: models.py:78
+#: models.py:85
 msgid "company"
 msgstr "empresa"
 
-#: models.py:83
+#: models.py:90
 msgid "supplier code"
 msgstr "código de proveedor"
 
-#: models.py:84
+#: models.py:91
 msgid "supplier codes"
 msgstr "códigos de proveedor"
 
@@ -104,8 +112,8 @@ msgid "Article details"
 msgstr "Detalles del artículo"
 
 #: templates/wm/article_detail.html:22 templates/wm/article_detail.html:129
-#: templates/wm/article_list.html:15 templates/wm/group_detail.html:29
-#: templates/wm/group_tree.html:91
+#: templates/wm/article_detail.html:154 templates/wm/article_list.html:15
+#: templates/wm/group_detail.html:29 templates/wm/group_tree.html:91
 msgid "Description"
 msgstr "Descripción"
 
@@ -157,7 +165,8 @@ msgstr "Pedir"
 msgid "Supplier"
 msgstr "Proveedor"
 
-#: templates/wm/article_detail.html:68 templates/wm/article_offers.html:17
+#: templates/wm/article_detail.html:68 templates/wm/article_detail.html:155
+#: templates/wm/article_offers.html:17
 msgid "Date"
 msgstr "Fecha"
 
@@ -178,7 +187,8 @@ msgstr "P.V.P."
 msgid "Invoice price"
 msgstr "Precio neto"
 
-#: templates/wm/article_detail.html:73 templates/wm/article_offers.html:22
+#: templates/wm/article_detail.html:73 templates/wm/article_detail.html:156
+#: templates/wm/article_offers.html:22
 #: templates/wm/article_supplier_codes.html:19 templates/wm/brand_list.html:14
 msgid "Actions"
 msgstr "Acciones"
@@ -209,8 +219,8 @@ msgid "New offer"
 msgstr "Nueva oferta"
 
 #: templates/wm/article_detail.html:115 templates/wm/article_form.html:48
-#: templates/wm/brand_form.html:13 templates/wm/group_form.html:48
-#: templates/wm/suppliercode_form.html:13
+#: templates/wm/brand_form.html:13 templates/wm/document_link_form.html:13
+#: templates/wm/group_form.html:48 templates/wm/suppliercode_form.html:13
 msgid "Save"
 msgstr "Guardar"
 
@@ -226,6 +236,30 @@ msgstr "Máquina"
 msgid "Function"
 msgstr "Función"
 
+#: templates/wm/article_detail.html:147
+msgid "Documents"
+msgstr "Documentos"
+
+#: templates/wm/article_detail.html:153
+msgid "Document"
+msgstr "Documento"
+
+#: templates/wm/article_detail.html:167
+msgid "Unlink"
+msgstr "Desvincular"
+
+#: templates/wm/article_detail.html:174
+msgid "All documents"
+msgstr "Todos los documentos"
+
+#: templates/wm/article_detail.html:176
+msgid "New document"
+msgstr "Nuevo documento"
+
+#: templates/wm/article_detail.html:178
+msgid "Link existing document"
+msgstr "Vincular documento"
+
 #: templates/wm/article_form.html:57
 msgid "Choose a category for the article"
 msgstr "Elige una categoría para el artículo"
@@ -240,11 +274,11 @@ msgstr "Artículos"
 msgid "Reference"
 msgstr "Referencia"
 
-#: templates/wm/article_list.html:39 templates/wm/brand_list.html:34
+#: templates/wm/article_list.html:39 templates/wm/brand_list.html:33
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/wm/article_list.html:44 templates/wm/brand_list.html:39
+#: templates/wm/article_list.html:44 templates/wm/brand_list.html:38
 msgid "Next"
 msgstr "Siguiente"
 
@@ -271,7 +305,7 @@ msgstr "Nuevo código de proveedor"
 msgid "Return to article"
 msgstr "Volver al artículo"
 
-#: templates/wm/article_supplier_codes.html:28 templates/wm/brand_list.html:23
+#: templates/wm/article_supplier_codes.html:28
 #: templates/wm/suppliercode_confirm_delete.html:15
 msgid "Delete"
 msgstr "Eliminar"
@@ -308,6 +342,11 @@ msgstr "Buscar"
 #: templates/wm/brand_form.html:5 templates/wm/brand_form.html.py:8
 msgid "Edit brand"
 msgstr "Editar marca"
+
+#: templates/wm/document_link_form.html:5
+#: templates/wm/document_link_form.html:8
+msgid "Link document"
+msgstr ""
 
 #: templates/wm/group_form.html:32 templates/wm/group_form.html.py:36
 msgid "Edit category"
