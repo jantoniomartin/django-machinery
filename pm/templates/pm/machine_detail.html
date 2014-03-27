@@ -32,17 +32,15 @@
 </div>
 
 <h2>{% trans "Comments" %}</h2>
-<ul class="list-group">
 {% for comment in machine.machinecomment_set.all %}
-<li class="list-group-item">
-{{ comment }}
-<span class="badge">{{ comment.created_on }}</span>
-<div>
-<a href="{% url 'pm_machinecomment_delete' comment.id %}" class="btn btn-xs btn-danger">{% trans "Delete" %}</a>
+<div class="well">
+<p>{{ comment }}</p>
+<div class="small">
+<span>{{ comment.created_on }}</span>
+<a href="{% url 'pm_machinecomment_delete' comment.id %}" class="text-danger">{% trans "Delete" %}</a>
 </div>
-</li>
+</div>
 {% endfor %}
-</ul>
 
 <form action="{% url 'pm_machinecomment_create' %}" method="post">{% csrf_token %}
 
