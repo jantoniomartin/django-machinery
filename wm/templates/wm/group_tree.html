@@ -12,11 +12,14 @@ $(function() {
 	$('#tree').on('changed.jstree', function(e, data) {
 		var obj = data.selected;
 		var group_id = obj[0].substr(5);
-		console.log(group_id);
 		$.getJSON("/wm/group/" + group_id + "/articles/", function(data){
 			var tbl_body = "";
 			$.each( data, function() {
-				var row = "<tr>";
+				var row = "<tr";
+				if (this.enabled == false) {
+					row += ' class="disabled"';
+				}
+				row += ">";
 				row += '<td><a href="' + this.url + '">' + this.code + '</a></td>';
 				row += "<td>" + this.brand + "</td>";
 				row += "<td>" + this.description + "</td>";

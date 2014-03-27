@@ -36,6 +36,7 @@ class GroupArticlesJSONView(TemplateView):
 					'url': article.get_absolute_url(),
 					'stock': article.stock,
 					'unit': article.measure_unit,
+					'enabled': article.enabled,
 				}
 				try:
 					article_dict.update({'brand': article.brand.name })
