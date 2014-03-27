@@ -36,8 +36,10 @@
 <div class="well">
 <p>{{ comment }}</p>
 <div class="small">
-<span>{{ comment.created_on }}</span>
+<span>{{ comment.author }}, {{ comment.created_on }}</span>
+<span>
 <a href="{% url 'pm_machinecomment_delete' comment.id %}" class="text-danger">{% trans "Delete" %}</a>
+</span>
 </div>
 </div>
 {% endfor %}

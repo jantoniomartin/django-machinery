@@ -13,6 +13,7 @@ class MachineCommentForm(forms.ModelForm):
 
 	class Meta:
 		model = MachineComment
+		exclude = ['author',]
 
 class NewMachineForm(forms.ModelForm):
 	project = forms.ModelChoiceField(
@@ -58,9 +59,12 @@ class ProjectForm(forms.ModelForm):
 	def save(self, force_insert=False, force_update=False, commit=True):
 		m = super(ProjectForm, self).save(commit=False)
 		if not m.serial:
-			last_project = Project.objects.order_by("-serial")[0]
-			n = int(last_project.serial)
-			m.serial = str(n + 1).zfill(4)
+			try:
+				last_project = Project.objects.order_by("-serial")[0]
+				n = int(last_project.serial)
+				m.serial = str(n + 1).zfill(4)
+			except IndexError:
+				m.serial = '0001'
 		if commit:
 			m.save()
 		return m

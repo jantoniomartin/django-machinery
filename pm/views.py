@@ -19,9 +19,13 @@ from indumatic.views import PdfView
 
 class MachineCommentCreateView(CreateView):
 	model = MachineComment
+	form_class = MachineCommentForm
 	
-	def get_success_url(self):
-		return self.object.machine.get_absolute_url()
+	def form_valid(self, form):
+		comment = form.save(commit = False)
+		comment.author = self.request.user
+		comment.save()
+		return HttpResponseRedirect(comment.machine.get_absolute_url())
 
 class MachineCommentDeleteView(DeleteView):
 	model = MachineComment

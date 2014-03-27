@@ -2,6 +2,7 @@ import os
 
 from PIL import Image
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
@@ -103,6 +104,7 @@ class MachineComment(models.Model):
 	machine = models.ForeignKey(Machine, verbose_name=_("machine"))
 	body = models.TextField(_("body"))
 	created_on = models.DateField(_("created on"), auto_now_add=True)
+	author = models.ForeignKey(User, verbose_name=_("author"))
 
 	class Meta:
 		verbose_name = _("machine comment")
