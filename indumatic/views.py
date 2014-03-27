@@ -56,6 +56,10 @@ class DashboardView(TemplateView):
 			machine__running_on__isnull=True,
 			machine__created_on__gt=datetime.date(min_year, 1, 1)
 		).distinct()
+		running_projects = pm.Project.objects.filter(
+			is_retired=False,
+			machine__running_on__isnull=False).order_by(
+				'-machine__running_on').distinct()[0:5]
 		days = datetime.timedelta(14)
 		delay = datetime.datetime.now() - days
 		delayed_orders = om.Order.objects.filter(
@@ -73,6 +77,7 @@ class DashboardView(TemplateView):
 		context.update({
 			'active_projects': active_projects,
 			'shipped_projects': shipped_projects,
+			'running_projects': running_projects,
 			'delayed_orders': delayed_orders,
 			'suppliers_in_cart': suppliers_in_cart,
 			'pending_companies': pending_companies,

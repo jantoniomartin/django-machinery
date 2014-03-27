@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-12 13:44+0100\n"
+"POT-Creation-Date: 2014-03-27 16:25+0100\n"
 "PO-Revision-Date: 2014-03-12 13:44+0100\n"
 "Last-Translator: Jose Antonio Martin <jantonio.martin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,94 +18,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/dashboard.html:10
+#: templates/dashboard.html:11
 msgid "Project summary"
 msgstr "Resumen de proyectos"
 
-#: templates/dashboard.html:12
+#: templates/dashboard.html:13
 msgid "Active projects"
 msgstr "Proyectos activos"
 
-#: templates/dashboard.html:17 templates/dashboard.html.py:40
+#: templates/dashboard.html:18 templates/dashboard.html.py:41
+#: templates/dashboard.html:66
 msgid "Reference"
 msgstr "Referencia"
 
-#: templates/dashboard.html:18 templates/dashboard.html.py:41
+#: templates/dashboard.html:19 templates/dashboard.html.py:42
+#: templates/dashboard.html:67
 msgid "Description"
 msgstr "Descripción"
 
-#: templates/dashboard.html:19 templates/dashboard.html.py:42
+#: templates/dashboard.html:20 templates/dashboard.html.py:43
+#: templates/dashboard.html:68
 msgid "Customer"
 msgstr "Cliente"
 
-#: templates/dashboard.html:20
-msgid "Estimated delivery"
-msgstr "Entrega estimada"
-
-#: templates/dashboard.html:35
+#: templates/dashboard.html:36
 msgid "Shipped projects"
 msgstr "Proyectos enviados"
 
-#: templates/dashboard.html:60
+#: templates/dashboard.html:61
+msgid "Latest finished projects"
+msgstr "Últimos proyectos arrancados"
+
+#: templates/dashboard.html:88
 msgid "Delayed orders"
 msgstr "Pedidos retrasados"
 
-#: templates/dashboard.html:66
+#: templates/dashboard.html:94
 msgid "There are no delayed orders."
 msgstr "No hay pedidos retrasados"
 
-#: templates/dashboard.html:73
+#: templates/dashboard.html:101
 msgid "Possible orders"
 msgstr "Posibles pedidos"
 
-#: templates/dashboard.html:79
+#: templates/dashboard.html:107
 msgid "The cart is empty."
 msgstr "El carro está vacío"
 
-#: templates/dashboard.html:86
+#: templates/dashboard.html:114
 msgid "Suppliers with pending orders"
 msgstr "Proveedores con pedidos pendientes"
 
-#: templates/dashboard.html:92
+#: templates/dashboard.html:120
 msgid "There are no pending orders"
 msgstr "No hay pedidos pendientes"
 
-#: templates/site_base.html:44
+#: templates/site_base.html:48
 msgid "Home"
 msgstr "Inicio"
 
-#: templates/site_base.html:45
+#: templates/site_base.html:49
 msgid "Companies"
 msgstr "Empresas"
 
-#: templates/site_base.html:46
+#: templates/site_base.html:50
 msgid "Projects"
 msgstr "Proyectos"
 
-#: templates/site_base.html:47
+#: templates/site_base.html:51
 msgid "Articles"
 msgstr "Artículos"
 
-#: templates/site_base.html:48
+#: templates/site_base.html:52
 msgid "Orders"
 msgstr "Pedidos"
 
-#: templates/site_base.html:49
-msgid "Search"
-msgstr "Buscar"
-
-#: templates/site_base.html:50
+#: templates/site_base.html:53
 msgid "Cart"
 msgstr "Carro"
 
-#: templates/site_base.html:54
+#: templates/site_base.html:60
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/site_base.html:56
+#: templates/site_base.html:62
 msgid "Logout"
 msgstr "Salir"
 
 #: templates/registration/login.html:5 templates/registration/login.html:13
 msgid "Log in"
 msgstr "Iniciar sesión"
+
+#~ msgid "Estimated delivery"
+#~ msgstr "Entrega estimada"
+
+#~ msgid "Search"
+#~ msgstr "Buscar"
