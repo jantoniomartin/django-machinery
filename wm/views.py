@@ -2,6 +2,7 @@ import csv
 from datetime import date
 import json
 
+from django.conf import settings
 from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import ObjectDoesNotExist, F
@@ -82,6 +83,7 @@ class ArticleDetailView(DetailView):
 				'latest_parts': latest_parts,
 				'offer_form': offer_form,
 				'offers': offers,
+				'MEDIA_URL': getattr(settings, 'MEDIA_URL', '/media/'),
 			})
 		return ctx
 
