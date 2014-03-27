@@ -24,7 +24,7 @@ class GroupArticlesJSONView(TemplateView):
 			group = models.Group.objects.get(id=kwargs['pk'])
 		except ObjectDoesNotExist:
 			raise Http404
-		articles = group.article_set.order_by('code')
+		articles = group.article_set.order_by('enabled', 'code')
 		to_json = []
 		try:
 			for article in articles:
