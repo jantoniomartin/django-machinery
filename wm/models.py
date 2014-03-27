@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -45,8 +46,9 @@ class Group(MPTTModel):
 
 @receiver(post_save, sender=Group)
 def clear_tree_cache(sender, instance, created, raw, using, **kwargs):
-	if cache.get('groups_tree'):
-		cache.delete('groups_tree')
+	key = make_template_fragment_key('groups_tree', [])
+	if cache.get(key):
+		cache.delete(key)
 
 class Article(models.Model):
 	code = models.CharField(_("code"), max_length=128)
