@@ -123,6 +123,19 @@
   </div>
 </div>
 
+{% cache 1800 latest_comments %}
+<div class="panel panel-info">
+	<div class="panel-heading">{% trans "Latest comments" %}</div>
+	<ul class="panel-body list-group">
+		{% for comment in comments %}
+			<li class="list-group-item">
+			<a href="{% url 'pm_machine_detail' comment.machine.id %}">{{ comment|truncatewords:10 }}</a>
+			</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endcache %}
+
 </div>
 
 {% endblock %}

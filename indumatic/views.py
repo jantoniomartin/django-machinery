@@ -73,6 +73,7 @@ class DashboardView(TemplateView):
 			order__orderitem__ordered_quantity__gt=0,	
 			order__orderitem__completed_on__isnull=True
 		).distinct()
+		comments = pm.MachineComment.objects.order_by('-created_on')[0:5]
 		
 		context.update({
 			'active_projects': active_projects,
@@ -81,6 +82,7 @@ class DashboardView(TemplateView):
 			'delayed_orders': delayed_orders,
 			'suppliers_in_cart': suppliers_in_cart,
 			'pending_companies': pending_companies,
+			'comments': comments,
 		})
 		return context
 
