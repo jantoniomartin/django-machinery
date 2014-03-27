@@ -24,7 +24,7 @@
 </thead>
 <tbody>
 {% for project in project_list %}
-<tr>
+<tr {% if project.is_retired %}class="disabled"{% endif %}>
 	<td>
 	{% if project.thumbnail %}
 	<img src="{{ MEDIA_URL }}{{ project.thumbnail }}" style="width: 80px" />
