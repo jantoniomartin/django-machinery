@@ -56,6 +56,8 @@
 
 <div class="col-md-12">
 
+{% if article.enabled %}
+
 <div class="panel panel-primary">
 <div class="panel-heading">{% trans "Active offers for this article" %}</div>
 <div class="panel-body">
@@ -104,6 +106,10 @@
 </div>
 </div>
 
+{% endif %}
+
+{% if article.enabled %}
+
 <div class="panel panel-primary">
 <div class="panel-heading">{% trans "New offer" %}</div>
 <div class="panel-body">
@@ -118,6 +124,8 @@
 
 </div>
 </div>
+
+{% endif %}
 
 <div class="panel panel-info">
 <div class="panel-heading">{% trans "Latest machines where the article is installed" %}</div>
