@@ -1,0 +1,17 @@
+django-machinery
+================
+
+**django-machinery** is a set of Django applications for project managing,
+that I made for the company that I work for. The company is a machinery
+factory, and the models are specific for this domain and suited to this
+company workflow.
+
+The applications that form **django-machinery** include the following:
+
+  * _crm_, for customer and supplier relationship management.
+  * _pm_, for project management.
+  * _dm_, ultra-simple document management.
+  * _wm_, for warehouse management.
+  * _om_, for order management.
+
+
