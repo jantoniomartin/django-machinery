@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -19,12 +21,27 @@ class OfferForm(forms.ModelForm):
 	retail_price = forms.FloatField(localize=True, required=False,
 		label = _("Retail price")
 	)
-	invoice_price = forms.FloatField(localize=True, required=False,
+	invoice_price = forms.CharField(required=False,
 		label = _("Invoice price")
 	)
 	
 	class Meta:
 		model = models.Offer
+
+	def clean_invoice_price(self):
+		data = self.cleaned_data['invoice_price']
+		try:
+			float_data = float(data)
+			return float_data
+		except:
+			try:
+				match = re.match("(?P<a>([0-9.]+))\*(?P<b>([0-9.]+))",
+					str(data).replace(" ", "").replace(",","."))
+				a = float(match.groupdict()['a'])
+				b = float(match.groupdict()['b'])
+				return a * b
+			except:
+				raise forms.ValidationError(_("Enter a number or product."))
 
 class OrderForm(forms.ModelForm):
 	company = forms.ModelChoiceField(
