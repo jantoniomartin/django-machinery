@@ -73,9 +73,11 @@
 {% endfor %}
 </tbody>
 </table>
-<div>
-<button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
-</div>
+{% if not order.completed_on %}
+	<div>
+	<button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+	</div>
+{% endif %}
 </form>
 
 {% endblock %}
