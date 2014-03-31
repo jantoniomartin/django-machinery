@@ -30,6 +30,8 @@ class OfferForm(forms.ModelForm):
 
 	def clean_invoice_price(self):
 		data = self.cleaned_data['invoice_price']
+		if data == "":
+			return None
 		try:
 			float_data = float(data.replace(",","."))
 			return float_data
