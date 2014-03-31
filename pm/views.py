@@ -253,7 +253,7 @@ class CECertificateCreateView(CreateView):
 		return self.object.project.get_absolute_url()
 
 class CECertificatePdfView(PdfView):
-	template_name = 'pm/ce_pdf.html'
+	template_name = 'ce_pdf.html'
 
 	def get_context_data(self, **kwargs):
 		ctx = super(CECertificatePdfView, self).get_context_data(**kwargs)

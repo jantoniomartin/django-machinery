@@ -13,6 +13,7 @@ indumatic/whoosh_index/
 # Specific files #
 ##################
 indumatic/settings.py
+indumatic/templates/ce_pdf.html
 
 # OS generated files #
 ######################
