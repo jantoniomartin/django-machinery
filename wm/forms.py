@@ -6,6 +6,9 @@ from wm.models import Article, Group, SupplierCode
 class ArticleForm(forms.ModelForm):
 	group = forms.ModelChoiceField(queryset=Group.objects.all(),
 		widget=forms.HiddenInput)
+	description = forms.CharField(
+		label = _("Description"),
+		widget=forms.Textarea)
 	
 	class Meta:
 		exclude = ['documents',]
