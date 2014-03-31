@@ -90,7 +90,10 @@ class ArticleDetailView(DetailView):
 		if not self.template_name == 'wm/article_offers.html':
 			latest_parts = self.object.part_set.all()[:10]
 			offer_form = OfferForm(initial={"article": self.object.pk,})
-			offers = self.object.offer_set.filter(expired_on__isnull=True)
+			offers = self.object.offer_set.filter(expired_on__isnull=True).\
+				extra(select={
+					'discount': "100 * (1 - invoice_price / retail_price)", 
+				})
 			ctx.update({
 				'latest_parts': latest_parts,
 				'offer_form': offer_form,
