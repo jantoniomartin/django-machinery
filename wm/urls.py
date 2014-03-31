@@ -49,6 +49,10 @@ urlpatterns = patterns("wm.views",
 		ArticleCreateView.as_view(),
 		name="wm_article_create"
 	),
+	url(r'^article/copy/(?P<pk>\d+)/$',
+		ArticleCopyView.as_view(),
+		name="wm_article_copy"
+	),
 	url(r'^article/link/(?P<pk>\d+)/$',
 		DocumentLinkView.as_view(),
 		name="wm_document_link"

@@ -69,6 +69,17 @@ class ArticleCreateView(CreateView):
 		nodes = models.Group.objects.all()
 		ctx.update( {'nodes' : nodes })
 		return ctx
+
+class ArticleCopyView(ArticleCreateView):
+
+	def get_initial(self):
+		base = get_object_or_404(models.Article, id=self.kwargs['pk'])
+		initial = base.__dict__
+		initial.update({
+			'stock': 0,
+			'group': base.group.id
+		})
+		return initial
 		
 class ArticleDetailView(DetailView):
 	model = models.Article
