@@ -3,7 +3,7 @@ from django.db.models import Max
 from django.utils.translation import ugettext_lazy as _
 
 from crm.models import Company
-from pm.models import Machine, Project, Part, MachineComment
+from pm.models import *
 from wm.models import Article
 
 class MachineCommentForm(forms.ModelForm):
@@ -97,3 +97,10 @@ class CopyPartsForm(forms.Form):
 			machine__id=source_id
 		)
 
+class CECertificateForm(forms.ModelForm):
+	project = forms.ModelChoiceField(
+		queryset=Project.objects.all(),
+		widget=forms.HiddenInput)
+
+	class Meta:
+		model = CECertificate

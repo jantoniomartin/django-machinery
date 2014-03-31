@@ -135,3 +135,14 @@ def decrease_stock(sender, instance, created, raw, using, **kwargs):
 			if instance.article.stock < 0:
 				instance.article.stock = 0
 			instance.article.save()
+
+class CECertificate(models.Model):
+	project = models.ForeignKey(Project, verbose_name=_("project"))
+	date = models.DateField(_("date"))
+
+	class Meta:
+		verbose_name = _("CE certificate")
+		verbose_name_plural = _("CE certificates")
+
+	def __unicode__(self):
+		return unicode(self.project)

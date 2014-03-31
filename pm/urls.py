@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from pm.forms import ProjectForm, PartForm
-from pm.models import Sector, Project, Machine, MachineComment
+from pm.models import *
 from pm.views import *
 
 urlpatterns = patterns("pm.views",
@@ -64,6 +64,14 @@ urlpatterns = patterns("pm.views",
     url(r'^project/parts/report/(?P<pk>\d+)/$',
 		PartsReportView.as_view(),
 		name="pm_project_parts_report"
+	),
+    url(r'^project/ce/create/(?P<pk>\d+)/$',
+		CECertificateCreateView.as_view(),
+		name="pm_ce_certificate_create"
+	),
+    url(r'^ce/detail/(?P<pk>\d+)/$',
+		CECertificatePdfView.as_view(),
+		name="pm_ce_certificate_detail"
 	),
     url(r'^machine/detail/(?P<pk>\d+)/$',
 		MachineDetailView.as_view(),

@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.db.models import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -12,7 +13,7 @@ from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
 from pm.forms import *
-from pm.models import Project, Machine, MachineComment, Part
+from pm.models import *
 from wm.models import Group
 from indumatic.search import get_query
 from indumatic.views import PdfView
@@ -83,7 +84,12 @@ class ProjectDetailView(DetailView):
 	def get_context_data(self, **kwargs):
 		ctx = super(ProjectDetailView, self).get_context_data(**kwargs)
 		machine_form = NewMachineForm(initial={'project': self.object.pk })
+		try:
+			ce = CECertificate.objects.get(project=self.object)
+		except ObjectDoesNotExist:
+			ce = None
 		ctx.update({ 'machine_form': machine_form,
+					'ce': ce,
 					'MEDIA_URL': settings.MEDIA_URL,})
 		return ctx
 
@@ -235,3 +241,24 @@ class ProjectSearchView(ListView):
 		found_entries = Project.objects.filter(entry_query).distinct()
 		return found_entries
 
+class CECertificateCreateView(CreateView):
+	model = CECertificate
+	form_class = CECertificateForm
+	template_name = 'pm/certificate_form.html'
+
+	def get_initial(self):
+		return {'project': self.kwargs['pk'] }
+
+	def get_success_url(self):
+		return self.object.project.get_absolute_url()
+
+class CECertificatePdfView(PdfView):
+	template_name = 'pm/ce_pdf.html'
+
+	def get_context_data(self, **kwargs):
+		ctx = super(CECertificatePdfView, self).get_context_data(**kwargs)
+		certificate = get_object_or_404(CECertificate, id=self.kwargs['pk'])
+		ctx.update({
+			'cert': certificate,
+		})
+		return ctx
