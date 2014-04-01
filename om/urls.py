@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, url
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView
 
 from om.views import *
 from om.models import Offer, CartItem, Order
@@ -38,10 +37,7 @@ urlpatterns = patterns("om.views",
 		name="om_cartitem_list"
 	),
 	url(r'^cartitem/delete/(?P<pk>\d+)$',
-		DeleteView.as_view(
-			model = CartItem,
-			success_url = '/om/cartitem/list/',
-		),
+		CartItemDeleteView.as_view(),
 		name="om_cartitem_delete"
 	),
 	url(r'^order/create/(?P<pk>\d+)$',

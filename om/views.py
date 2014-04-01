@@ -2,6 +2,7 @@ import csv
 from datetime import date
 
 from django.conf import settings
+from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
@@ -11,10 +12,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext, Context
 from django.template.loader import render_to_string, get_template
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, ListView, DetailView
 from django.views.generic.base import View
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from crm.models import Company
 from om.models import *
@@ -25,6 +27,11 @@ from indumatic.pdftools import make_pdf
 class CartItemCreateView(CreateView):
 	model = CartItem
 	success_url = "/"
+
+	@method_decorator(permission_required('om.add_order',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(CartItemCreateView, self).dispatch(*args, **kwargs)
 
 	def form_valid(self, form):
 		"""
@@ -40,9 +47,23 @@ class CartItemCreateView(CreateView):
 			item.save()
 		return HttpResponseRedirect(obj.offer.article.get_absolute_url())
 
+class CartItemDeleteView(DeleteView):
+	model = CartItem
+	success_url = '/om/cartitem/list/'
+	
+	@method_decorator(permission_required('om.delete_cartitem',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(CartItemDeleteView, self).dispatch(*args, **kwargs)
+
 class OfferCreateView(CreateView):
 	model = Offer
 	form_class = forms.OfferForm
+	
+	@method_decorator(permission_required('om.add_offer',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(OfferCreateView, self).dispatch(*args, **kwargs)
 
 	def get_success_url(self):
 		return self.object.article.get_absolute_url()
@@ -55,11 +76,21 @@ class OfferCreateView(CreateView):
 class OfferUpdateView(UpdateView):
 	model = Offer
 	form_class = forms.OfferForm
+	
+	@method_decorator(permission_required('om.change_offer',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(OfferUpdateView, self).dispatch(*args, **kwargs)
 
 	def get_success_url(self):
 		return self.object.article.get_absolute_url()
 
 class OfferExpireView(View):
+	@method_decorator(permission_required('om.change_offer',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(OfferExpireView, self).dispatch(*args, **kwargs)
+
 	def get(self, request, *args, **kwargs):
 		offer = get_object_or_404(Offer, id=self.kwargs['pk'])
 		if not offer.expired_on:
@@ -72,6 +103,11 @@ class OrderCreateView(CreateView):
 	form_class = forms.OrderForm
 	template_name = "om/order_form.html"
 	
+	@method_decorator(permission_required('om.add_order',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(OrderCreateView, self).dispatch(*args, **kwargs)
+
 	def get_initial(self):
 		return {'company': self.kwargs['pk']}
 
@@ -180,6 +216,11 @@ class OrderByCompanyListView(ListView):
 class OrderReceiveView(TemplateView):
 	template_name = "om/order_receive.html"
 	
+	@method_decorator(permission_required('om.change_order',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(OrderReceiveView, self).dispatch(*args, **kwargs)
+
 	def get_formset_class(self):	
 		return modelformset_factory(
 			OrderItem,
