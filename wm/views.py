@@ -3,11 +3,13 @@ from datetime import date
 import json
 
 from django.conf import settings
+from django.contrib.auth.decorators import permission_required
 from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import ObjectDoesNotExist, F
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, DetailView, ListView
 from django.views.generic.base import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
@@ -56,13 +58,28 @@ class BrandCreateView(CreateView):
 	model = models.Brand
 	success_url = '/wm/brand/list/'
 
+	@method_decorator(permission_required('wm.add_brand',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(BrandCreateView, self).dispatch(*args, **kwargs)
+
 class BrandUpdateView(UpdateView):
 	model = models.Brand
 	success_url = '/wm/brand/list/'
+	
+	@method_decorator(permission_required('wm.change_brand',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(BrandUpdateView, self).dispatch(*args, **kwargs)
 
 class ArticleCreateView(CreateView):
 	model = models.Article
 	form_class = forms.ArticleForm
+	
+	@method_decorator(permission_required('wm.add_article',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(ArticleCreateView, self).dispatch(*args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		ctx = super(ArticleCreateView, self).get_context_data(**kwargs)
@@ -71,6 +88,11 @@ class ArticleCreateView(CreateView):
 		return ctx
 
 class ArticleCopyView(ArticleCreateView):
+
+	@method_decorator(permission_required('wm.add_article',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(ArticleCopyView, self).dispatch(*args, **kwargs)
 
 	def get_initial(self):
 		base = get_object_or_404(models.Article, id=self.kwargs['pk'])
@@ -116,6 +138,11 @@ class ArticleUpdateView(UpdateView):
 	model = models.Article
 	form_class = forms.ArticleForm
 
+	@method_decorator(permission_required('wm.change_article',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(ArticleUpdateView, self).dispatch(*args, **kwargs)
+
 	def get_context_data(self, **kwargs):
 		ctx = super(ArticleUpdateView, self).get_context_data(**kwargs)
 		nodes = models.Group.objects.all()
@@ -150,6 +177,11 @@ class GroupCreateView(CreateView):
 	model = models.Group
 	form_class = forms.GroupForm
 
+	@method_decorator(permission_required('wm.add_group',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(GroupCreateView, self).dispatch(*args, **kwargs)
+
 	def get_context_data(self, **kwargs):
 		ctx = super(GroupCreateView, self).get_context_data(**kwargs)
 		nodes = models.Group.objects.all()
@@ -163,6 +195,11 @@ class GroupUpdateView(UpdateView):
 	model = models.Group
 	context_object_name = "group"
 	form_class = forms.GroupForm
+
+	@method_decorator(permission_required('wm.change_group',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(GroupUpdateView, self).dispatch(*args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		ctx = super(GroupUpdateView, self).get_context_data(**kwargs)
@@ -210,6 +247,11 @@ class SupplierCodeCreateView(CreateView):
 	model = models.SupplierCode
 	form_class = forms.SupplierCodeForm
 	
+	@method_decorator(permission_required('wm.add_suppliercode',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(SupplierCodeCreateView, self).dispatch(*args, **kwargs)
+
 	def get_initial(self):
 		return {'article': self.kwargs['pk']}
 
@@ -220,12 +262,22 @@ class SupplierCodeEditView(UpdateView):
 	model = models.SupplierCode
 	form_class = forms.SupplierCodeForm
 	
+	@method_decorator(permission_required('wm.change_suppliercode',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(SupplierCodeEditView, self).dispatch(*args, **kwargs)
+
 	def get_success_url(self):
 		return reverse('wm_scode_list', args=[self.object.article.id])
 		
 class SupplierCodeDeleteView(DeleteView):
 	model = models.SupplierCode
 	
+	@method_decorator(permission_required('wm.delete_suppliercode',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(SupplierCodeDeleteView, self).dispatch(*args, **kwargs)
+
 	def get_success_url(self):
 		return reverse('wm_scode_list', args=[self.object.article.id])
 		
