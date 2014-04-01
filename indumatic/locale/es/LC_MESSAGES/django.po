@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-27 17:29+0100\n"
+"POT-Creation-Date: 2014-04-01 09:11+0200\n"
 "PO-Revision-Date: 2014-03-12 13:44+0100\n"
 "Last-Translator: Jose Antonio Martin <jantonio.martin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/403.html:5
+msgid "Permission denied"
+msgstr "Permiso denegado"
+
+#: templates/403.html:7
+msgid "You don't have permission to perform this action."
+msgstr "No tienes permiso para realizar esta acción."
 
 #: templates/dashboard.html:11
 msgid "Project summary"

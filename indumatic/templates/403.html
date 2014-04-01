@@ -1,0 +1,9 @@
+{% extends 'site_base.html' %}
+{% load i18n %}
+
+{% block body %}
+<h1>{% trans "Permission denied" %}</h1>
+
+<p class="text-danger">{% blocktrans %}You don't have permission to perform this action.{% endblocktrans %}</p>
+
+{% endblock %}
