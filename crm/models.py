@@ -13,6 +13,7 @@ class Group(models.Model):
 		ordering = ['name',]
 		verbose_name = _("group")
 		verbose_name_plural = _("groups")
+		permissions = (('view_group', 'Can view group'),)
 
 	def __unicode__(self):
 		return self.name
@@ -50,6 +51,7 @@ class Company(models.Model):
 		ordering = ['name', ]
 		verbose_name = _("company")
 		verbose_name_plural = _("companies")
+		permissions = (('view_company', 'Can view company'),)
 
 	def __unicode__(self):
 		return self.name
@@ -97,6 +99,7 @@ class Department(models.Model):
 		ordering = ['name', ]
 		verbose_name = _("department")
 		verbose_name_plural = _("departments")
+		permissions = (('view_department', 'Can view department'),)
 
 	def __unicode__(self):
 		return self.name

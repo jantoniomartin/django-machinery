@@ -7,57 +7,35 @@ from crm.views import *
 
 urlpatterns = patterns("crm.views",
     url(r'^$',
-		ListView.as_view(
-			model=Company,
-        	paginate_by=10,
-			context_object_name="company_list"
-		),
+		CompanyListView.as_view(),
 		name="crm_company_list"
 	),
 	url(r'^group/list/$',
-		ListView.as_view(
-			model=Group,
-			paginate_by=10,
-			context_object_name="group_list"
-		),
+		GroupListView.as_view(),
 		name="crm_group_list"
 	),
 	url(r'^group/detail/(?P<pk>\d+)/$',
-		DetailView.as_view(
-			model=Group,
-			context_object_name="group"
-		),
+		GroupDetailView.as_view(),
 		name="crm_group_detail"
 	),
 	url(r'^group/edit/(?P<pk>\d+)/$',
-		UpdateView.as_view(
-			model=Group,
-		),
+		GroupUpdateView.as_view(),
 		name="crm_group_edit"
 	),
 	url(r'^group/create/$',
-		CreateView.as_view(
-			model = Group
-		),
+		GroupCreateView.as_view(),
 		name="crm_group_create"
 	),
     url(r'^company/detail/(?P<pk>\d+)/$',
-		DetailView.as_view(
-			model=Company,
-        	context_object_name="company"
-		),
+		CompanyDetailView.as_view(),
 		name="crm_company_detail"
 	),
     url(r'^company/edit/(?P<pk>\d+)/$',
-		UpdateView.as_view(
-			model=Company,
-		),
+		CompanyUpdateView.as_view(),
 		name="crm_company_edit"
 	),
 	url(r'^company/create/$',
-		CreateView.as_view(
-			model=Company
-		),
+		CompanyCreateView.as_view(),
 		name="crm_company_create"
 	),
 	url(r'^company/search/$',
@@ -65,10 +43,7 @@ urlpatterns = patterns("crm.views",
 		name="crm_company_search"
 	),
     url(r'^department/detail/(?P<pk>\d+)/$',
-		DetailView.as_view(
-			model=Department,
-        	context_object_name="department"
-		),
+		DepartmentDetailView.as_view(),
 		name="crm_department_detail"
 	),
     url(r'^department/edit/(?P<pk>\d+)/$',
