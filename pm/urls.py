@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, url
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from pm.forms import ProjectForm, PartForm
 from pm.models import *
@@ -27,15 +26,11 @@ urlpatterns = patterns("pm.views",
 		name="pm_sector_detail"
 	),
 	url(r'^sector/edit/(?P<pk>\d+)/$',
-		UpdateView.as_view(
-			model=Sector,
-		),
+		SectorUpdateView.as_view(),
 		name="pm_sector_edit"
 	),
 	url(r'^sector/create/$',
-		CreateView.as_view(
-			model = Sector
-		),
+		SectorCreateView.as_view(),
 		name="pm_sector_create"
 	),
     url(r'^project/detail/(?P<pk>\d+)/$',
@@ -43,18 +38,11 @@ urlpatterns = patterns("pm.views",
 		name="pm_project_detail"
 	),
     url(r'^project/edit/(?P<pk>\d+)/$',
-		UpdateView.as_view(
-			model=Project,
-			context_object_name = 'project',
-			form_class = ProjectForm
-		),
+		ProjectUpdateView.as_view(),
 		name="pm_project_edit"
 	),
 	url(r'^project/create/$',
-		CreateView.as_view(
-			model=Project,
-			form_class = ProjectForm
-		),
+		ProjectCreateView.as_view(),
 		name="pm_project_create"
 	),
 	url(r'^project/search/$',
@@ -82,9 +70,7 @@ urlpatterns = patterns("pm.views",
 		name="pm_machine_parts"
 	),
     url(r'^machine/edit/(?P<pk>\d+)/$',
-		UpdateView.as_view(
-			model=Machine,
-		),
+		MachineUpdateView.as_view(),
 		name="pm_machine_edit"
 	),
     url(r'^machine/delete/(?P<pk>\d+)/$',

@@ -34,7 +34,11 @@
 	</td>
     <td><a href="{% url 'pm_project_detail' project.id %}">{{ project }}</a></td>
     <td>{{ project.description }}</td>
-    <td><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a></td>
+    <td>
+	{% if perms.crm.view_company %}
+	<a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a>
+	{% endif %}
+	</td>
     <td>{{ project.created_on }}</td>
 </tr>
 {% endfor %}

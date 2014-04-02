@@ -2,12 +2,14 @@ import json
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import permission_required
 from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
@@ -22,6 +24,11 @@ class MachineCommentCreateView(CreateView):
 	model = MachineComment
 	form_class = MachineCommentForm
 	
+	@method_decorator(permission_required('pm.add_machinecomment',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(MachineCommentCreateView, self).dispatch(*args, **kwargs)
+
 	def form_valid(self, form):
 		comment = form.save(commit = False)
 		comment.author = self.request.user
@@ -31,12 +38,30 @@ class MachineCommentCreateView(CreateView):
 class MachineCommentDeleteView(DeleteView):
 	model = MachineComment
 	
+	@method_decorator(permission_required('pm.delete_machinecomment',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(MachineCommentDeleteView, self).dispatch(*args, **kwargs)
+
 	def get_success_url(self):
 		return self.object.machine.get_absolute_url()
+
+class MachineUpdateView(CreateView):
+	model=Machine
+
+	@method_decorator(permission_required('pm.change_machine',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(MachineUpdateView, self).dispatch(*args, **kwargs)
 
 class MachineDeleteView(DeleteView):
 	model = Machine
 	
+	@method_decorator(permission_required('pm.delete_machine',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(MachineDeleteView, self).dispatch(*args, **kwargs)
+
 	def get_success_url(self):
 		return self.object.project.get_absolute_url()
 
@@ -67,6 +92,11 @@ class MachinePartsView(DetailView):
 class PartDeleteView(DeleteView):
 	model = Part
 	
+	@method_decorator(permission_required('pm.delete_part',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(PartDeleteView, self).dispatch(*args, **kwargs)
+
 	def get_success_url(self):
 		return reverse_lazy('pm_machine_parts', args=[self.object.machine.id])
 
@@ -74,8 +104,32 @@ class PartUpdateView(UpdateView):
 	model = Part
 	form_class = PartForm
 
+	@method_decorator(permission_required('pm.change_part',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(PartUpdateView, self).dispatch(*args, **kwargs)
+
 	def get_success_url(self):
 		return reverse_lazy('pm_machine_parts', args=[self.object.machine.id])
+
+class ProjectCreateView(CreateView):
+	model=Project
+	form_class = ProjectForm
+
+	@method_decorator(permission_required('pm.add_project',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(ProjectCreateView, self).dispatch(*args, **kwargs)
+
+class ProjectUpdateView(CreateView):
+	model=Project
+	form_class = ProjectForm
+	context_object_name = 'project'
+
+	@method_decorator(permission_required('pm.change_project',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(ProjectUpdateView, self).dispatch(*args, **kwargs)
 
 class ProjectDetailView(DetailView):
 	model = Project
@@ -103,6 +157,23 @@ class ProjectListView(ListView):
 		ctx.update({ 'MEDIA_URL': settings.MEDIA_URL })
 		return ctx
 
+class SectorCreateView(CreateView):
+	model=Sector
+
+	@method_decorator(permission_required('pm.add_sector',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(SectorCreateView, self).dispatch(*args, **kwargs)
+
+class SectorUpdateView(CreateView):
+	model=Sector
+
+	@method_decorator(permission_required('pm.change_sector',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(SectorUpdateView, self).dispatch(*args, **kwargs)
+
+@permission_required('pm.add_machine', raise_exception=True)
 def create_machine(request):
 	if not request.is_ajax():
 		raise Http404
@@ -135,6 +206,7 @@ def create_machine(request):
 					errors_dict[error] = unicode(e)
 				return HttpResponseBadRequest(json.dumps(errors_dict))
 
+@permission_required('pm.add_part', raise_exception=True)
 def create_part(request):
 	if not request.is_ajax():
 		raise Http404
@@ -171,6 +243,11 @@ def get_machine_ids(request, pk):
 class CopyPartsView(FormView):
 	template_name = 'pm/copy_parts.html'
 	form_class = CopyPartsForm
+
+	@method_decorator(permission_required('pm.add_part',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(CopyPartsView, self).dispatch(*args, **kwargs)
 
 	def get_form_kwargs(self):
 		kwargs = super(CopyPartsView, self).get_form_kwargs()
@@ -245,6 +322,11 @@ class CECertificateCreateView(CreateView):
 	model = CECertificate
 	form_class = CECertificateForm
 	template_name = 'pm/certificate_form.html'
+
+	@method_decorator(permission_required('pm.add_cecertificate',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(CECertificateCreateView, self).dispatch(*args, **kwargs)
 
 	def get_initial(self):
 		return {'project': self.kwargs['pk'] }

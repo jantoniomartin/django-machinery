@@ -79,8 +79,10 @@ $(function() {
 <dd>{{ project.notes }}</dd>
 <dt>{% trans "Created on" %}</dt>
 <dd>{{ project.created_on }}</dd>
+{% if perms.crm.view_company %}
 <dt>{% trans "Company" %}</dt>
 <dd><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a></dd>
+{% endif %}
 </dl>
   </div>
 </div>
@@ -127,14 +129,19 @@ $(function() {
 <td>{{ machine.running_on|date:"d/m/Y" }}</td>
 <td>{{ machine.estimated_delivery_on|date:"d/m/Y" }}</td>
 <td>
+{% if perms.pm.change_machine %}
 <a href="{% url 'pm_machine_edit' machine.id %}" class="btn btn-sm btn-primary">{% trans "Edit" %}</a>
+{% endif %}
+{% if perms.pm.delete_machine %}
 <a href="{% url 'pm_machine_delete' machine.id %}" class="btn btn-sm btn-danger">{% trans "Delete" %}</a>
+{% endif %}
 </td>
 </tr>
 {% endfor %}
 </tbody>
 </table>
 
+{% if perms.pm.add_machine %}
 <form id="machine_form" method="post" action="{% url 'pm_machine_create' %}">
 {% csrf_token %}
 {{ machine_form|crispy }}
@@ -143,6 +150,7 @@ $(function() {
 <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
 </div>
 </form>
+{% endif %}
 
 </div>
 {% endblock %}
