@@ -1,10 +1,16 @@
+import json
+
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render
+from django.db.models import Sum
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from indumatic.search import get_query
+from indumatic.views import PdfView
+from crm.defaults import *
 from crm.models import *
 from crm import forms
 
@@ -122,3 +128,132 @@ class GroupCreateView(CreateView):
 	def dispatch(self, *args, **kwargs):
 		return super(GroupCreateView, self).dispatch(*args, **kwargs)
 
+class QuotationListView(ListView):
+	model = Quotation
+	paginate_by = 20
+
+	@method_decorator(permission_required('crm.view_quotation',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(QuotationListView, self).dispatch(*args, **kwargs)
+
+class CompanyQuotationListView(QuotationListView):
+	def get_queryset(self):
+		return Quotation.objects.filter(company__id=self.kwargs['pk'])
+
+class QuotationCreateView(CreateView):
+	model = Quotation
+	form_class = forms.QuotationForm
+
+	@method_decorator(permission_required('crm.add_quotation',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(QuotationCreateView, self).dispatch(*args, **kwargs)
+
+	def get_initial(self):
+		company = get_object_or_404(Company, id=self.kwargs['pk'])
+		return {'company': company}
+
+	def form_valid(self, form):
+		q = form.save(commit=False)
+		q.author = self.request.user
+		q.save()
+		return HttpResponseRedirect(q.get_absolute_url())
+
+class QuotationUpdateView(UpdateView):
+	model = Quotation
+	form_class = forms.QuotationForm
+
+	@method_decorator(permission_required('crm.change_quotation',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(QuotationUpdateView, self).dispatch(*args, **kwargs)
+
+class QuotationDetailView(DetailView):
+	model = Quotation
+	
+	@method_decorator(permission_required('crm.view_quotation',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(QuotationDetailView, self).dispatch(*args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		ctx = super(QuotationDetailView, self).get_context_data(**kwargs)
+		form_class = forms.quotationitem_form_factory(
+			with_price=self.object.disaggregated
+		)
+		ctx.update({
+			'form': form_class(initial={'quotation': self.object, }),
+		})
+		return ctx
+
+class QuotationItemCreateView(CreateView):
+	model = QuotationItem
+
+	@method_decorator(permission_required('crm.add_quotationitem',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(QuotationItemCreateView, self).dispatch(*args, **kwargs)
+
+	def get_form_class(self):
+		return forms.quotationitem_form_factory()
+
+	def get_success_url(self):
+		return self.object.quotation.get_absolute_url()
+
+class QuotationItemUpdateView(UpdateView):
+	model = QuotationItem
+
+	@method_decorator(permission_required('crm.change_quotationitem',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(QuotationItemUpdateView, self).dispatch(*args, **kwargs)
+
+	def get_form_class(self):
+		return forms.quotationitem_form_factory(
+			with_price=self.object.quotation.disaggregated
+		)
+
+	def get_success_url(self):
+		return self.object.quotation.get_absolute_url()
+
+class QuotationItemDeleteView(DeleteView):
+	model = QuotationItem
+
+	@method_decorator(permission_required('crm.delete_quotationitem',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(QuotationItemDeleteView, self).dispatch(*args, **kwargs)
+
+	def get_success_url(self):
+		return self.object.quotation.get_absolute_url()
+
+class QuotationPdfView(PdfView):
+
+	@method_decorator(permission_required('crm.view_quotation',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		self.object = get_object_or_404(Quotation, id=self.kwargs['pk'])
+		return super(QuotationPdfView, self).dispatch(*args, **kwargs)
+
+	def get_template_names(self):
+		print "Looking for templates"
+		return ['crm/quotation_%s_pdf.html' % self.object.language,]
+
+	def get_context_data(self, **kwargs):
+		ctx = super(QuotationPdfView, self).get_context_data(**kwargs)
+		quotation = self.object
+		if quotation.disaggregated:
+			total = 0
+			for item in quotation.quotationitem_set.non_optional().with_total():
+				total += item.total
+		else:
+			total = quotation.total
+		ctx.update({
+			'quotation': quotation,
+			'address': COMPANY_ADDRESS,
+			'city': COMPANY_CITY,
+			'options': quotation.quotationitem_set.optional().count() > 0,
+			'total': total,
+		})
+		return ctx

@@ -1,0 +1,18 @@
+{% extends 'crm/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete quotation item" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Delete confirmation" %}</h1>
+
+<p>{% blocktrans %}This quotation item will be deleted. Are you sure?{% endblocktrans %}</p>
+
+<p><a href="{% url 'crm_quotation_detail' object.quotation.id %}">{% trans "Go back." %}</a>
+
+<form action="" method="post">{% csrf_token %}
+	<button type="submit" class="btn btn-primary">{% trans "Delete" %}</button>
+</form>
+
+{% endblock %}

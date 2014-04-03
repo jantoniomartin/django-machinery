@@ -24,7 +24,7 @@ class PdfView(TemplateView):
 	def get(self, request, *args, **kwargs):
 		context = self.get_context_data(**kwargs)
 		html = render_to_string(
-			self.template_name,
+			self.get_template_names(),
 			context,
 			context_instance=RequestContext(request)
 		)

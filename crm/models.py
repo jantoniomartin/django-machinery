@@ -1,7 +1,12 @@
-#from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+
+from model_utils.managers import PassThroughManager
+
+from crm.defaults import *
+from crm import querysets
 
 class Group(models.Model):
 	"""
@@ -107,4 +112,55 @@ class Department(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return ('crm_department_detail', [self.id])
+
+class Quotation(models.Model):
+	company = models.ForeignKey(Company, verbose_name=_("company"))
+	author = models.ForeignKey(User, verbose_name=_("author"))
+	created = models.DateField(_("created"), auto_now_add=True)
+	recipient_name = models.CharField(_("recipient name"), max_length=255,
+		blank=True, null=True)
+	title = models.CharField(_("title"), max_length=255)
+	language = models.CharField(_("language"), max_length=8,
+		choices=REPORT_LANGUAGES)
+	disaggregated = models.BooleanField(_("disaggregated"), default=True)
+	total = models.DecimalField(_("total"), max_digits=12, decimal_places=2,
+		blank=True, null=True)
+	conditions = models.TextField(_("conditions"), blank=True, null=True)
+	private_note = models.CharField(_("private note"), max_length=255,
+		blank=True, null=True)
+
+	class Meta:
+		ordering = ['-id',]
+		verbose_name = _("quotation")
+		verbose_name_plural = _("quotations")
+		permissions = (('view_quotation', 'Can view quotation'),)
+
+	def __unicode__(self):
+		return u"%(year)s-%(company)s-%(id)s" % {
+			"year": self.created.strftime("%y"),
+			"company": self.company.id,
+			"id": self.id
+		}
+
+	@models.permalink
+	def get_absolute_url(self):
+		return ('crm_quotation_detail', [self.id])
+
+class QuotationItem(models.Model):
+	quotation = models.ForeignKey(Quotation, verbose_name=_("quotation"))
+	quantity = models.PositiveIntegerField(_("quantity"), default=0)
+	description = models.TextField(_("description"))
+	price = models.DecimalField(_("price"), max_digits=12, decimal_places=2,
+		blank=True, default=0)
+	optional = models.BooleanField(_("optional"), default=False)
+
+	objects = PassThroughManager.for_queryset_class(
+		querysets.QuotationQuerySet)()
+
+	class Meta:
+		verbose_name = _("quotation item")
+		verbose_name_plural = _("quotation items")
+	
+	def __unicode__(self):
+		return unicode(self.id)
 

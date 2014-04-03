@@ -15,6 +15,12 @@
 |
 <a href="{% url 'om_order_by_company' company.id %}">{% trans "Orders" %}</a>
 {% endif %}
+{% if company.is_customer %}
+|
+<a href="{% url 'crm_companyquotation_list' company.id %}">{% trans "Quotations" %}</a>
+|
+<a href="{% url 'crm_quotation_create' company.id %}">{% trans "New quotation" %}</a>
+{% endif %}
 </p>
 
 <div class="col-md-6">

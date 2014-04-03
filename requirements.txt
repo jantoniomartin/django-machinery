@@ -9,6 +9,7 @@ wsgiref==0.1.2
 yolk==0.4.3
 django-crispy-forms==1.4.0
 django-mptt==0.6.0
+django-model-utils
 Pillow==2.3.0
 pisa==3.0.33
 html5lib

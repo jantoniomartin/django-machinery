@@ -54,4 +54,40 @@ urlpatterns = patterns("crm.views",
 		DepartmentCreateView.as_view(),
 		name="crm_department_create"
 	),
+	url(r'^company/quotation/(?P<pk>\d+)/$',
+		QuotationCreateView.as_view(),
+		name="crm_quotation_create"
+	),
+	url(r'^quotation/list/$',
+		QuotationListView.as_view(),
+		name="crm_quotation_list"
+	),
+	url(r'^quotation/list/(?P<pk>\d+)$',
+		CompanyQuotationListView.as_view(),
+		name="crm_companyquotation_list"
+	),
+	url(r'^quotation/detail/(?P<pk>\d+)/$',
+		QuotationDetailView.as_view(),
+		name="crm_quotation_detail"
+	),
+	url(r'^quotation/pdf/(?P<pk>\d+)/$',
+		QuotationPdfView.as_view(),
+		name="crm_quotation_pdf"
+	),
+	url(r'^quotation/edit/(?P<pk>\d+)/$',
+		QuotationUpdateView.as_view(),
+		name="crm_quotation_update"
+	),
+	url(r'^quotationitem/create/$',
+		QuotationItemCreateView.as_view(),
+		name="crm_quotationitem_create"
+	),
+	url(r'^quotationitem/edit/(?P<pk>\d+)/$',
+		QuotationItemUpdateView.as_view(),
+		name="crm_quotationitem_update"
+	),
+	url(r'^quotationitem/delete/(?P<pk>\d+)/$',
+		QuotationItemDeleteView.as_view(),
+		name="crm_quotationitem_delete"
+	),
 )
