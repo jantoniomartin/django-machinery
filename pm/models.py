@@ -8,7 +8,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
-from crm.models import Company
+from crm.models import Company, ContractItem
 from wm.models import Article
 
 class Sector(models.Model):
@@ -81,6 +81,8 @@ class Machine(models.Model):
 	estimated_delivery_on = models.DateField(_("estimated delivery"), null=True, blank=True)
 	is_retired = models.BooleanField(_("retired"), default=False)
 	project = models.ForeignKey(Project, verbose_name=_("project"))
+	contract_item = models.ForeignKey(ContractItem,
+		verbose_name=_("contract item"), blank=True, null=True)
 
 	class Meta:
 		ordering = ['number',]

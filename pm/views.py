@@ -48,6 +48,7 @@ class MachineCommentDeleteView(DeleteView):
 
 class MachineUpdateView(UpdateView):
 	model=Machine
+	form_class = MachineForm
 
 	@method_decorator(permission_required('pm.change_machine',
 		raise_exception=True))

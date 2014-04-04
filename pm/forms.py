@@ -15,6 +15,14 @@ class MachineCommentForm(forms.ModelForm):
 		model = MachineComment
 		exclude = ['author',]
 
+class MachineForm(forms.ModelForm):
+	estimated_delivery_on = forms.DateField(required=False,
+		input_formats=['%d/%m/%Y',])
+
+	class Meta:
+		model = Machine
+		exclude = ['project', 'contract_item',]
+
 class NewMachineForm(forms.ModelForm):
 	project = forms.ModelChoiceField(
 		queryset=Project.objects.all(),
