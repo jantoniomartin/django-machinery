@@ -151,7 +151,7 @@ class QuotationItem(models.Model):
 	quantity = models.PositiveIntegerField(_("quantity"), default=1)
 	description = models.TextField(_("description"))
 	price = models.DecimalField(_("price"), max_digits=12, decimal_places=2,
-		blank=True, default=0)
+		blank=True, null=True)
 	optional = models.BooleanField(_("optional"), default=False)
 
 	objects = PassThroughManager.for_queryset_class(
@@ -203,7 +203,7 @@ class ContractItem(models.Model):
 	quantity = models.PositiveIntegerField(_("quantity"), default=1)
 	description = models.TextField(_("description"))
 	price = models.DecimalField(_("price"), max_digits=12, decimal_places=2,
-		blank=True, default=0)
+		blank=True, null=True)
 
 	objects = PassThroughManager.for_queryset_class(
 		querysets.ContractItemQuerySet)()
