@@ -4,8 +4,9 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
+from django.core.exceptions import PermissionDenied
 from django.db.models import Sum
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden 
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
@@ -137,6 +138,20 @@ class GroupCreateView(CreateView):
 ## QUOTATIONS VIEWS
 ##
 
+def ip_unrestricted(ip):
+	ip_list = ip.split(".", 3)[:3]
+	for n in SAFE_NETWORKS:
+		if n.split(".", 3)[:3] == ip_list:
+			return True
+	return False
+
+class RestrictedNetworkMixin(object):
+	def dispatch(self, *args, **kwargs):
+		if ip_unrestricted(self.request.META['REMOTE_ADDR']):
+			return super(RestrictedNetworkMixin, self).dispatch(*args, **kwargs)
+		#return HttpResponseForbidden()
+		raise PermissionDenied()
+
 class QuotationListView(ListView):
 	model = Quotation
 	paginate_by = 20
@@ -150,7 +165,7 @@ class CompanyQuotationListView(QuotationListView):
 	def get_queryset(self):
 		return Quotation.objects.filter(company__id=self.kwargs['pk'])
 
-class QuotationCreateView(CreateView):
+class QuotationCreateView(RestrictedNetworkMixin, CreateView):
 	model = Quotation
 	form_class = forms.QuotationForm
 
@@ -169,7 +184,7 @@ class QuotationCreateView(CreateView):
 		q.save()
 		return HttpResponseRedirect(q.get_absolute_url())
 
-class QuotationUpdateView(UpdateView):
+class QuotationUpdateView(RestrictedNetworkMixin, UpdateView):
 	model = Quotation
 	form_class = forms.QuotationForm
 
@@ -178,7 +193,7 @@ class QuotationUpdateView(UpdateView):
 	def dispatch(self, *args, **kwargs):
 		return super(QuotationUpdateView, self).dispatch(*args, **kwargs)
 
-class QuotationDetailView(DetailView):
+class QuotationDetailView(RestrictedNetworkMixin, DetailView):
 	model = Quotation
 	
 	@method_decorator(permission_required('crm.view_quotation',
@@ -196,7 +211,7 @@ class QuotationDetailView(DetailView):
 		})
 		return ctx
 
-class QuotationItemCreateView(CreateView):
+class QuotationItemCreateView(RestrictedNetworkMixin, CreateView):
 	model = QuotationItem
 
 	@method_decorator(permission_required('crm.add_quotationitem',
@@ -210,7 +225,7 @@ class QuotationItemCreateView(CreateView):
 	def get_success_url(self):
 		return self.object.quotation.get_absolute_url()
 
-class QuotationItemUpdateView(UpdateView):
+class QuotationItemUpdateView(RestrictedNetworkMixin, UpdateView):
 	model = QuotationItem
 
 	@method_decorator(permission_required('crm.change_quotationitem',
@@ -226,7 +241,7 @@ class QuotationItemUpdateView(UpdateView):
 	def get_success_url(self):
 		return self.object.quotation.get_absolute_url()
 
-class QuotationItemDeleteView(DeleteView):
+class QuotationItemDeleteView(RestrictedNetworkMixin, DeleteView):
 	model = QuotationItem
 
 	@method_decorator(permission_required('crm.delete_quotationitem',
@@ -237,7 +252,7 @@ class QuotationItemDeleteView(DeleteView):
 	def get_success_url(self):
 		return self.object.quotation.get_absolute_url()
 
-class QuotationPdfView(PdfView):
+class QuotationPdfView(RestrictedNetworkMixin, PdfView):
 
 	@method_decorator(permission_required('crm.view_quotation',
 		raise_exception=True))
@@ -283,7 +298,7 @@ class CompanyContractListView(ContractListView):
 	def get_queryset(self):
 		return Contract.objects.filter(company__id=self.kwargs['pk'])
 
-class ContractCreateView(CreateView):
+class ContractCreateView(RestrictedNetworkMixin, CreateView):
 	model = Contract
 	form_class = forms.ContractForm
 
@@ -302,7 +317,7 @@ class ContractCreateView(CreateView):
 		q.save()
 		return HttpResponseRedirect(q.get_absolute_url())
 
-class ContractUpdateView(UpdateView):
+class ContractUpdateView(RestrictedNetworkMixin, UpdateView):
 	model = Contract
 	form_class = forms.ContractForm
 
@@ -311,7 +326,7 @@ class ContractUpdateView(UpdateView):
 	def dispatch(self, *args, **kwargs):
 		return super(ContractUpdateView, self).dispatch(*args, **kwargs)
 
-class ContractDetailView(DetailView):
+class ContractDetailView(RestrictedNetworkMixin, DetailView):
 	model = Contract
 	
 	@method_decorator(permission_required('crm.view_contract',
@@ -329,7 +344,7 @@ class ContractDetailView(DetailView):
 		})
 		return ctx
 
-class ContractItemCreateView(CreateView):
+class ContractItemCreateView(RestrictedNetworkMixin, CreateView):
 	model = ContractItem
 
 	@method_decorator(permission_required('crm.add_contractitem',
@@ -343,7 +358,7 @@ class ContractItemCreateView(CreateView):
 	def get_success_url(self):
 		return self.object.contract.get_absolute_url()
 
-class ContractItemUpdateView(UpdateView):
+class ContractItemUpdateView(RestrictedNetworkMixin, UpdateView):
 	model = ContractItem
 
 	@method_decorator(permission_required('crm.change_contractitem',
@@ -359,7 +374,7 @@ class ContractItemUpdateView(UpdateView):
 	def get_success_url(self):
 		return self.object.contract.get_absolute_url()
 
-class ContractItemDeleteView(DeleteView):
+class ContractItemDeleteView(RestrictedNetworkMixin, DeleteView):
 	model = ContractItem
 
 	@method_decorator(permission_required('crm.delete_contractitem',
@@ -370,7 +385,7 @@ class ContractItemDeleteView(DeleteView):
 	def get_success_url(self):
 		return self.object.contract.get_absolute_url()
 
-class ContractPdfView(PdfView):
+class ContractPdfView(RestrictedNetworkMixin, PdfView):
 
 	@method_decorator(permission_required('crm.view_contract',
 		raise_exception=True))
@@ -403,7 +418,7 @@ class ContractPdfView(PdfView):
 		})
 		return ctx
 
-class QuotationToContractView(RedirectView):
+class QuotationToContractView(RestrictedNetworkMixin, RedirectView):
 	http_method_names = ['post',]
 
 	@method_decorator(permission_required('crm.add_contract',
