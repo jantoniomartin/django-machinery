@@ -46,7 +46,7 @@ class MachineCommentDeleteView(DeleteView):
 	def get_success_url(self):
 		return self.object.machine.get_absolute_url()
 
-class MachineUpdateView(CreateView):
+class MachineUpdateView(UpdateView):
 	model=Machine
 
 	@method_decorator(permission_required('pm.change_machine',
