@@ -54,6 +54,9 @@ urlpatterns = patterns("crm.views",
 		DepartmentCreateView.as_view(),
 		name="crm_department_create"
 	),
+	##
+	## QUOTATION URLS
+	##
 	url(r'^company/quotation/(?P<pk>\d+)/$',
 		QuotationCreateView.as_view(),
 		name="crm_quotation_create"
@@ -89,5 +92,48 @@ urlpatterns = patterns("crm.views",
 	url(r'^quotationitem/delete/(?P<pk>\d+)/$',
 		QuotationItemDeleteView.as_view(),
 		name="crm_quotationitem_delete"
+	),
+	##
+	## CONTRACT URLS
+	##
+	url(r'^company/contract/(?P<pk>\d+)/$',
+		ContractCreateView.as_view(),
+		name="crm_contract_create"
+	),
+	url(r'^contract/list/$',
+		ContractListView.as_view(),
+		name="crm_contract_list"
+	),
+	url(r'^contract/list/(?P<pk>\d+)$',
+		CompanyContractListView.as_view(),
+		name="crm_companycontract_list"
+	),
+	url(r'^contract/detail/(?P<pk>\d+)/$',
+		ContractDetailView.as_view(),
+		name="crm_contract_detail"
+	),
+	url(r'^contract/pdf/(?P<pk>\d+)/$',
+		ContractPdfView.as_view(),
+		name="crm_contract_pdf"
+	),
+	url(r'^contract/edit/(?P<pk>\d+)/$',
+		ContractUpdateView.as_view(),
+		name="crm_contract_update"
+	),
+	url(r'^contractitem/create/$',
+		ContractItemCreateView.as_view(),
+		name="crm_contractitem_create"
+	),
+	url(r'^contractitem/edit/(?P<pk>\d+)/$',
+		ContractItemUpdateView.as_view(),
+		name="crm_contractitem_update"
+	),
+	url(r'^contractitem/delete/(?P<pk>\d+)/$',
+		ContractItemDeleteView.as_view(),
+		name="crm_contractitem_delete"
+	),
+	url(r'^quotation/tocontract/(?P<pk>\d+)/$',
+		QuotationToContractView.as_view(),
+		name="crm_quotation_to_contract"
 	),
 )

@@ -1,6 +1,6 @@
 from django.db import models
 
-class QuotationQuerySet(models.query.QuerySet):
+class QuotationItemQuerySet(models.query.QuerySet):
 	def with_total(self):
 		return self.extra(
 			select = {'total': 'quantity * price'}
@@ -11,3 +11,10 @@ class QuotationQuerySet(models.query.QuerySet):
 
 	def non_optional(self):
 		return self.exclude(optional=True)
+
+class ContractItemQuerySet(models.query.QuerySet):
+	def with_total(self):
+		return self.extra(
+			select = {'total': 'quantity * price'}
+		)
+	

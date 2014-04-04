@@ -1,17 +1,16 @@
 {% extends 'crm/base.html' %}
 {% load i18n %}
 
-{% block title %}{% trans "Quotations" %}{% endblock %}
+{% block title %}{% trans "Contracts" %}{% endblock %}
 
 {% block content %}
 
-<h1>{% trans "Quotations" %}</h1>
+<h1>{% trans "Contracts" %}</h1>
 
 <table class="table table-striped table-hover">
 <thead>
 	<tr>
 	<th>{% trans "Reference" %}</th>
-	<th>{% trans "Title" %}</th>
 	<th>{% trans "Customer" %}</th>
 	<th>{% trans "Date" %}</th>
 	</tr>
@@ -19,10 +18,9 @@
 <tbody>
 	{% for object in object_list %}
 	<tr>
-		<td><a href="{% url 'crm_quotation_detail' object.id %}">
+		<td><a href="{% url 'crm_contract_detail' object.id %}">
 		{{ object }}
 		</a></td>
-		<td>{{ object.title }}</td>
 		<td><a href="{% url 'crm_company_detail' object.company.id %}">
 		{{ object.company }}
 		</a></td>

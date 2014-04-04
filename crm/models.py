@@ -148,18 +148,69 @@ class Quotation(models.Model):
 
 class QuotationItem(models.Model):
 	quotation = models.ForeignKey(Quotation, verbose_name=_("quotation"))
-	quantity = models.PositiveIntegerField(_("quantity"), default=0)
+	quantity = models.PositiveIntegerField(_("quantity"), default=1)
 	description = models.TextField(_("description"))
 	price = models.DecimalField(_("price"), max_digits=12, decimal_places=2,
 		blank=True, default=0)
 	optional = models.BooleanField(_("optional"), default=False)
 
 	objects = PassThroughManager.for_queryset_class(
-		querysets.QuotationQuerySet)()
+		querysets.QuotationItemQuerySet)()
 
 	class Meta:
 		verbose_name = _("quotation item")
 		verbose_name_plural = _("quotation items")
+	
+	def __unicode__(self):
+		return unicode(self.id)
+
+class Contract(models.Model):
+	company = models.ForeignKey(Company, verbose_name=_("company"))
+	author = models.ForeignKey(User, verbose_name=_("author"))
+	created = models.DateField(_("created"))
+	language = models.CharField(_("language"), max_length=8,
+		choices=REPORT_LANGUAGES)
+	delivery_time = models.TextField(_("delivery time"), default="", blank=True)
+	delivery_method = models.CharField(_("delivery method"), max_length=255,
+		default="", blank=True)
+	conditions = models.TextField(_("conditions"), default="", blank=True)
+	remarks = models.TextField(_("remarks"), default="", blank=True)
+	disaggregated = models.BooleanField(_("disaggregated"), default=True)
+	total = models.DecimalField(_("total"), max_digits=12, decimal_places=2,
+		blank=True, null=True)
+	vat = models.DecimalField(_("VAT"), max_digits=4, decimal_places=2,
+		blank=True, choices=VAT_CHOICES)
+
+	class Meta:
+		ordering = ['-id',]
+		verbose_name = _("contract")
+		verbose_name_plural = _("contracts")
+		permissions = (('view_contract', 'Can view contract'),)
+
+	def __unicode__(self):
+		return u"%(year)s-%(company)s-%(id)s" % {
+			"year": self.created.strftime("%y"),
+			"company": self.company.id,
+			"id": self.id
+		}
+
+	@models.permalink
+	def get_absolute_url(self):
+		return ('crm_contract_detail', [self.id])
+
+class ContractItem(models.Model):
+	contract = models.ForeignKey(Contract, verbose_name=_("contract"))
+	quantity = models.PositiveIntegerField(_("quantity"), default=1)
+	description = models.TextField(_("description"))
+	price = models.DecimalField(_("price"), max_digits=12, decimal_places=2,
+		blank=True, default=0)
+
+	objects = PassThroughManager.for_queryset_class(
+		querysets.ContractItemQuerySet)()
+
+	class Meta:
+		verbose_name = _("contract item")
+		verbose_name_plural = _("contract items")
 	
 	def __unicode__(self):
 		return unicode(self.id)

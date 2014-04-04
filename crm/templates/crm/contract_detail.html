@@ -3,10 +3,10 @@
 {% load crispy_forms_tags %}
 {% load humanize %}
 
-{% block title %}{% trans "Quotation" %}: {{ object }}{% endblock %}
+{% block title %}{% trans "Contract" %}: {{ object }}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Quotation" %}: {{ object.title }}</h1>
+<h1>{% trans "Contract" %}: {{ object }}</h1>
 
 <div class="col-md-6">
 
@@ -21,44 +21,32 @@
 	{{ object.company }}
 	</a>
 	</dd>
-	<dt>{% trans "Recipient" %}</dt>
-	<dd>{{ object.recipient_name }}</dd>
 </dl>
 <p>
-<a href="{% url 'crm_quotation_update' object.id %}">{% trans "Edit" %}</a>
+<a href="{% url 'crm_contract_update' object.id %}">{% trans "Edit" %}</a>
 |
-<a href="{% url 'crm_quotation_pdf' object.id %}">PDF</a>
+<a href="{% url 'crm_contract_pdf' object.id %}">PDF</a>
 </p>
-<form method="post" action="{% url 'crm_quotation_to_contract' object.id %}">
-{% csrf_token %}
-<button type="submit" class="btn btn-xs btn-primary">
-	{% trans "To contract" %}
-</button>
-</form>
 </div>
 </div>
 
-</div>
-<div class="col-md-6">
-
-<div class="panel panel-default">
-<div class="panel-heading">{% trans "Private note" %}</div>
-<div class="panel-body">
-{{ object.private_note|linebreaks }}
-</div>
-</div>
-
-</div>
-
-<div class="clearfix"></div>
-
-<div class="col-md-6">
-
-<form id="item_form" method="post" action="{% url 'crm_quotationitem_create' %}">
+<form id="item_form" method="post" action="{% url 'crm_contractitem_create' %}">
 {% csrf_token %}
 {{ form|crispy }}
 <p><button type="submit" class="btn btn-sm btn-primary">{% trans "Add" %}</button></p>
 </form>
+
+<h4>{% trans "Delivery time" %}</h4>
+{{ object.delivery_time|linebreaks }}
+
+<h4>{% trans "Delivery method" %}</h4>
+{{ object.delivery_method|linebreaks }}
+
+<h4>{% trans "Payment conditions" %}</h4>
+{{ object.conditions|linebreaks }}
+
+<h4>{% trans "Remarks" %}</h4>
+{{ object.remarks|linebreaks }}
 
 </div>
 <div class="col-md-6">
@@ -76,7 +64,7 @@
 	</tr>
 </thead>
 <tbody>
-	{% for item in object.quotationitem_set.with_total %}
+	{% for item in object.contractitem_set.with_total %}
 	<tr>
 	<td>{{ item.quantity }}</td>
 	<td>{{ item.description }}</td>
@@ -85,10 +73,10 @@
 	<td>{{ item.total|intcomma }}</td>
 	{% endif %}
 	<td>
-	<a href="{% url 'crm_quotationitem_update' item.id %}">
+	<a href="{% url 'crm_contractitem_update' item.id %}">
 	{% trans "Edit" %}
 	</a>
-	<a href="{% url 'crm_quotationitem_delete' item.id %}">
+	<a href="{% url 'crm_contractitem_delete' item.id %}">
 	{% trans "Delete" %}
 	</a>
 	</td>
@@ -97,7 +85,6 @@
 </tbody>
 </table>
 
-{{ object.conditions|linebreaks }}
 
 </div>
 {% endblock %}

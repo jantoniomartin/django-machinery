@@ -46,3 +46,31 @@ def quotationitem_form_factory(with_price=True):
 
 	return QuotationItemForm
 
+class ContractForm(forms.ModelForm):
+	company = forms.ModelChoiceField(queryset=Company.objects.all(),
+		widget=forms.HiddenInput)
+	
+	class Meta:
+		model = Contract
+		exclude = ['author',]
+
+	def clean(self):
+		cdata = super(ContractForm, self).clean()
+		if cdata['disaggregated'] and cdata['total'] is not None:
+			raise forms.ValidationError(
+				_("If the quotation is disaggregated, total must be empty.")
+			)
+		return cdata
+
+def contractitem_form_factory(with_price=True):
+	class ContractItemForm(forms.ModelForm):
+		contract = forms.ModelChoiceField(queryset=Contract.objects.all(),
+			widget=forms.HiddenInput)
+
+		class Meta:
+			model = ContractItem
+			if not with_price:
+				exclude=['price']
+
+	return ContractItemForm
+
