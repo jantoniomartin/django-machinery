@@ -57,7 +57,7 @@ urlpatterns = patterns("crm.views",
 	##
 	## QUOTATION URLS
 	##
-	url(r'^company/quotation/(?P<pk>\d+)/$',
+	url(r'^quotation/create/(?P<pk>\d+)/$',
 		QuotationCreateView.as_view(),
 		name="crm_quotation_create"
 	),
@@ -96,7 +96,7 @@ urlpatterns = patterns("crm.views",
 	##
 	## CONTRACT URLS
 	##
-	url(r'^company/contract/(?P<pk>\d+)/$',
+	url(r'^contract/create/(?P<pk>\d+)/$',
 		ContractCreateView.as_view(),
 		name="crm_contract_create"
 	),

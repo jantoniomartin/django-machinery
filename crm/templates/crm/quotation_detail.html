@@ -27,7 +27,7 @@
 <p>
 <a href="{% url 'crm_quotation_update' object.id %}">{% trans "Edit" %}</a>
 |
-<a href="{% url 'crm_quotation_pdf' object.id %}">PDF</a>
+<a href="{% url 'crm_quotation_pdf' object.id %}" target="_blank">PDF</a>
 </p>
 <form method="post" action="{% url 'crm_quotation_to_contract' object.id %}">
 {% csrf_token %}
