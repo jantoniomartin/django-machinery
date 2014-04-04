@@ -93,7 +93,17 @@ class Machine(models.Model):
 	def __unicode__(self):
 		return u"%(model)s%(number)s" % {'model': self.model,
 										'number': self.number }
-	
+
+	def save(self, *args, **kwargs):
+		if not self.pk and not self.number:
+			try:
+				n = int(Machine.objects.filter(
+					project=self.project).order_by("-number")[0].number)
+			except IndexError:
+				n = 0
+			self.number = str(n + 1).zfill(2)
+		return super(Machine, self).save(*args, **kwargs)
+
 	@property
 	def full_reference(self):
 		return u"%s-%s" % (self.project, self)
