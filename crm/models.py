@@ -179,7 +179,7 @@ class Contract(models.Model):
 	total = models.DecimalField(_("total"), max_digits=12, decimal_places=2,
 		blank=True, null=True)
 	vat = models.DecimalField(_("VAT"), max_digits=4, decimal_places=2,
-		blank=True, choices=VAT_CHOICES)
+		choices=VAT_CHOICES)
 
 	class Meta:
 		ordering = ['-id',]
