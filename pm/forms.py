@@ -2,7 +2,7 @@ from django import forms
 from django.db.models import Max
 from django.utils.translation import ugettext_lazy as _
 
-from crm.models import Company
+from crm.models import Company, ContractItem
 from pm.models import *
 from wm.models import Article
 
@@ -22,6 +22,15 @@ class MachineForm(forms.ModelForm):
 	class Meta:
 		model = Machine
 		exclude = ['project', 'contract_item',]
+
+class MachineFromContractItemForm(forms.ModelForm):
+	contract_item = forms.ModelChoiceField(
+		queryset=ContractItem.objects.all(),
+		widget=forms.HiddenInput)
+
+	class Meta:
+		model = Machine
+		exclude = ['number', 'shipped_on', 'running_on', 'is_retired',]
 
 class NewMachineForm(forms.ModelForm):
 	project = forms.ModelChoiceField(

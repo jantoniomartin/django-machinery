@@ -79,6 +79,9 @@
 	<a href="{% url 'crm_contractitem_delete' item.id %}">
 	{% trans "Delete" %}
 	</a>
+	<a href="{% url 'pm_machine_from_contract_item' item.id %}">
+	{% trans "To project" %}
+	</a>
 	</td>
 	</tr>
 	{% endfor %}

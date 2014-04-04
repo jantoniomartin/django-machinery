@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-04 09:34+0200\n"
+"POT-Creation-Date: 2014-04-04 13:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -254,7 +254,7 @@ msgstr "línea de contrato"
 msgid "contract items"
 msgstr "líneas de contrato"
 
-#: views.py:427
+#: views.py:442
 #, python-format
 msgid "The contract could not be created. %s"
 msgstr "El contrato no se ha podido crear. %s"
@@ -495,6 +495,10 @@ msgstr "Importe"
 #: templates/crm/quotationitem_confirm_delete.html:15
 msgid "Delete"
 msgstr "Borrar"
+
+#: templates/crm/contract_detail.html:83
+msgid "To project"
+msgstr "A proyecto"
 
 #: templates/crm/contract_form.html:5 templates/crm/contract_form.html.py:9
 msgid "Edit contract"

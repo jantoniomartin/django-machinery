@@ -16,6 +16,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormVi
 
 from pm.forms import *
 from pm.models import *
+from crm.models import ContractItem
 from wm.models import Group
 from indumatic.search import get_query
 from indumatic.views import PdfView
@@ -54,6 +55,35 @@ class MachineUpdateView(UpdateView):
 		raise_exception=True))
 	def dispatch(self, *args, **kwargs):
 		return super(MachineUpdateView, self).dispatch(*args, **kwargs)
+
+class MachineFromContractItem(CreateView):
+	model = Machine
+	form_class = MachineFromContractItemForm
+
+	@method_decorator(permission_required('pm.add_machine',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		self.contract_line = get_object_or_404(ContractItem, id=self.kwargs['pk'])
+		return super(MachineFromContractItem, self).dispatch(*args, **kwargs)
+
+	def get_initial(self):
+		return {'contract_item': self.contract_line }
+
+	def get_success_url(self):
+		return reverse_lazy('crm_contract_detail',
+			args=[self.object.contract_item.contract.id])
+
+	def get_context_data(self, *args, **kwargs):
+		ctx = super(MachineFromContractItem, self).get_context_data(
+			*args, **kwargs)
+		ctx.update({'contract_description': self.contract_line.description })
+		return ctx
+
+	def form_valid(self, form):
+		messages.success(self.request,
+			_("The machine has been added to the project.")
+		)
+		return super(MachineFromContractItem, self).form_valid(form)
 
 class MachineDeleteView(DeleteView):
 	model = Machine

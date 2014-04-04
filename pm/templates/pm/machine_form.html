@@ -8,6 +8,12 @@
 
 <h1>{% trans "Edit machine" %}</h1>
 
+{% if contract_description %}
+<div class="well">
+<p>{{ contract_description }}</p>
+</div>
+{% endif %}
+
 <form method="POST" action="." class="uniForm">
 {% csrf_token %}
 
