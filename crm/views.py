@@ -472,6 +472,12 @@ class CompanyDeliveryNoteListView(DeliveryNoteListView):
 			contract__company__id=self.kwargs['pk']
 		)
 
+class ContractDeliveryNoteListView(DeliveryNoteListView):
+	def get_queryset(self):
+		return DeliveryNote.objects.filter(
+			contract__id=self.kwargs['pk']
+		)
+
 class DeliveryNoteCreateView(FormView):
 	template_name = 'crm/deliverynote_form.html'
 	form_class = forms.DeliveryNoteForm

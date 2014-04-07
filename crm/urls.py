@@ -151,9 +151,13 @@ urlpatterns = patterns("crm.views",
 		DeliveryNoteListView.as_view(),
 		name="crm_deliverynote_list"
 	),
-	url(r'^delivery/list/(?P<pk>\d+)$',
+	url(r'^delivery/list/company/(?P<pk>\d+)$',
 		CompanyDeliveryNoteListView.as_view(),
 		name="crm_companydeliverynote_list"
+	),
+	url(r'^delivery/list/contract/(?P<pk>\d+)$',
+		ContractDeliveryNoteListView.as_view(),
+		name="crm_contractdeliverynote_list"
 	),
 	url(r'^delivery/detail/(?P<pk>\d+)/$',
 		DeliveryNoteDetailView.as_view(),

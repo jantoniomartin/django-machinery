@@ -39,6 +39,10 @@
 |
 <a href="{% url 'crm_contract_pdf' object.id %}" target="_blank">PDF</a>
 |
+<a href="{% url 'crm_contractdeliverynote_list' object.id %}">
+{% trans "Delivery notes" %}
+</a>
+|
 <a href="{% url 'crm_deliverynote_create' object.id %}">
 {% trans "Create delivery note" %}
 </a>
