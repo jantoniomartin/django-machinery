@@ -180,6 +180,8 @@ class Contract(models.Model):
 		blank=True, null=True)
 	vat = models.DecimalField(_("VAT"), max_digits=4, decimal_places=2,
 		choices=VAT_CHOICES)
+	signed_copy = models.FileField(_("signed copy"), upload_to="crm/contracts",
+		blank=True, null=True)
 
 	class Meta:
 		ordering = ['-id',]

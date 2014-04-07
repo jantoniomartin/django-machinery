@@ -21,6 +21,18 @@
 	{{ object.company }}
 	</a>
 	</dd>
+	<dt>{% trans "Signed copy" %}</dt>
+	<dd>
+	{% if object.signed_copy %}
+	<a href="{{ MEDIA_URL }}{{ object.signed_copy }}" target="_blank">
+		{% trans "View" %}
+	</a>
+	{% else %}
+	<a href="{% url 'crm_contract_signed_upload' object.id %}">
+		{% trans "Upload" %}
+	</a>
+	{% endif %}
+	</dd>
 </dl>
 <p>
 <a href="{% url 'crm_contract_update' object.id %}">{% trans "Edit" %}</a>

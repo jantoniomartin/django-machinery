@@ -2,6 +2,7 @@ from datetime import date
 from decimal import *
 import json
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
@@ -327,6 +328,9 @@ class ContractUpdateView(RestrictedNetworkMixin, UpdateView):
 	def dispatch(self, *args, **kwargs):
 		return super(ContractUpdateView, self).dispatch(*args, **kwargs)
 
+class ContractSignedCopyUpload(ContractUpdateView):
+	form_class = forms.ContractSignedCopyForm
+
 class ContractDetailView(RestrictedNetworkMixin, DetailView):
 	model = Contract
 	
@@ -342,6 +346,7 @@ class ContractDetailView(RestrictedNetworkMixin, DetailView):
 		)
 		ctx.update({
 			'form': form_class(initial={'contract': self.object, }),
+			'MEDIA_URL': settings.MEDIA_URL,
 		})
 		return ctx
 

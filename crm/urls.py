@@ -120,6 +120,10 @@ urlpatterns = patterns("crm.views",
 		ContractUpdateView.as_view(),
 		name="crm_contract_update"
 	),
+	url(r'^contract/signed/(?P<pk>\d+)/$',
+		ContractSignedCopyUpload.as_view(),
+		name="crm_contract_signed_upload"
+	),
 	url(r'^contractitem/create/$',
 		ContractItemCreateView.as_view(),
 		name="crm_contractitem_create"

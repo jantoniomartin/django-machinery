@@ -52,7 +52,7 @@ class ContractForm(forms.ModelForm):
 	
 	class Meta:
 		model = Contract
-		exclude = ['author',]
+		exclude = ['author', 'signed_copy',]
 
 	def clean(self):
 		cdata = super(ContractForm, self).clean()
@@ -61,6 +61,11 @@ class ContractForm(forms.ModelForm):
 				_("If the quotation is disaggregated, total must be empty.")
 			)
 		return cdata
+
+class ContractSignedCopyForm(forms.ModelForm):
+	class Meta:
+		model = Contract
+		fields = ['signed_copy',]
 
 def contractitem_form_factory(with_price=True):
 	class ContractItemForm(forms.ModelForm):
