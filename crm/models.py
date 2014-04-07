@@ -188,7 +188,7 @@ class Contract(models.Model):
 		permissions = (('view_contract', 'Can view contract'),)
 
 	def __unicode__(self):
-		return u"%(year)s-%(company)s-%(id)s" % {
+		return u"C%(year)s-%(company)s-%(id)s" % {
 			"year": self.created.strftime("%y"),
 			"company": self.company.id,
 			"id": self.id
@@ -211,6 +211,40 @@ class ContractItem(models.Model):
 	class Meta:
 		verbose_name = _("contract item")
 		verbose_name_plural = _("contract items")
+	
+	def __unicode__(self):
+		return self.description
+
+class DeliveryNote(models.Model):
+	contract = models.ForeignKey(Contract, verbose_name=_("contract"))
+	created = models.DateField(_("created"), auto_now_add=True)
+	remarks = models.TextField(_("remarks"), default="", blank=True)
+
+	class Meta:
+		ordering = ['-id',]
+		verbose_name = _("delivery note")
+		verbose_name_plural = _("delivery notes")
+		permissions = (('view_deliverynote', 'Can view delivery note'),)
+
+	def __unicode__(self):
+		return u"A%(year)s-%(company)s-%(id)s" % {
+			"year": self.created.strftime("%y"),
+			"company": self.contract.company.id,
+			"id": self.id
+		}
+
+	@models.permalink
+	def get_absolute_url(self):
+		return ('crm_deliverynote_detail', [self.id])
+
+class DeliveryNoteItem(models.Model):
+	note = models.ForeignKey(DeliveryNote, verbose_name=_("delivery note"))
+	quantity = models.PositiveIntegerField(_("quantity"), default=1)
+	description = models.TextField(_("description"))
+
+	class Meta:
+		verbose_name = _("delivery note item")
+		verbose_name_plural = _("delivery note items")
 	
 	def __unicode__(self):
 		return unicode(self.id)

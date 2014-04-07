@@ -1,0 +1,74 @@
+{% extends 'crm/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block title %}{% trans "Delivery note" %}: {{ object }}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Delivery note" %}: {{ object }}</h1>
+
+<div class="col-md-6">
+
+<div class="panel panel-primary">
+<div class="panel-body">
+<dl>
+	<dt>{% trans "Reference" %}</dt>
+	<dd>{{ object }}</dd>
+	<dt>{% trans "Date" %}</dt>
+	<dd>{{ object.created }}</dd>
+	<dt>{% trans "Customer" %}</dt>
+	<dd>
+	<a href="{% url 'crm_company_detail' object.contract.company.id %}">
+	{{ object.contract.company }}
+	</a>
+	</dd>
+	<dt>{% trans "Contract" %}</dt>
+	<dd>
+	<a href="{% url 'crm_contract_detail' object.contract.id %}">
+	{{ object.contract }}
+	</a>
+	</dd>
+</dl>
+<p>
+<a href="{% url 'crm_deliverynote_pdf' object.id %}" target="_blank">PDF</a>
+</p>
+</div>
+</div>
+
+<h4>{% trans "Remarks" %}</h4>
+{{ object.remarks|linebreaks }}
+
+<h4>{% trans "Add other items" %}<h4>
+<form id="item_form" method="post" action="{% url 'crm_deliverynoteitem_create' %}">
+{% csrf_token %}
+{{ form|crispy }}
+<p><button type="submit" class="btn btn-sm btn-primary">{% trans "Add" %}</button></p>
+</form>
+
+</div>
+<div class="col-md-6">
+
+<table id="item_table" class="table table-striped table-hover">
+<thead>
+	<tr>
+	<th>{% trans "Qty" %}</th>
+	<th>{% trans "Description" %}</th>
+	<th>{% trans "Actions" %}</th>
+	</tr>
+</thead>
+<tbody>
+	{% for item in object.deliverynoteitem_set.all %}
+	<tr>
+	<td>{{ item.quantity }}</td>
+	<td>{{ item.description }}</td>
+	<td>
+	</td>
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+
+
+</div>
+{% endblock %}

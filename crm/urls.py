@@ -136,4 +136,31 @@ urlpatterns = patterns("crm.views",
 		QuotationToContractView.as_view(),
 		name="crm_quotation_to_contract"
 	),
+	##
+	## DELIVERY NOTE URLS 
+	##
+	url(r'^delivery/create/(?P<pk>\d+)/$',
+		DeliveryNoteCreateView.as_view(),
+		name="crm_deliverynote_create"
+	),
+	url(r'^delivery/list/$',
+		DeliveryNoteListView.as_view(),
+		name="crm_deliverynote_list"
+	),
+	url(r'^delivery/list/(?P<pk>\d+)$',
+		CompanyDeliveryNoteListView.as_view(),
+		name="crm_companydeliverynote_list"
+	),
+	url(r'^delivery/detail/(?P<pk>\d+)/$',
+		DeliveryNoteDetailView.as_view(),
+		name="crm_deliverynote_detail"
+	),
+	url(r'^delivery/item/create/$',
+		DeliveryNoteItemCreateView.as_view(),
+		name="crm_deliverynoteitem_create"
+	),
+	url(r'^delivery/pdf/(?P<pk>\d+)/$',
+		DeliveryNotePdfView.as_view(),
+		name="crm_deliverynote_pdf"
+	),
 )

@@ -12,13 +12,14 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import RedirectView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
 from indumatic.search import get_query
 from indumatic.views import PdfView
 from crm.defaults import *
 from crm.models import *
 from crm import forms
+from pm.models import Project
 
 class CompanyListView(ListView):
 	model=Company
@@ -450,4 +451,108 @@ class QuotationToContractView(RestrictedNetworkMixin, RedirectView):
 					price = item.price
 				)
 			return contract.get_absolute_url()
+
+class DeliveryNoteListView(ListView):
+	model = DeliveryNote
+	paginate_by = 20
+
+	@method_decorator(permission_required('crm.view_deliverynote',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(DeliveryNoteListView, self).dispatch(*args, **kwargs)
+
+class CompanyDeliveryNoteListView(DeliveryNoteListView):
+	def get_queryset(self):
+		return DeliveryNote.objects.filter(
+			contract__company__id=self.kwargs['pk']
+		)
+
+class DeliveryNoteCreateView(FormView):
+	template_name = 'crm/deliverynote_form.html'
+	form_class = forms.DeliveryNoteForm
+	
+	@method_decorator(permission_required('crm.add_deliverynote',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		self.contract = get_object_or_404(Contract, id=self.kwargs['pk'])
+		return super(DeliveryNoteCreateView, self).dispatch(*args, **kwargs)
+
+	def get_form(self, form_class):
+		return form_class(contract=self.contract, **self.get_form_kwargs())
+
+	def form_valid(self, form):
+		remarks = form.cleaned_data['remarks']
+		items = form.cleaned_data['items']
+		try:
+			note = DeliveryNote.objects.create(
+				contract = self.contract,
+				remarks = remarks
+			)
+		except:
+			messages.error(self.request,
+				_("The delivery note could not be created.")
+			)
+			return HttpResponseRedirect(self.contract.get_absolute_url())
+		else:
+			for item in items:
+				note.deliverynoteitem_set.create(
+					quantity = item.quantity,
+					description = item.description
+				)
+		return HttpResponseRedirect(note.get_absolute_url())
+
+class DeliveryNoteDetailView(DetailView):
+	model = DeliveryNote
+	
+	@method_decorator(permission_required('crm.view_deliverynote',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(DeliveryNoteDetailView, self).dispatch(*args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		ctx = super(DeliveryNoteDetailView, self).get_context_data(**kwargs)
+		ctx.update({
+			'form': forms.DeliveryNoteItemForm(
+				initial={'note': self.object, }
+					),
+		})
+		return ctx
+
+class DeliveryNoteItemCreateView(CreateView):
+	model = DeliveryNoteItem
+	form_class = forms.DeliveryNoteItemForm
+
+	@method_decorator(permission_required('crm.add_deliverynoteitem',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		return super(DeliveryNoteItemCreateView, self).dispatch(*args, **kwargs)
+
+	def get_success_url(self):
+		return self.object.note.get_absolute_url()
+
+class DeliveryNotePdfView(PdfView):
+
+	@method_decorator(permission_required('crm.view_deliverynote',
+		raise_exception=True))
+	def dispatch(self, *args, **kwargs):
+		self.object = get_object_or_404(DeliveryNote, id=self.kwargs['pk'])
+		return super(DeliveryNotePdfView, self).dispatch(*args, **kwargs)
+
+	def get_template_names(self):
+		return ['crm/delivery_%s_pdf.html' % self.object.contract.language,]
+
+	def get_context_data(self, **kwargs):
+		ctx = super(DeliveryNotePdfView, self).get_context_data(**kwargs)
+		projects = Project.objects.filter(
+			machine__contract_item__contract=self.object.contract
+		).distinct()
+		project_list = []
+		for p in projects:
+			project_list.append(unicode(p))
+		ctx.update({
+			'note': self.object,
+			'address': COMPANY_ADDRESS,
+			'projects': ", ".join(project_list),
+		})
+		return ctx
 

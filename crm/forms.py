@@ -74,3 +74,27 @@ def contractitem_form_factory(with_price=True):
 
 	return ContractItemForm
 
+class DeliveryNoteForm(forms.Form):
+	remarks = forms.CharField(required=False, label=_("Remarks"),
+		widget=forms.Textarea)
+	items = forms.ModelMultipleChoiceField(label=_("Composition"),
+		queryset=ContractItem.objects.none(),
+		widget=forms.CheckboxSelectMultiple)
+
+	def __init__(self, *args, **kwargs):
+		contract = kwargs.pop('contract')
+		super(DeliveryNoteForm, self).__init__(*args, **kwargs)
+		self.fields['items'].queryset = contract.contractitem_set.all()
+
+	def clean(self):
+		cleaned_data = super(DeliveryNoteForm, self).clean()
+		for d in cleaned_data.values():
+			print d
+		return cleaned_data
+	
+class DeliveryNoteItemForm(forms.ModelForm):
+	note = forms.ModelChoiceField(queryset=DeliveryNote.objects.all(),
+		widget=forms.HiddenInput)
+
+	class Meta:
+		model = DeliveryNoteItem
