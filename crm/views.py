@@ -504,6 +504,8 @@ class DeliveryNoteCreateView(FormView):
 					quantity = item.quantity,
 					description = item.description
 				)
+				## mark the machine as shipped
+				item.machine_set.update(shipped_on=date.today())
 		return HttpResponseRedirect(note.get_absolute_url())
 
 class DeliveryNoteDetailView(DetailView):
