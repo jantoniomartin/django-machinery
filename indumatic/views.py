@@ -83,6 +83,7 @@ class DashboardView(TemplateView):
 			'suppliers_in_cart': suppliers_in_cart,
 			'pending_companies': pending_companies,
 			'comments': comments,
+			'MEDIA_URL': settings.MEDIA_URL,
 		})
 		return context
 
