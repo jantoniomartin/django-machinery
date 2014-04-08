@@ -152,7 +152,7 @@ class ProjectCreateView(CreateView):
 	def dispatch(self, *args, **kwargs):
 		return super(ProjectCreateView, self).dispatch(*args, **kwargs)
 
-class ProjectUpdateView(CreateView):
+class ProjectUpdateView(UpdateView):
 	model=Project
 	form_class = ProjectForm
 	context_object_name = 'project'
