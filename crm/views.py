@@ -282,6 +282,7 @@ class QuotationPdfView(RestrictedNetworkMixin, PdfView):
 			'city': COMPANY_CITY,
 			'options': quotation.quotationitem_set.optional().count() > 0,
 			'total': total,
+			'disclaimer': DATA_DISCLAIMER,
 		})
 		return ctx
 
@@ -423,6 +424,7 @@ class ContractPdfView(RestrictedNetworkMixin, PdfView):
 			'total': total,
 			'vat_amount': vat_amount,
 			'total_plus_vat': total + vat_amount,
+			'disclaimer': DATA_DISCLAIMER,
 		})
 		return ctx
 
