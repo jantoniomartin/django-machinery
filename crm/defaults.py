@@ -2,9 +2,7 @@ from decimal import Decimal
 
 from django.conf import settings
 
-SAFE_NETWORKS = getattr(settings, 'CRM_SAFE_NETWORKS', (
-	'127.0.0.*',
-))
+SAFE_NETWORKS = getattr(settings, 'CRM_SAFE_NETWORKS', None)
 
 REPORT_LANGUAGES = getattr(settings,'CRM_REPORT_LANGUAGES',(('en', 'English'),))
 

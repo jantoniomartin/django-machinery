@@ -141,6 +141,8 @@ class GroupCreateView(CreateView):
 ##
 
 def ip_unrestricted(ip):
+	if SAFE_NETWORKS is None:
+		return True
 	ip_list = ip.split(".", 3)[:3]
 	for n in SAFE_NETWORKS:
 		if n.split(".", 3)[:3] == ip_list:
