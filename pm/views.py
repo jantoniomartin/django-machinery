@@ -328,6 +328,9 @@ class PartsReportView(PdfView):
 		ctx.update({ 'project': project})
 		return ctx
 
+class PartsCostReportView(PartsReportView):
+	template_name = 'pm/parts_cost_pdf.html'
+
 class ProjectSearchView(ListView):
 	model = Project
 	context_object_name = 'project_list'

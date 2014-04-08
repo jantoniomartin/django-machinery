@@ -60,6 +60,8 @@ $(function() {
 |
 <a href="{% url 'pm_project_parts_report' project.id %}">{% trans "Parts report" %}</a>
 |
+<a href="{% url 'pm_project_parts_costreport' project.id %}">{% trans "Cost report" %}</a>
+|
 {% if ce %}
 <a href="{% url 'pm_ce_certificate_detail' ce.id %}" target="_blank">
 {% else %}

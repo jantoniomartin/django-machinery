@@ -53,6 +53,10 @@ urlpatterns = patterns("pm.views",
 		PartsReportView.as_view(),
 		name="pm_project_parts_report"
 	),
+    url(r'^project/parts/cost_report/(?P<pk>\d+)/$',
+		PartsCostReportView.as_view(),
+		name="pm_project_parts_costreport"
+	),
     url(r'^project/ce/create/(?P<pk>\d+)/$',
 		CECertificateCreateView.as_view(),
 		name="pm_ce_certificate_create"

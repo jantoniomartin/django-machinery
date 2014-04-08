@@ -8,6 +8,9 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 
+from model_utils.managers import PassThroughManager
+
+from pm import querysets
 from crm.models import Company, ContractItem
 from wm.models import Article
 
@@ -84,6 +87,8 @@ class Machine(models.Model):
 	contract_item = models.ForeignKey(ContractItem,
 		verbose_name=_("contract item"), blank=True, null=True)
 
+	objects = PassThroughManager.for_queryset_class(querysets.MachineQuerySet)()
+	
 	class Meta:
 		ordering = ['number',]
 		unique_together = [('number', 'project'),]
@@ -126,17 +131,19 @@ class MachineComment(models.Model):
 		return self.body
 
 class Part(models.Model):
-    article = models.ForeignKey(Article, verbose_name=_("article"))
-    machine = models.ForeignKey(Machine, verbose_name=_("machine"))
-    quantity = models.FloatField(_("quantity"))
-    function = models.CharField(_("function"), max_length=255)
+	article = models.ForeignKey(Article, verbose_name=_("article"))
+	machine = models.ForeignKey(Machine, verbose_name=_("machine"))
+	quantity = models.FloatField(_("quantity"))
+	function = models.CharField(_("function"), max_length=255)
 
-    class Meta:
-        ordering = ["pk",]
-        verbose_name = _("part")
-        verbose_name_plural = _("parts")
+	objects = PassThroughManager.for_queryset_class(querysets.PartQuerySet)()
 
-    def __unicode__(self):
+	class Meta:
+		ordering = ["pk",]
+		verbose_name = _("part")
+		verbose_name_plural = _("parts")
+
+	def __unicode__(self):
 		return unicode(self.article)
 
 @receiver(post_save, sender=Part)
