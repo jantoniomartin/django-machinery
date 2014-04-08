@@ -22,6 +22,14 @@ class Offer(models.Model):
 	def __unicode__(self):
 		return _("Offer for %s") % self.article
 
+	@property
+	def suggested_price(self):
+		if self.retail_price is not None:
+			return self.retail_price
+		elif self.invoice_price is not None:
+			return self.invoice_price / 0.6
+		return None
+
 class Order(models.Model):
 	created_at = models.DateTimeField(_("created at"), auto_now_add=True)
 	completed_on = models.DateField(_("completed on"), null=True, blank=True)

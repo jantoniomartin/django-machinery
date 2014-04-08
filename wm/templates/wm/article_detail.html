@@ -74,6 +74,7 @@
 	<th>{% trans "Code" %}</th>
 	<th>{% trans "Retail price" %}</th>
 	<th>{% trans "Invoice price" %}</th>
+	<th>{% trans "Suggested price" %}</th>
 	<th>{% trans "Actions" %}</th>
 </tr>
 </thead>
@@ -93,6 +94,7 @@
 	<td>{{ offer.code }}</td>
 	<td>{{ offer.retail_price|floatformat:2 }}</td>
 	<td title="{{offer.discount|floatformat:2}}%">{{ offer.invoice_price|floatformat:2 }}</td>
+	<td class="text-info">{{ offer.suggested_price|floatformat:2 }}</td>
 	<td><a href="{% url 'om_offer_edit' offer.id %}">{% trans "Edit" %}</a></td>
 </td>
 {% endfor %}
