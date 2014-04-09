@@ -79,6 +79,34 @@ def contractitem_form_factory(with_price=True):
 
 	return ContractItemForm
 
+class ProformaForm(forms.ModelForm):
+	company = forms.ModelChoiceField(queryset=Company.objects.all(),
+		widget=forms.HiddenInput)
+	
+	class Meta:
+		model = Proforma
+		exclude = ['author',]
+
+	def clean(self):
+		cdata = super(ProformaForm, self).clean()
+		if cdata['disaggregated'] and cdata['total'] is not None:
+			raise forms.ValidationError(
+				_("If the proforma is disaggregated, total must be empty.")
+			)
+		return cdata
+
+def proformaitem_form_factory(with_price=True):
+	class ProformaItemForm(forms.ModelForm):
+		proforma = forms.ModelChoiceField(queryset=Proforma.objects.all(),
+			widget=forms.HiddenInput)
+
+		class Meta:
+			model = ProformaItem
+			if not with_price:
+				exclude=['price']
+
+	return ProformaItemForm
+
 class DeliveryNoteForm(forms.Form):
 	remarks = forms.CharField(required=False, label=_("Remarks"),
 		widget=forms.Textarea)

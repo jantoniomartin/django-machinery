@@ -18,3 +18,9 @@ class ContractItemQuerySet(models.query.QuerySet):
 			select = {'total': 'quantity * price'}
 		)
 	
+class ProformaItemQuerySet(models.query.QuerySet):
+	def with_total(self):
+		return self.extra(
+			select = {'total': 'quantity * price'}
+		)
+	

@@ -198,7 +198,7 @@ class QuotationPdfView(PermissionRequiredMixin, PdfView):
 ## CONTRACT VIEWS
 ##
 
-class ContractListView(ListView):
+class ContractListView(PermissionRequiredMixin, ListView):
 	model = Contract
 	paginate_by = 20
 	permission = 'crm.view_contract'
@@ -335,6 +335,120 @@ class QuotationToContractView(PermissionRequiredMixin, RedirectView):
 					price = item.price
 				)
 			return contract.get_absolute_url()
+
+##
+## PROFORMA VIEWS
+##
+
+class ProformaListView(PermissionRequiredMixin, ListView):
+	model = Proforma
+	paginate_by = 20
+	permission = 'crm.view_proforma'
+
+class CompanyProformaListView(ProformaListView):
+	def get_queryset(self):
+		return Proforma.objects.filter(company__id=self.kwargs['pk'])
+
+class ProformaCreateView(PermissionRequiredMixin, CreateView):
+	model = Proforma
+	form_class = forms.ProformaForm
+	permission = 'crm.add_proforma'
+
+	def get_initial(self):
+		company = get_object_or_404(Company, id=self.kwargs['pk'])
+		return {'company': company}
+
+	def form_valid(self, form):
+		q = form.save(commit=False)
+		q.author = self.request.user
+		q.save()
+		return HttpResponseRedirect(q.get_absolute_url())
+
+class ProformaUpdateView(PermissionRequiredMixin, UpdateView):
+	model = Proforma
+	form_class = forms.ProformaForm
+	permission = 'crm.change_proforma'
+
+class ProformaDetailView(PermissionRequiredMixin, DetailView):
+	model = Proforma
+	permission = 'crm.view_proforma'
+	
+	def get_context_data(self, **kwargs):
+		ctx = super(ProformaDetailView, self).get_context_data(**kwargs)
+		form_class = forms.proformaitem_form_factory(
+			with_price=self.object.disaggregated
+		)
+		ctx.update({
+			'form': form_class(initial={'proforma': self.object, }),
+			'MEDIA_URL': settings.MEDIA_URL,
+		})
+		return ctx
+
+class ProformaItemCreateView(PermissionRequiredMixin, CreateView):
+	model = ProformaItem
+	permission = 'crm.add_proformaitem'
+
+	def get_form_class(self):
+		return forms.proformaitem_form_factory()
+
+	def get_success_url(self):
+		return self.object.proforma.get_absolute_url()
+
+class ProformaItemUpdateView(PermissionRequiredMixin, UpdateView):
+	model = ProformaItem
+	permission = 'crm.change_proformaitem'
+
+	def get_form_class(self):
+		return forms.proformaitem_form_factory(
+			with_price=self.object.proforma.disaggregated
+		)
+
+	def get_success_url(self):
+		return self.object.proforma.get_absolute_url()
+
+class ProformaItemDeleteView(PermissionRequiredMixin, DeleteView):
+	model = ProformaItem
+	permission = 'crm.delete_proformaitem'
+
+	def get_success_url(self):
+		return self.object.proforma.get_absolute_url()
+
+class ProformaPdfView(PermissionRequiredMixin, PdfView):
+	permission = 'crm.view_proforma'
+
+	def dispatch(self, *args, **kwargs):
+		self.object = get_object_or_404(Proforma, id=self.kwargs['pk'])
+		return super(ProformaPdfView, self).dispatch(*args, **kwargs)
+
+	def get_template_names(self):
+		return ['crm/proforma_%s_pdf.html' % self.object.language,]
+
+	def get_context_data(self, **kwargs):
+		ctx = super(ProformaPdfView, self).get_context_data(**kwargs)
+		proforma = self.object
+		if proforma.disaggregated:
+			total = 0
+			for item in proforma.proformaitem_set.with_total():
+				total += item.total
+		else:
+			total = proforma.total
+		total = Decimal(total)
+		vat_amount = total * proforma.vat / 100
+		vat_amount = vat_amount.quantize(Decimal('1.00'))
+		ctx.update({
+			'proforma': proforma,
+			'address': COMPANY_ADDRESS,
+			'city': COMPANY_CITY,
+			'total': total,
+			'vat_amount': vat_amount,
+			'total_plus_vat': total + vat_amount,
+			'disclaimer': DATA_DISCLAIMER,
+		})
+		return ctx
+
+##
+## DELIVERY NOTES VIEWS
+##
 
 class DeliveryNoteListView(ListView):
 	model = DeliveryNote

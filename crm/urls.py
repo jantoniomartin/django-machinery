@@ -141,6 +141,45 @@ urlpatterns = patterns("crm.views",
 		name="crm_quotation_to_contract"
 	),
 	##
+	## PROFORMA URLS
+	##
+	url(r'^proforma/create/(?P<pk>\d+)/$',
+		ProformaCreateView.as_view(),
+		name="crm_proforma_create"
+	),
+	url(r'^proforma/list/$',
+		ProformaListView.as_view(),
+		name="crm_proforma_list"
+	),
+	url(r'^proforma/list/(?P<pk>\d+)$',
+		CompanyProformaListView.as_view(),
+		name="crm_companyproforma_list"
+	),
+	url(r'^proforma/detail/(?P<pk>\d+)/$',
+		ProformaDetailView.as_view(),
+		name="crm_proforma_detail"
+	),
+	url(r'^proforma/pdf/(?P<pk>\d+)/$',
+		ProformaPdfView.as_view(),
+		name="crm_proforma_pdf"
+	),
+	url(r'^proforma/edit/(?P<pk>\d+)/$',
+		ProformaUpdateView.as_view(),
+		name="crm_proforma_update"
+	),
+	url(r'^proformaitem/create/$',
+		ProformaItemCreateView.as_view(),
+		name="crm_proformaitem_create"
+	),
+	url(r'^proformaitem/edit/(?P<pk>\d+)/$',
+		ProformaItemUpdateView.as_view(),
+		name="crm_proformaitem_update"
+	),
+	url(r'^proformaitem/delete/(?P<pk>\d+)/$',
+		ProformaItemDeleteView.as_view(),
+		name="crm_proformaitem_delete"
+	),
+	##
 	## DELIVERY NOTE URLS 
 	##
 	url(r'^delivery/create/(?P<pk>\d+)/$',

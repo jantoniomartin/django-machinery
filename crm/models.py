@@ -233,6 +233,9 @@ class Proforma(SalesDocument):
 class ProformaItem(SalesDocumentItem):
 	proforma = models.ForeignKey(Proforma, verbose_name=_("proforma"))
 	
+	objects = PassThroughManager.for_queryset_class(
+		querysets.ProformaItemQuerySet)()
+	
 	class Meta(SalesDocumentItem.Meta):
 		verbose_name = _("proforma item")
 		verbose_name_plural = _("proforma items")

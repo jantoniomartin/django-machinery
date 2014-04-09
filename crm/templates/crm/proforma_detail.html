@@ -1,0 +1,81 @@
+{% extends 'crm/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block title %}{% trans "Proforma" %}: {{ object }}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Proforma" %}: {{ object }}</h1>
+
+<div class="col-md-6">
+
+<div class="panel panel-primary">
+<div class="panel-body">
+<dl>
+	<dt>{% trans "Reference" %}</dt>
+	<dd>{{ object }}</dd>
+	<dt>{% trans "Customer" %}</dt>
+	<dd>
+	<a href="{% url 'crm_company_detail' object.company.id %}">
+	{{ object.company }}
+	</a>
+	</dd>
+</dl>
+<p>
+<a href="{% url 'crm_proforma_update' object.id %}">{% trans "Edit" %}</a>
+|
+<a href="{% url 'crm_proforma_pdf' object.id %}" target="_blank">PDF</a>
+</p>
+</div>
+</div>
+
+<form id="item_form" method="post" action="{% url 'crm_proformaitem_create' %}">
+{% csrf_token %}
+{{ form|crispy }}
+<p><button type="submit" class="btn btn-sm btn-primary">{% trans "Add" %}</button></p>
+</form>
+
+<h4>{% trans "Remarks" %}</h4>
+{{ object.remarks|linebreaks }}
+
+</div>
+<div class="col-md-6">
+
+<table id="item_table" class="table table-striped table-hover">
+<thead>
+	<tr>
+	<th>{% trans "Qty" %}</th>
+	<th>{% trans "Description" %}</th>
+	{% if object.disaggregated %}
+	<th>{% trans "Price/unit" %}</th>
+	<th>{% trans "Price" %}</th>
+	{% endif %}
+	<th>{% trans "Actions" %}</th>
+	</tr>
+</thead>
+<tbody>
+	{% for item in object.proformaitem_set.with_total %}
+	<tr>
+	<td>{{ item.quantity }}</td>
+	<td>{{ item.description }}</td>
+	{% if object.disaggregated %}
+	<td>{{ item.price|intcomma }}</td>
+	<td>{{ item.total|intcomma }}</td>
+	{% endif %}
+	<td>
+	<a href="{% url 'crm_proformaitem_update' item.id %}">
+	{% trans "Edit" %}
+	</a>
+	<a href="{% url 'crm_proformaitem_delete' item.id %}">
+	{% trans "Delete" %}
+	</a>
+	</td>
+	</tr>
+	{% endfor %}
+</tbody>
+</table>
+
+
+</div>
+{% endblock %}

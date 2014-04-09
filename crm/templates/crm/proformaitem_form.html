@@ -1,0 +1,21 @@
+{% extends 'crm/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Edit proforma item" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Edit proforma item" %}</h1>
+
+<form method="POST" action=".">
+{% csrf_token %}
+
+{{ form|crispy }}
+
+<div class="form-group">
+
+  <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+</div>
+</form>
+{% endblock %}

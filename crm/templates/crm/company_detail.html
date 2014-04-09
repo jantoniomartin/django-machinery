@@ -21,6 +21,10 @@
 |
 <a href="{% url 'crm_quotation_create' company.id %}">{% trans "New quotation" %}</a>
 |
+<a href="{% url 'crm_companyproforma_list' company.id %}">{% trans "Proformas" %}</a>
+|
+<a href="{% url 'crm_proforma_create' company.id %}">{% trans "New proforma" %}</a>
+|
 <a href="{% url 'crm_companycontract_list' company.id %}">{% trans "Contracts" %}</a>
 |
 <a href="{% url 'crm_contract_create' company.id %}">{% trans "New contract" %}</a>
