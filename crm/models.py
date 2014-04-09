@@ -113,27 +113,18 @@ class Department(models.Model):
 	def get_absolute_url(self):
 		return ('crm_department_detail', [self.id])
 
-class Quotation(models.Model):
+class SalesDocument(models.Model):
 	company = models.ForeignKey(Company, verbose_name=_("company"))
 	author = models.ForeignKey(User, verbose_name=_("author"))
-	created = models.DateField(_("created"), auto_now_add=True)
-	recipient_name = models.CharField(_("recipient name"), max_length=255,
-		blank=True, null=True)
-	title = models.CharField(_("title"), max_length=255)
 	language = models.CharField(_("language"), max_length=8,
 		choices=REPORT_LANGUAGES)
 	disaggregated = models.BooleanField(_("disaggregated"), default=True)
 	total = models.DecimalField(_("total"), max_digits=12, decimal_places=2,
 		blank=True, null=True)
-	conditions = models.TextField(_("conditions"), blank=True, null=True)
-	private_note = models.CharField(_("private note"), max_length=255,
-		blank=True, null=True)
 
 	class Meta:
+		abstract = True
 		ordering = ['-id',]
-		verbose_name = _("quotation")
-		verbose_name_plural = _("quotations")
-		permissions = (('view_quotation', 'Can view quotation'),)
 
 	def __unicode__(self):
 		return u"%(year)s-%(company)s-%(id)s" % {
@@ -141,6 +132,20 @@ class Quotation(models.Model):
 			"company": self.company.id,
 			"id": self.id
 		}
+
+class Quotation(SalesDocument):
+	created = models.DateField(_("created"), auto_now_add=True)
+	recipient_name = models.CharField(_("recipient name"), max_length=255,
+		blank=True, null=True)
+	title = models.CharField(_("title"), max_length=255)
+	conditions = models.TextField(_("conditions"), blank=True, null=True)
+	private_note = models.CharField(_("private note"), max_length=255,
+		blank=True, null=True)
+
+	class Meta(SalesDocument.Meta):
+		verbose_name = _("quotation")
+		verbose_name_plural = _("quotations")
+		permissions = (('view_quotation', 'Can view quotation'),)
 
 	@models.permalink
 	def get_absolute_url(self):
@@ -164,37 +169,27 @@ class QuotationItem(models.Model):
 	def __unicode__(self):
 		return unicode(self.id)
 
-class Contract(models.Model):
-	company = models.ForeignKey(Company, verbose_name=_("company"))
-	author = models.ForeignKey(User, verbose_name=_("author"))
+class Contract(SalesDocument):
 	created = models.DateField(_("created"))
-	language = models.CharField(_("language"), max_length=8,
-		choices=REPORT_LANGUAGES)
 	delivery_time = models.TextField(_("delivery time"), default="", blank=True)
 	delivery_method = models.CharField(_("delivery method"), max_length=255,
 		default="", blank=True)
-	conditions = models.TextField(_("conditions"), default="", blank=True)
+	conditions = models.TextField(_("conditions"), blank=True, default="")
 	remarks = models.TextField(_("remarks"), default="", blank=True)
-	disaggregated = models.BooleanField(_("disaggregated"), default=True)
-	total = models.DecimalField(_("total"), max_digits=12, decimal_places=2,
-		blank=True, null=True)
 	vat = models.DecimalField(_("VAT"), max_digits=4, decimal_places=2,
 		choices=VAT_CHOICES)
 	signed_copy = models.FileField(_("signed copy"), upload_to="crm/contracts",
 		blank=True, null=True)
 
-	class Meta:
-		ordering = ['-id',]
+	class Meta(SalesDocument.Meta):
 		verbose_name = _("contract")
 		verbose_name_plural = _("contracts")
 		permissions = (('view_contract', 'Can view contract'),)
 
 	def __unicode__(self):
-		return u"C%(year)s-%(company)s-%(id)s" % {
-			"year": self.created.strftime("%y"),
-			"company": self.company.id,
-			"id": self.id
-		}
+		return "".join(["C",
+			super(Contract, self).__unicode__()]
+		)
 
 	@models.permalink
 	def get_absolute_url(self):
@@ -216,6 +211,26 @@ class ContractItem(models.Model):
 	
 	def __unicode__(self):
 		return self.description
+
+class Proforma(SalesDocument):
+	created = models.DateField(_("created"))
+	remarks = models.TextField(_("remarks"), default="", blank=True)
+	vat = models.DecimalField(_("VAT"), max_digits=4, decimal_places=2,
+		choices=VAT_CHOICES)
+
+	class Meta(SalesDocument.Meta):
+		verbose_name = _("proforma")
+		verbose_name_plural = _("proformas")
+		permissions = (('view_proforma', 'Can view proforma'),)
+
+	def __unicode__(self):
+		return "".join(["P",
+			super(Proforma, self).__unicode__()]
+		)
+
+	@models.permalink
+	def get_absolute_url(self):
+		return ('crm_proforma_detail', [self.id])
 
 class DeliveryNote(models.Model):
 	contract = models.ForeignKey(Contract, verbose_name=_("contract"))
