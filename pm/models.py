@@ -117,6 +117,13 @@ class Machine(models.Model):
 	def get_absolute_url(self):
 		return ('pm_machine_detail', [self.id])
 
+	@property
+	def contract_url(self):
+		if self.contract_item:
+			print self.contract_item.contract.get_absolute_url()
+			return self.contract_item.contract.get_absolute_url()
+		return None
+
 class MachineComment(models.Model):
 	machine = models.ForeignKey(Machine, verbose_name=_("machine"))
 	body = models.TextField(_("body"))

@@ -131,11 +131,16 @@ $(function() {
 <td>{{ machine.running_on|date:"d/m/Y" }}</td>
 <td>{{ machine.estimated_delivery_on|date:"d/m/Y" }}</td>
 <td>
+{% if perms.crm.view_contract and machine.contract_url %}
+<a href="{{ machine.contract_url }}" class="btn btn-xs btn-primary">
+{% trans "Contract" %}
+</a>
+{% endif %}
 {% if perms.pm.change_machine %}
-<a href="{% url 'pm_machine_edit' machine.id %}" class="btn btn-sm btn-primary">{% trans "Edit" %}</a>
+<a href="{% url 'pm_machine_edit' machine.id %}" class="btn btn-xs btn-primary">{% trans "Edit" %}</a>
 {% endif %}
 {% if perms.pm.delete_machine %}
-<a href="{% url 'pm_machine_delete' machine.id %}" class="btn btn-sm btn-danger">{% trans "Delete" %}</a>
+<a href="{% url 'pm_machine_delete' machine.id %}" class="btn btn-xs btn-danger">{% trans "Delete" %}</a>
 {% endif %}
 </td>
 </tr>
