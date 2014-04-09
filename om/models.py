@@ -74,7 +74,7 @@ class OrderItem(models.Model):
 		verbose_name_plural = _("order lines")
 
 	def __unicode__(self):
-		return self.id
+		return unicode(self.id)
 
 	def as_csv(self, template, sep=u","):
 		template = template.replace(" ", "")
@@ -102,7 +102,7 @@ class CartItem(models.Model):
 		verbose_name_plural = _("cart items")
 
 	def __unicode__(self):
-		return self.id
+		return unicode(self.id)
 
 class CsvTemplate(models.Model):
 	company = models.ForeignKey(crm.Company, verbose_name=_("company"))
