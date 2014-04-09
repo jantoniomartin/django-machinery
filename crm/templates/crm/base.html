@@ -8,10 +8,17 @@
 	<li><a href="{% url 'crm_group_list' %}">{% trans "Groups" %}</a></li>
 	<li><a href="{% url 'crm_company_list' %}">{% trans "Companies" %}</a></li>
 	<li><a href="{% url 'crm_company_create' %}">{% trans "New company" %}</a></li>
-	<li><a href="{% url 'crm_quotation_list' %}">{% trans "Quotations" %}</a></li>
-	<li><a href="{% url 'crm_proforma_list' %}">{% trans "Proformas" %}</a></li>
-	<li><a href="{% url 'crm_contract_list' %}">{% trans "Contracts" %}</a></li>
-	<li><a href="{% url 'crm_deliverynote_list' %}">{% trans "Delivery notes" %}</a></li>
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			{% trans "Documents" %} <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="{% url 'crm_quotation_list' %}">{% trans "Quotations" %}</a></li>
+			<li><a href="{% url 'crm_proforma_list' %}">{% trans "Proformas" %}</a></li>
+			<li><a href="{% url 'crm_contract_list' %}">{% trans "Contracts" %}</a></li>
+			<li><a href="{% url 'crm_deliverynote_list' %}">{% trans "Delivery notes" %}</a></li>
+		</ul>
+	</li>
 <li>
 <form method="GET" action="{% url 'crm_company_search' %}">
   <input class="form-control col-lg-8" placeholder="{% trans "Search" %}" type="text" name="q" />
