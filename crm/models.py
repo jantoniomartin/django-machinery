@@ -133,6 +133,18 @@ class SalesDocument(models.Model):
 			"id": self.id
 		}
 
+class SalesDocumentItem(models.Model):
+	quantity = models.PositiveIntegerField(_("quantity"), default=1)
+	description = models.TextField(_("description"))
+	price = models.DecimalField(_("price"), max_digits=12, decimal_places=2,
+		blank=True, null=True)
+
+	class Meta:
+		abstract = True
+
+	def __unicode__(self):
+		return unicode(self.id)
+
 class Quotation(SalesDocument):
 	created = models.DateField(_("created"), auto_now_add=True)
 	recipient_name = models.CharField(_("recipient name"), max_length=255,
@@ -151,24 +163,17 @@ class Quotation(SalesDocument):
 	def get_absolute_url(self):
 		return ('crm_quotation_detail', [self.id])
 
-class QuotationItem(models.Model):
+class QuotationItem(SalesDocumentItem):
 	quotation = models.ForeignKey(Quotation, verbose_name=_("quotation"))
-	quantity = models.PositiveIntegerField(_("quantity"), default=1)
-	description = models.TextField(_("description"))
-	price = models.DecimalField(_("price"), max_digits=12, decimal_places=2,
-		blank=True, null=True)
 	optional = models.BooleanField(_("optional"), default=False)
 
 	objects = PassThroughManager.for_queryset_class(
 		querysets.QuotationItemQuerySet)()
 
-	class Meta:
+	class Meta(SalesDocumentItem.Meta):
 		verbose_name = _("quotation item")
 		verbose_name_plural = _("quotation items")
 	
-	def __unicode__(self):
-		return unicode(self.id)
-
 class Contract(SalesDocument):
 	created = models.DateField(_("created"))
 	delivery_time = models.TextField(_("delivery time"), default="", blank=True)
@@ -195,23 +200,16 @@ class Contract(SalesDocument):
 	def get_absolute_url(self):
 		return ('crm_contract_detail', [self.id])
 
-class ContractItem(models.Model):
+class ContractItem(SalesDocumentItem):
 	contract = models.ForeignKey(Contract, verbose_name=_("contract"))
-	quantity = models.PositiveIntegerField(_("quantity"), default=1)
-	description = models.TextField(_("description"))
-	price = models.DecimalField(_("price"), max_digits=12, decimal_places=2,
-		blank=True, null=True)
-
+	
 	objects = PassThroughManager.for_queryset_class(
 		querysets.ContractItemQuerySet)()
 
-	class Meta:
+	class Meta(SalesDocumentItem.Meta):
 		verbose_name = _("contract item")
 		verbose_name_plural = _("contract items")
 	
-	def __unicode__(self):
-		return self.description
-
 class Proforma(SalesDocument):
 	created = models.DateField(_("created"))
 	remarks = models.TextField(_("remarks"), default="", blank=True)
@@ -232,6 +230,13 @@ class Proforma(SalesDocument):
 	def get_absolute_url(self):
 		return ('crm_proforma_detail', [self.id])
 
+class ProformaItem(SalesDocumentItem):
+	proforma = models.ForeignKey(Proforma, verbose_name=_("proforma"))
+	
+	class Meta(SalesDocumentItem.Meta):
+		verbose_name = _("proforma item")
+		verbose_name_plural = _("proforma items")
+	
 class DeliveryNote(models.Model):
 	contract = models.ForeignKey(Contract, verbose_name=_("contract"))
 	created = models.DateField(_("created"), auto_now_add=True)
