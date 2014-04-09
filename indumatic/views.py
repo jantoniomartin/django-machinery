@@ -1,8 +1,9 @@
 import datetime
 import os
 
-from django.views.generic.base import TemplateView
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.views.generic.base import TemplateView
 
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -12,6 +13,13 @@ import crm.models as crm
 import om.models as om
 import pm.models as pm
 from indumatic.pdftools import make_pdf
+
+class PermissionRequiredMixin(object):
+	
+	def dispatch(self, *args, **kwargs):
+		if not self.request.user.has_perm(self.permission):
+			raise PermissionDenied
+		return super(PermissionRequiredMixin, self).dispatch(*args, **kwargs)
 
 class PdfView(TemplateView):
 	http_method_names = ['get',]
