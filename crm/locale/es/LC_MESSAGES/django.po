@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 12:03+0200\n"
+"POT-Creation-Date: 2014-04-11 08:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,7 +56,7 @@ msgstr "grupo"
 msgid "groups"
 msgstr "grupos"
 
-#: models.py:32 templates/crm/company_detail.html:50
+#: models.py:32 templates/crm/company_detail.html:54
 msgid "VATIN"
 msgstr "CIF"
 
@@ -304,12 +304,12 @@ msgstr "línea de albarán"
 msgid "delivery note items"
 msgstr "líneas de albarán"
 
-#: views.py:327
+#: views.py:367
 #, python-format
 msgid "The contract could not be created. %s"
 msgstr "El contrato no se ha podido crear. %s"
 
-#: views.py:492
+#: views.py:532
 msgid "The delivery note could not be created."
 msgstr "El albarán no se ha podido crear. %s"
 
@@ -327,29 +327,33 @@ msgstr "Empresas"
 msgid "New company"
 msgstr "Nueva empresa"
 
-#: templates/crm/base.html:11 templates/crm/company_detail.html:20
+#: templates/crm/base.html:13
+msgid "Documents"
+msgstr "Documentos"
+
+#: templates/crm/base.html:16 templates/crm/company_detail.html:24
 #: templates/crm/quotation_list.html:4 templates/crm/quotation_list.html:8
 msgid "Quotations"
 msgstr "Presupuestos"
 
-#: templates/crm/base.html:12 templates/crm/company_detail.html:24
+#: templates/crm/base.html:17 templates/crm/company_detail.html:28
 #: templates/crm/proforma_list.html:4 templates/crm/proforma_list.html.py:8
 msgid "Proformas"
 msgstr "Proformas"
 
-#: templates/crm/base.html:13 templates/crm/company_detail.html:28
+#: templates/crm/base.html:18 templates/crm/company_detail.html:32
 #: templates/crm/contract_list.html:4 templates/crm/contract_list.html.py:8
 msgid "Contracts"
 msgstr "Contratos"
 
-#: templates/crm/base.html:14 templates/crm/company_detail.html:32
+#: templates/crm/base.html:19 templates/crm/company_detail.html:36
 #: templates/crm/contract_detail.html:43
 #: templates/crm/deliverynote_list.html:4
 #: templates/crm/deliverynote_list.html:8
 msgid "Delivery notes"
 msgstr "Albaranes"
 
-#: templates/crm/base.html:17
+#: templates/crm/base.html:24
 msgid "Search"
 msgstr "Buscar"
 
@@ -362,112 +366,118 @@ msgstr "Editar empresa"
 msgid "Orders"
 msgstr "Pedidos"
 
-#: templates/crm/company_detail.html:22
+#: templates/crm/company_detail.html:19 templates/crm/purchase_history.html:4
+msgid "Purchase history"
+msgstr "Historial de compras"
+
+#: templates/crm/company_detail.html:26
 msgid "New quotation"
 msgstr "Nuevo presupuesto"
 
-#: templates/crm/company_detail.html:26
+#: templates/crm/company_detail.html:30
 msgid "New proforma"
 msgstr "Nueva proforma"
 
-#: templates/crm/company_detail.html:30
+#: templates/crm/company_detail.html:34
 msgid "New contract"
 msgstr "Nuevo contrato"
 
-#: templates/crm/company_detail.html:40
+#: templates/crm/company_detail.html:44
 msgid "General data"
 msgstr "Datos generales"
 
-#: templates/crm/company_detail.html:45 templates/crm/company_list.html:19
+#: templates/crm/company_detail.html:49 templates/crm/company_list.html:19
 msgid "Group"
 msgstr "Grupo"
 
-#: templates/crm/company_detail.html:51
+#: templates/crm/company_detail.html:55
 msgid "Address"
 msgstr "Domicilio"
 
-#: templates/crm/company_detail.html:56
+#: templates/crm/company_detail.html:60
 msgid "Phone numbers"
 msgstr "Teléfonos"
 
-#: templates/crm/company_detail.html:62
+#: templates/crm/company_detail.html:66
 msgid "Fax"
 msgstr "Fax"
 
-#: templates/crm/company_detail.html:63
+#: templates/crm/company_detail.html:67
 msgid "Website"
 msgstr "Sitio web"
 
-#: templates/crm/company_detail.html:64
+#: templates/crm/company_detail.html:68
 msgid "Global email"
 msgstr "Email general"
 
-#: templates/crm/company_detail.html:65 templates/crm/company_detail.html:89
+#: templates/crm/company_detail.html:69 templates/crm/company_detail.html:93
 #: templates/crm/department_detail.html:27
 msgid "Comment"
 msgstr "Comentario"
 
-#: templates/crm/company_detail.html:66
+#: templates/crm/company_detail.html:70
 msgid "Creation date"
 msgstr "Fecha de alta"
 
-#: templates/crm/company_detail.html:67
+#: templates/crm/company_detail.html:71
 msgid "Last updated"
 msgstr "Actualizado"
 
-#: templates/crm/company_detail.html:76
+#: templates/crm/company_detail.html:80
 msgid "Departments"
 msgstr "Departamentos"
 
-#: templates/crm/company_detail.html:79
+#: templates/crm/company_detail.html:83
 msgid "New department"
 msgstr "Nuevo departamento"
 
-#: templates/crm/company_detail.html:84
+#: templates/crm/company_detail.html:88
 msgid "Department"
 msgstr "Departamento"
 
-#: templates/crm/company_detail.html:85
+#: templates/crm/company_detail.html:89
 #: templates/crm/department_detail.html:19
 msgid "Person"
 msgstr "Persona"
 
-#: templates/crm/company_detail.html:86 templates/crm/company_list.html:18
+#: templates/crm/company_detail.html:90 templates/crm/company_list.html:18
 #: templates/crm/department_detail.html:21 templates/crm/group_detail.html:20
 msgid "Phone"
 msgstr "Teléfono"
 
-#: templates/crm/company_detail.html:87
+#: templates/crm/company_detail.html:91
 #: templates/crm/department_detail.html:23
 msgid "Email"
 msgstr "Email"
 
-#: templates/crm/company_detail.html:88
+#: templates/crm/company_detail.html:92
 #: templates/crm/department_detail.html:25
 msgid "Use for orders"
 msgstr "Usar para pedidos"
 
-#: templates/crm/company_detail.html:115
+#: templates/crm/company_detail.html:119
 msgid "Projects"
 msgstr "Proyectos"
 
-#: templates/crm/company_detail.html:119 templates/crm/contract_detail.html:16
+#: templates/crm/company_detail.html:123 templates/crm/contract_detail.html:16
 #: templates/crm/contract_list.html:13
 #: templates/crm/deliverynote_detail.html:16
 #: templates/crm/deliverynote_list.html:13
 #: templates/crm/proforma_detail.html:16 templates/crm/proforma_list.html:13
+#: templates/crm/purchase_history.html:13
 #: templates/crm/quotation_detail.html:16 templates/crm/quotation_list.html:13
 msgid "Reference"
 msgstr "Referencia"
 
-#: templates/crm/company_detail.html:120 templates/crm/contract_detail.html:78
+#: templates/crm/company_detail.html:124 templates/crm/contract_detail.html:78
 #: templates/crm/deliverynote_detail.html:56
 #: templates/crm/proforma_detail.html:49
+#: templates/crm/purchase_history.html:15
 #: templates/crm/quotation_detail.html:70
 msgid "Description"
 msgstr "Descripción"
 
-#: templates/crm/company_detail.html:121
+#: templates/crm/company_detail.html:125
 msgid "Created on"
 msgstr "Creado el"
 
@@ -687,6 +697,19 @@ msgstr "Esta línea de proforma se eliminará. ¿Estás seguro?"
 #: templates/crm/proformaitem_form.html:9
 msgid "Edit proforma item"
 msgstr "Editar línea de proforma"
+
+#: templates/crm/purchase_history.html:8
+#, python-format
+msgid "Purchase history for %(company)s in %(year)s"
+msgstr "Historial de compras a %(company)s en %(year)s"
+
+#: templates/crm/purchase_history.html:14
+msgid "Brand"
+msgstr "Marca"
+
+#: templates/crm/purchase_history.html:16
+msgid "Quantity"
+msgstr "Cantidad"
 
 #: templates/crm/quotation_detail.html:6 templates/crm/quotation_detail.html:9
 msgid "Quotation"

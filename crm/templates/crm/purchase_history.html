@@ -1,0 +1,47 @@
+{% extends "crm/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Purchase history" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% blocktrans %}Purchase history for {{ company }} in {{ year }}{% endblocktrans %}</h1>
+
+<table class="table table-striped table-hover">
+<thead>
+<tr>
+    <th>{% trans "Reference" %}</th>
+    <th>{% trans "Brand" %}</th>
+    <th>{% trans "Description" %}</th>
+	<th>{% trans "Quantity" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for article in object_list %}
+<tr>
+    <td><a href="{% url 'wm_article_detail' article.id %}">{{ article.code }}</a></td>
+    <td>{{ article.brand|default_if_none:"" }}</td>
+    <td>{{ article.description }}</td>
+	<td>{{ article.qty }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pager">
+	<ul>
+		<li>
+			<a href="{% url 'crm_purchase_history' company.id previous_year %}">
+			{{ previous_year }}
+			</a>
+		</li>
+		<li>
+			<a href="{% url 'crm_purchase_history' company.id next_year %}">
+			{{ next_year }}
+			</a>
+		</li>
+	</ul>
+</div>
+
+
+{% endblock %}

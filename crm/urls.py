@@ -42,6 +42,10 @@ urlpatterns = patterns("crm.views",
 		CompanySearchView.as_view(),
 		name="crm_company_search"
 	),
+	url(r'^company/history/(?P<pk>\d+)/(?P<year>\d+)/$',
+		CompanyYearPurchase.as_view(),
+		name="crm_purchase_history"
+	),
     url(r'^department/detail/(?P<pk>\d+)/$',
 		DepartmentDetailView.as_view(),
 		name="crm_department_detail"

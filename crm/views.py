@@ -18,6 +18,7 @@ from crm.defaults import *
 from crm.models import *
 from crm import forms
 from pm.models import Project
+from wm.models import Article
 
 class CompanyListView(PermissionRequiredMixin, ListView):
 	model=Company
@@ -29,6 +30,13 @@ class CompanyDetailView(PermissionRequiredMixin, DetailView):
 	model=Company
 	context_object_name="company"
 	permission = 'crm.view_company'
+
+	def get_context_data(self, **kwargs):
+		ctx = super(CompanyDetailView, self).get_context_data(**kwargs)
+		ctx.update({
+			'current_year': date.today().year, 
+		})
+		return ctx
 
 class CompanyCreateView(PermissionRequiredMixin, CreateView):
 	model = Company
@@ -51,6 +59,38 @@ class CompanySearchView(ListView):
 		print entry_query
 		found_entries = Company.objects.filter(entry_query)
 		return found_entries
+
+class CompanyYearPurchase(ListView):
+	template_name = 'crm/purchase_history.html'
+
+	def get_queryset(self):
+		return Article.objects.raw("""
+			SELECT wm_article.*, SUM(om_orderitem.ordered_quantity) AS qty,
+				YEAR(om_orderitem.completed_on) AS year
+			FROM wm_article
+			INNER JOIN om_offer
+			ON om_offer.article_id = wm_article.id
+				INNER JOIN om_orderitem
+				ON om_orderitem.offer_id = om_offer.id
+			WHERE om_offer.company_id = %(company)s
+			AND YEAR(om_orderitem.completed_on) = %(year)s
+			GROUP BY wm_article.code
+			ORDER BY wm_article.code
+		""" % {'company': self.kwargs['pk'],
+				'year': self.kwargs['year'],
+			}
+		)
+	
+	def get_context_data(self, **kwargs):
+		ctx = super(CompanyYearPurchase, self).get_context_data(**kwargs)
+		company = get_object_or_404(Company, id=self.kwargs['pk'])
+		ctx.update({
+			'year': self.kwargs['year'],
+			'previous_year': int(self.kwargs['year']) - 1,
+			'next_year': int(self.kwargs['year']) + 1,
+			'company': company,
+		})
+		return ctx
 
 class DepartmentDetailView(PermissionRequiredMixin, DetailView):
 	model=Department
