@@ -111,7 +111,7 @@ with reference <strong>{{ quotation }}</strong>.</p>
 	{% for item in quotation.quotationitem_set.non_optional.with_total %}
 	<tr>
 		<td style="text-align: center">{{ item.quantity }}</td>
-		<td>{{ item.description }}</td>
+		<td>{{ item.description|linebreaks }}</td>
 		{% if quotation.disaggregated %}
 		<td style="text-align: right; vertical-align: bottom">
 		{{ item.price|intcomma }}
