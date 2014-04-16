@@ -125,7 +125,7 @@ with reference <strong>{{ quotation }}</strong>.</p>
 	<tr>
 	<td style="text-align: right; font-weight:bold"
 	{% if quotation.disaggregated %}colspan="3"{% endif %}>
-	TOTAL PRICE
+	TOTAL PRICE (VAT not included)
 	</td>
 	<td style="text-align: right; font-weight:bold">{{ total|intcomma }}</td>
 	</tr>
@@ -150,7 +150,7 @@ with reference <strong>{{ quotation }}</strong>.</p>
 	{% for item in quotation.quotationitem_set.optional.with_total %}
 	<tr>
 		<td style="text-align: center">{{ item.quantity }}</td>
-		<td>{{ item.description }}</td>
+		<td>{{ item.description|linebreaks }}</td>
 		{% if quotation.disaggregated %}
 		<td style="text-align: right; vertical-align: bottom">
 		{{ item.price|intcomma }}
