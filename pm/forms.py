@@ -38,6 +38,7 @@ class NewMachineForm(forms.ModelForm):
 		queryset=Project.objects.all(),
 		widget=forms.HiddenInput)
 	estimated_delivery_on = forms.DateField(required=False,
+		label=_("Estimated delivery"),
 		input_formats=['%d/%m/%Y',])
 
 	class Meta:
