@@ -17,6 +17,7 @@ class MachineCommentForm(forms.ModelForm):
 
 class MachineForm(forms.ModelForm):
 	estimated_delivery_on = forms.DateField(required=False,
+		label=_("Estimated delivery"),
 		input_formats=['%d/%m/%Y',])
 
 	class Meta:
@@ -54,7 +55,10 @@ class PartForm(forms.ModelForm):
 		fields = ['article', 'machine', 'quantity', 'function']
 
 class ProjectForm(forms.ModelForm):
-	company = forms.ModelChoiceField(queryset=Company.objects.filter(is_customer=True))
+	company = forms.ModelChoiceField(
+		queryset=Company.objects.filter(is_customer=True),
+		label=_("Company")
+		)
 
 	class Meta:
 		model = Project
