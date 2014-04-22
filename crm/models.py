@@ -143,7 +143,7 @@ class SalesDocumentItem(models.Model):
 		abstract = True
 
 	def __unicode__(self):
-		return unicode(self.id)
+		return unicode(self.description)
 
 class Quotation(SalesDocument):
 	created = models.DateField(_("created"), auto_now_add=True)
