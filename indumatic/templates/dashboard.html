@@ -114,7 +114,7 @@
   <div class="panel-body">
 <ul class="list-group">
 {% for order in delayed_orders %}
-	<li class="list-group-item"><a href="{% url 'om_order_detail' order.id %}">{{ order }}</a></li>
+	<li class="list-group-item"><a href="{% url 'om_order_receive' order.id %}">{{ order }}</a></li>
 {% empty %}
 	<li class="list-group-item">{% trans "There are no delayed orders." %}</li>
 {% endfor %}
