@@ -122,14 +122,17 @@ with reference <strong>{{ quotation }}</strong>.</p>
 		{% endif %}
 	</tr>
 	{% endfor %}
-	<tr>
-	<td style="text-align: right; font-weight:bold"
-	{% if quotation.disaggregated %}colspan="3"{% endif %}>
+	</tbody>
+</table>
+<table>
+<thead>
+<tr>
+	<td style="text-align: right; font-weight:bold; width:40%">
 	TOTAL PRICE (VAT not included)
 	</td>
 	<td style="text-align: right; font-weight:bold">{{ total|intcomma }}</td>
-	</tr>
-	</tbody>
+</tr>
+</thead>
 </table>
 
 
