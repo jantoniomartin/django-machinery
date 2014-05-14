@@ -82,7 +82,9 @@
 {% for offer in offers %}
 <tr>
 	<td><input name="offer" type="radio" value="{{ offer.id }}" /></td>
-	<td>{{ offer.company }}</td>
+	<td><a href="{% url 'crm_company_detail' offer.company.id %}">
+		{{ offer.company }}
+	</a></td>
 	<td>{{ offer.created_on }}</td>
 	<td>
 	{% if offer.expired_on %}
