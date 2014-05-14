@@ -107,7 +107,7 @@ msgstr "Pedidos"
 
 #: templates/site_base.html:53
 msgid "Cart"
-msgstr "Carro"
+msgstr "Cesta"
 
 #: templates/site_base.html:60
 msgid "Admin"
