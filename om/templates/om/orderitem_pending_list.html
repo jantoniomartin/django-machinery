@@ -11,6 +11,7 @@
 <thead>
 <tr>
 <td>{% trans "Supplier" %}</td>
+<td>{% trans "Order" %}</td>
 <td>{% trans "Ordered" %}</td>
 <td>{% trans "Received" %}</td>
 <td>{% trans "Unit" %}</td>
@@ -24,6 +25,7 @@
 {% for item in item_list %}
 <tr>
 <td><a href="{% url 'crm_company_detail' item.offer.company.id %}">{{ item.offer.company }}</a></td>
+<td><a href="{% url 'om_order_detail' item.order.id %}">{{ item.order }}</a></td>
 <td>{{ item.ordered_quantity }}</td>
 <td>{{ item.received_quantity }}</td>
 <td>{{ item.offer.article.measure_unit }}</td>
