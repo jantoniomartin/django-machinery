@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-08 11:17+0200\n"
+"POT-Creation-Date: 2014-05-14 08:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: forms.py:10 templates/wm/article_detail.html:24
-#: templates/wm/article_detail.html:141 templates/wm/article_detail.html:166
+#: templates/wm/article_detail.html:143 templates/wm/article_detail.html:168
 #: templates/wm/article_list.html:15 templates/wm/group_detail.html:29
 #: templates/wm/group_tree.html:94
 msgid "Description"
@@ -161,16 +161,16 @@ msgstr "El stock no se contabiliza."
 msgid "Active offers for this article"
 msgstr "Ofertas activas para este artículo"
 
-#: templates/wm/article_detail.html:70 templates/wm/article_detail.html:107
-msgid "Order"
-msgstr "Pedir"
+#: templates/wm/article_detail.html:70
+msgid "Select"
+msgstr "Seleccionar"
 
 #: templates/wm/article_detail.html:71 templates/wm/article_offers.html:16
 #: templates/wm/article_supplier_codes.html:17
 msgid "Supplier"
 msgstr "Proveedor"
 
-#: templates/wm/article_detail.html:72 templates/wm/article_detail.html:167
+#: templates/wm/article_detail.html:72 templates/wm/article_detail.html:169
 #: templates/wm/article_offers.html:17
 msgid "Date"
 msgstr "Fecha"
@@ -196,76 +196,80 @@ msgstr "Precio neto"
 msgid "Suggested price"
 msgstr "PVP recomendado"
 
-#: templates/wm/article_detail.html:78 templates/wm/article_detail.html:168
+#: templates/wm/article_detail.html:78 templates/wm/article_detail.html:170
 #: templates/wm/article_offers.html:22
 #: templates/wm/article_supplier_codes.html:19 templates/wm/brand_list.html:14
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/wm/article_detail.html:91 templates/wm/article_offers.html:34
+#: templates/wm/article_detail.html:93 templates/wm/article_offers.html:34
 msgid "Expire"
 msgstr "Caducar"
 
-#: templates/wm/article_detail.html:98 templates/wm/article_offers.html:40
+#: templates/wm/article_detail.html:100 templates/wm/article_offers.html:40
 #: templates/wm/article_supplier_codes.html:27 templates/wm/brand_list.html:22
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/wm/article_detail.html:105
+#: templates/wm/article_detail.html:107
 msgid "Quantity"
 msgstr "Cantidad"
 
-#: templates/wm/article_detail.html:105
+#: templates/wm/article_detail.html:107
 msgid "units"
 msgstr "unidades"
 
 #: templates/wm/article_detail.html:109
+msgid "Add to cart"
+msgstr "Añadir a la cesta"
+
+#: templates/wm/article_detail.html:111
 msgid "See all offers"
 msgstr "Ver todas las ofertas"
 
-#: templates/wm/article_detail.html:118
+#: templates/wm/article_detail.html:120
 msgid "New offer"
 msgstr "Nueva oferta"
 
-#: templates/wm/article_detail.html:125 templates/wm/article_form.html:48
+#: templates/wm/article_detail.html:127 templates/wm/article_form.html:48
 #: templates/wm/brand_form.html:13 templates/wm/document_link_form.html:13
 #: templates/wm/group_form.html:48 templates/wm/suppliercode_form.html:13
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/wm/article_detail.html:135
+#: templates/wm/article_detail.html:137
 msgid "Latest machines where the article is installed"
 msgstr "Últimas máquinas en las que se ha instalado"
 
-#: templates/wm/article_detail.html:140
+#: templates/wm/article_detail.html:142
 msgid "Machine"
 msgstr "Máquina"
 
-#: templates/wm/article_detail.html:142
+#: templates/wm/article_detail.html:144
 msgid "Function"
 msgstr "Función"
 
-#: templates/wm/article_detail.html:159
+#: templates/wm/article_detail.html:161
 msgid "Documents"
 msgstr "Documentos"
 
-#: templates/wm/article_detail.html:165
+#: templates/wm/article_detail.html:167
 msgid "Document"
 msgstr "Documento"
 
-#: templates/wm/article_detail.html:179
+#: templates/wm/article_detail.html:181
 msgid "Unlink"
 msgstr "Desvincular"
 
-#: templates/wm/article_detail.html:186
+#: templates/wm/article_detail.html:188
 msgid "All documents"
 msgstr "Todos los documentos"
 
-#: templates/wm/article_detail.html:188
+#: templates/wm/article_detail.html:190
 msgid "New document"
 msgstr "Nuevo documento"
 
-#: templates/wm/article_detail.html:190
+#: templates/wm/article_detail.html:192
 msgid "Link existing document"
 msgstr "Vincular documento"
 
@@ -397,3 +401,6 @@ msgstr "Volver"
 #: templates/wm/suppliercode_form.html:5 templates/wm/suppliercode_form.html:8
 msgid "Edit supplier code"
 msgstr "Editar código de proveedor"
+
+#~ msgid "Order"
+#~ msgstr "Pedir"

@@ -67,7 +67,7 @@
 <table class="table table-striped table-hover">
 <thead>
 <tr>
-	<th>{% trans "Order" %}</th>
+	<th>{% trans "Select" %}</th>
 	<th>{% trans "Supplier" %}</th>
 	<th>{% trans "Date" %}</th>
 	<th>{% trans "Expires" %}</th>
@@ -106,7 +106,7 @@
 <div class="form-group">
 <input name="quantity" type="text" placeholder="{% trans "Quantity" %}"/> {% trans "units" %}
 </div>
-<button type="submit" class="btn btn-primary">{% trans "Order" %}</button>
+<button type="submit" class="btn btn-primary">{% trans "Add to cart" %}</button>
 </form>
 <p><a href="{% url 'wm_article_offers' article.id %}">{% trans "See all offers" %}</a></p>
 </div>
