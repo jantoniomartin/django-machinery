@@ -14,6 +14,8 @@ indumatic/whoosh_index/
 ##################
 indumatic/settings.py
 indumatic/templates/ce_pdf.html
+om/templates/om/order_body.txt
+om/templates/om/order_subject.txt
 
 # OS generated files #
 ######################
