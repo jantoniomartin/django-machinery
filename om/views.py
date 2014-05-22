@@ -246,7 +246,7 @@ class OrderReceiveView(TemplateView):
 		order = get_object_or_404(Order, id=self.kwargs['pk'])
 		OrderItemFormSet = self.get_formset_class()
 		formset = OrderItemFormSet(self.request.POST)
-		completed = True
+		#completed = True
 		for form in formset:
 			if form.is_valid():
 				receive = form.cleaned_data['receive']
@@ -264,20 +264,24 @@ class OrderReceiveView(TemplateView):
 					item.received_quantity += receive
 					if item.received_quantity >= item.ordered_quantity:
 						item.completed_on = date.today()
-					else:
-						completed = False
+					#else:
+					#	completed = False
 					## update the article stock
 					if item.offer.article.control_stock:
 						item.offer.article.stock += receive
 						item.offer.article.save()
-				else:
-					completed = False
+				#else:
+				#	completed = False
 				item.save()
 		## mark the order as completed
-		if completed:
+		#if completed:
+		try:
+			order.orderitem_set.get(completed_on__isnull=True)
+		except ObjectDoesNotExist:
 			order.completed_on = date.today()
 			order.save()
-
+		except:
+			pass
 		return HttpResponseRedirect(
 			reverse('om_order_receive', args=[self.kwargs['pk']])
 		)
