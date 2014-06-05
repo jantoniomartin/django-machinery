@@ -81,6 +81,7 @@ class DashboardView(TemplateView):
 			order__orderitem__ordered_quantity__gt=0,	
 			order__orderitem__completed_on__isnull=True
 		).distinct()
+		open_tickets = pm.Ticket.objects.exclude(status=2)
 		comments = pm.MachineComment.objects.order_by('-created_on')[0:5]
 		
 		context.update({
@@ -90,6 +91,7 @@ class DashboardView(TemplateView):
 			'delayed_orders': delayed_orders,
 			'suppliers_in_cart': suppliers_in_cart,
 			'pending_companies': pending_companies,
+			'open_tickets': open_tickets,
 			'comments': comments,
 			'MEDIA_URL': settings.MEDIA_URL,
 		})
