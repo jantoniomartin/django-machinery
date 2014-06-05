@@ -175,7 +175,9 @@ class ProjectDetailView(DetailView):
 			ce = None
 		ctx.update({ 'machine_form': machine_form,
 					'ce': ce,
-					'MEDIA_URL': settings.MEDIA_URL,})
+					'MEDIA_URL': settings.MEDIA_URL,
+					'open_tickets': self.object.ticket_set.count(),
+					})
 		return ctx
 
 class ProjectListView(ListView):

@@ -28,7 +28,13 @@
 </thead>
 <tbody>
 {% for ticket in ticket_list %}
+{% if ticket.status == 0 %}
+<tr class="danger">
+{% elif ticket.status == 1 %}
+<tr class="warning">
+{% else %}
 <tr>
+{% endif %}
 	{% if not project %}
 	<td><a href="{% url 'pm_project_detail' ticket.project.id %}">{{ ticket.project }}</a><td>
 	{% endif %}
