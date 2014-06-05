@@ -108,4 +108,23 @@ urlpatterns = patterns("pm.views",
 	url(r'^part/create/$', 'create_part', name="pm_part_create"),
 	url(r'^machine/create/$', 'create_machine', name="pm_machine_create"),
 	url(r'^machine_ids/(?P<pk>\d+)/$', 'get_machine_ids',name="pm_machine_ids"),
+	url(r'^ticket/list/$',
+		TicketListView.as_view(),
+		name='pm_ticket_list'
+	),
+	url(r'^ticket/list/(?P<pk>\d+)/',
+		ProjectTicketListView.as_view(),
+		name='pm_project_ticket_list'
+	),
+	url(r'^ticket/detail/(?P<pk>\d+)/$',
+		DetailView.as_view(
+			model=Ticket,
+			context_object_name="ticket"
+		),
+		name="pm_ticket_detail"
+	),
+    url(r'^ticket/create/(?P<pk>\d+)/$',
+		TicketCreateView.as_view(),
+		name="pm_ticket_create"
+	),
 )

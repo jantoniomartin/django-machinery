@@ -7,7 +7,8 @@
 <ul class="nav nav-pills">
 	<li><a href="{% url 'pm_sector_list' %}">{% trans "Sectors" %}</a></li>
 	<li><a href="{% url 'pm_project_list' %}">{% trans "Projects" %}</a></li>
-	<li><a href="{% url 'pm_project_create' %}">{% trans "New" %}</a></li>
+	<li><a href="{% url 'pm_project_create' %}">{% trans "New project" %}</a></li>
+	<li><a href="{% url 'pm_ticket_list' %}">{% trans "Tickets" %}</a></li>
 <li>
 <form method="GET" action="{% url 'pm_project_search' %}">
   <input class="form-control" placeholder="{% trans "Search" %}" type="text" name="q" />

@@ -1,0 +1,33 @@
+{% extends "pm/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Ticket" %}{% endblock %}
+
+{% block content %}
+
+<h1>{{ ticket }}</h1>
+<div class="panel panel-primary">
+<div class="panel-heading">{% trans "Ticket data" %}</div>
+<div class="panel-body">
+<dl>
+<dt>{% trans "Project" %}</dt>
+<dd><a href="{% url 'pm_project_detail' ticket.project.id %}">{{ ticket.project }}</a></dd>
+<dt>{% trans "Created on" %}</dt>
+<dd>{{ ticket.created_on }}</dd>
+<dt>{% trans "Updated on" %}</dt>
+<dd>{{ ticket.updated_on }}</dd>
+<dt>{% trans "Updated by" %}</dt>
+<dd>{{ ticket.updated_by }}</dd>
+<dt>{% trans "Status" %}</dt>
+<dd>{{ ticket.get_status_display }}</dd>
+</dl>
+</div>
+</div>
+
+<div class="panel panel-primary">
+<div class="panel-body">
+{{ ticket.content|linebreaks }}
+</div>
+</div>
+
+{% endblock %}

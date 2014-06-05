@@ -1,0 +1,59 @@
+{% extends "pm/base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans "Tickets" %}{% endblock %}
+
+{% block content %}
+
+{% if project %}
+<h1>{% trans "Tickets for" %} {{ project }}</h1>
+
+<p>
+<a href="{% url 'pm_ticket_create' project.id %}">{% trans "New ticket" %}</a>
+</p>
+{% else %}
+<h1>{% trans "All the tickets" %}</h1>
+{% endif %}
+
+<table class="table table-striped table-hover">
+<thead>
+<tr>
+    {% if not project %}<th>{% trans "Project" %}</th>{% endif %}
+    <th>{% trans "Summary" %}</th>
+    <th>{% trans "Updated on" %}</th>
+	<th>{% trans "Updated by" %}</th>
+    <th>{% trans "Status" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for ticket in ticket_list %}
+<tr>
+	{% if not project %}
+	<td><a href="{% url 'pm_project_detail' ticket.project.id %}">{{ ticket.project }}</a><td>
+	{% endif %}
+	<td><a href="{% url 'pm_ticket_detail' ticket.id %}">{{ ticket.summary }}</a></td>
+	<td>{{ ticket.updated_on }}</td>
+	<td>{{ ticket.updated_by }}</td>
+	<td>{{ ticket.get_status_display }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pager">
+	<ul>
+		{% if page_obj.has_previous %}
+		<li>
+			<a href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a>
+		</li>
+		{% endif %}
+		{% if page_obj.has_next %}
+		<li>
+			<a href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a>
+		</li>
+		{% endif %}
+	</ul>
+</div>
+
+{% endblock %}

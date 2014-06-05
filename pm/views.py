@@ -378,3 +378,35 @@ class CECertificatePdfView(PdfView):
 			'cert': certificate,
 		})
 		return ctx
+
+class TicketListView(ListView):
+	model = Ticket
+	context_object_name = "ticket_list"
+	paginate_by = 10
+
+class ProjectTicketListView(TicketListView):
+	def get_queryset(self):
+		return Ticket.objects.filter(project__id=self.kwargs['pk'])
+
+	def get_context_data(self, **kwargs):
+		ctx = super(ProjectTicketListView, self).get_context_data(**kwargs)
+		project = get_object_or_404(Project, id=self.kwargs['pk'])
+		ctx.update({
+			'project': project,
+		})
+		return ctx
+
+class TicketCreateView(CreateView):
+	model = Ticket
+	form_class = TicketForm
+	
+	def form_valid(self, form):
+		ticket = form.save(commit = False)
+		ticket.updated_by = self.request.user
+		ticket.save()
+		return HttpResponseRedirect(ticket.get_absolute_url())
+
+	def get_initial(self):
+		project = get_object_or_404(Project, id=self.kwargs['pk'])
+		return {"project": project}
+

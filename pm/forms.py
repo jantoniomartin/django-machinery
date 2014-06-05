@@ -113,3 +113,13 @@ class CECertificateForm(forms.ModelForm):
 
 	class Meta:
 		model = CECertificate
+
+class TicketForm(forms.ModelForm):
+	project = forms.ModelChoiceField(
+		queryset=Project.objects.all(),
+		widget=forms.HiddenInput)
+
+	class Meta:
+		model = Ticket
+		exclude = ['updated_by',]
+

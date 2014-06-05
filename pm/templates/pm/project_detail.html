@@ -68,6 +68,8 @@ $(function() {
 <a href="{% url 'pm_ce_certificate_create' project.id %}">
 {% endif %}
 {% trans "CE Certificate" %}</a>
+|
+<a href="{% url 'pm_project_ticket_list' project.id %}">{% trans "Tickets" %}</a>
 </p>
 
 <div class="col-md-6">
