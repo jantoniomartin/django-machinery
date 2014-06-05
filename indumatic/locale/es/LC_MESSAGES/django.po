@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-01 09:11+0200\n"
+"POT-Creation-Date: 2014-06-05 10:54+0200\n"
 "PO-Revision-Date: 2014-03-12 13:44+0100\n"
 "Last-Translator: Jose Antonio Martin <jantonio.martin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,62 +26,66 @@ msgstr "Permiso denegado"
 msgid "You don't have permission to perform this action."
 msgstr "No tienes permiso para realizar esta acción."
 
-#: templates/dashboard.html:11
+#: templates/dashboard.html:12
 msgid "Project summary"
 msgstr "Resumen de proyectos"
 
-#: templates/dashboard.html:13
+#: templates/dashboard.html:14
 msgid "Active projects"
 msgstr "Proyectos activos"
 
-#: templates/dashboard.html:18 templates/dashboard.html.py:41
-#: templates/dashboard.html:66
+#: templates/dashboard.html:20 templates/dashboard.html.py:51
+#: templates/dashboard.html:84
 msgid "Reference"
 msgstr "Referencia"
 
-#: templates/dashboard.html:19 templates/dashboard.html.py:42
-#: templates/dashboard.html:67
+#: templates/dashboard.html:21 templates/dashboard.html.py:52
+#: templates/dashboard.html:85
 msgid "Description"
 msgstr "Descripción"
 
-#: templates/dashboard.html:20 templates/dashboard.html.py:43
-#: templates/dashboard.html:68
+#: templates/dashboard.html:22 templates/dashboard.html.py:53
+#: templates/dashboard.html:86
 msgid "Customer"
 msgstr "Cliente"
 
-#: templates/dashboard.html:36
+#: templates/dashboard.html:45
 msgid "Shipped projects"
 msgstr "Proyectos enviados"
 
-#: templates/dashboard.html:61
+#: templates/dashboard.html:78
 msgid "Latest finished projects"
 msgstr "Últimos proyectos arrancados"
 
-#: templates/dashboard.html:88
+#: templates/dashboard.html:113
 msgid "Delayed orders"
 msgstr "Pedidos retrasados"
 
-#: templates/dashboard.html:94
+#: templates/dashboard.html:119
 msgid "There are no delayed orders."
 msgstr "No hay pedidos retrasados"
 
-#: templates/dashboard.html:101
+#: templates/dashboard.html:126
 msgid "Possible orders"
 msgstr "Posibles pedidos"
 
-#: templates/dashboard.html:107
+#: templates/dashboard.html:132
 msgid "The cart is empty."
 msgstr "El carro está vacío"
 
-#: templates/dashboard.html:114
+#: templates/dashboard.html:139
 msgid "Suppliers with pending orders"
 msgstr "Proveedores con pedidos pendientes"
 
-#: templates/dashboard.html:120
+#: templates/dashboard.html:145
 msgid "There are no pending orders"
 msgstr "No hay pedidos pendientes"
 
-#: templates/dashboard.html:128
+#: templates/dashboard.html:152
+msgid "Open tickets"
+msgstr "Incidencias abiertas"
+
+#: templates/dashboard.html:168
 msgid "Latest comments"
 msgstr "Últimos comentarios"
 
