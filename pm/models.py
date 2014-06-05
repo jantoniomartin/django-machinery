@@ -201,3 +201,16 @@ class Ticket(models.Model):
 	def get_absolute_url(self):
 		return ('pm_ticket_detail', [self.id])
 
+class TicketItem(models.Model):
+	ticket = models.ForeignKey(Ticket, verbose_name=_("ticket"))
+	created_on = models.DateTimeField(_("created on"), auto_now_add=True)
+	created_by = models.ForeignKey(User, verbose_name=_("created_by"))
+	content = models.TextField(_("content"))
+
+	class Meta:
+		verbose_name = _("ticket item")
+		verbose_name_plural = _("ticket items")
+	
+	def __unicode__(self):
+		return u"%s" % self.pk
+

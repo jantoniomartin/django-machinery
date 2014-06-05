@@ -410,3 +410,23 @@ class TicketCreateView(CreateView):
 		project = get_object_or_404(Project, id=self.kwargs['pk'])
 		return {"project": project}
 
+class TicketDetailView(DetailView):
+	model = Ticket
+	context_object_name = "ticket"
+
+	def get_context_data(self, **kwargs):
+		ctx = super(TicketDetailView, self).get_context_data(**kwargs)
+		ticketitem_form = TicketItemForm(initial={'ticket': self.object.pk })
+		ctx.update({ 'item_form': ticketitem_form })
+		return ctx
+
+class TicketItemCreateView(CreateView):
+	model = TicketItem
+	form_class = TicketItemForm
+	
+	def form_valid(self, form):
+		item = form.save(commit = False)
+		item.created_by = self.request.user
+		item.save()
+		return HttpResponseRedirect(item.ticket.get_absolute_url())
+

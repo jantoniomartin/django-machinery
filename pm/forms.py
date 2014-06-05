@@ -123,3 +123,12 @@ class TicketForm(forms.ModelForm):
 		model = Ticket
 		exclude = ['updated_by',]
 
+class TicketItemForm(forms.ModelForm):
+	ticket = forms.ModelChoiceField(
+		queryset=Ticket.objects.all(),
+		widget=forms.HiddenInput)
+
+	class Meta:
+		model = TicketItem
+		exclude = ['created_by',]
+

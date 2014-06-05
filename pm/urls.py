@@ -117,14 +117,15 @@ urlpatterns = patterns("pm.views",
 		name='pm_project_ticket_list'
 	),
 	url(r'^ticket/detail/(?P<pk>\d+)/$',
-		DetailView.as_view(
-			model=Ticket,
-			context_object_name="ticket"
-		),
+		TicketDetailView.as_view(),
 		name="pm_ticket_detail"
 	),
     url(r'^ticket/create/(?P<pk>\d+)/$',
 		TicketCreateView.as_view(),
 		name="pm_ticket_create"
+	),
+    url(r'^ticketitem/create/$',
+		TicketItemCreateView.as_view(),
+		name="pm_ticketitem_create"
 	),
 )

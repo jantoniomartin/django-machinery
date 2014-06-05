@@ -1,5 +1,6 @@
 {% extends "pm/base.html" %}
 {% load i18n %}
+{% load crispy_forms_tags %}
 
 {% block title %}{% trans "Ticket" %}{% endblock %}
 
@@ -29,5 +30,24 @@
 {{ ticket.content|linebreaks }}
 </div>
 </div>
+
+{% for item in ticket.ticketitem_set.all %}
+<div class="well">
+{{ item.content|linebreaks }}
+<div class="small">
+<span>{{ item.created_by }}, {{ item.created_on }}</span>
+</div>
+</div>
+{% endfor %}
+
+<form action="{% url 'pm_ticketitem_create' %}" method="post">{% csrf_token %}
+
+{{ item_form|crispy }}
+
+<div class="form-group">
+<button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+</div>
+
+</form>
 
 {% endblock %}
