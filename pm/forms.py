@@ -124,6 +124,8 @@ class TicketForm(forms.ModelForm):
 		exclude = ['updated_by',]
 
 class TicketStatusForm(forms.ModelForm):
+	status = forms.ChoiceField(choices=TICKET_STATUS, label="")
+	
 	class Meta:
 		model = Ticket
 		fields = ['status',]
