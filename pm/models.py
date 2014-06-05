@@ -172,3 +172,28 @@ class CECertificate(models.Model):
 
 	def __unicode__(self):
 		return unicode(self.project)
+
+TICKET_STATUS = (
+	(0, _("The customer is waiting for an answer")),
+	(1, _("Waiting for an answer from the customer")),
+	(2, _("Closed")),
+)
+
+class Ticket(models.Model):
+	project = models.ForeignKey(Project, verbose_name=_("project"))
+	created_on = models.DateTimeField(_("created on"), auto_now_add=True)
+	updated_on = models.DateTimeField(_("updated on"), auto_now=True)
+	updated_by = models.ForeignKey(User, verbose_name=_("updated by"))
+	status = models.PositiveIntegerField(_("status"), default=0,
+		choices=TICKET_STATUS)
+	summary = models.CharField(_("summary"), max_length=255)
+	content = models.TextField(_("content"))
+
+	class Meta:
+		verbose_name = _("ticket")
+		verbose_name_plural = _("tickets")
+		ordering = ['-updated_on',]
+
+	def __unicode__(self):
+		return self.summary
+
