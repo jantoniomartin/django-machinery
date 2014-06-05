@@ -20,7 +20,12 @@
 <dt>{% trans "Updated by" %}</dt>
 <dd>{{ ticket.updated_by }}</dd>
 <dt>{% trans "Status" %}</dt>
-<dd>{{ ticket.get_status_display }}</dd>
+<dd>
+<form method="post" action="{% url 'pm_ticket_status_update' ticket.id %}">{% csrf_token %}
+{{ status_form|crispy }}
+<button class="btn btn-xs btn-primary">{% trans "Update" %}</button>
+</form>
+</dd>
 </dl>
 </div>
 </div>

@@ -410,6 +410,16 @@ class TicketCreateView(CreateView):
 		project = get_object_or_404(Project, id=self.kwargs['pk'])
 		return {"project": project}
 
+class TicketStatusUpdateView(UpdateView):
+	model=Ticket
+	form_class = TicketStatusForm
+
+	def form_valid(self, form):
+		ticket = form.save(commit = False)
+		ticket.updated_by = self.request.user
+		ticket.save()
+		return HttpResponseRedirect(ticket.get_absolute_url())
+
 class TicketDetailView(DetailView):
 	model = Ticket
 	context_object_name = "ticket"
@@ -417,7 +427,11 @@ class TicketDetailView(DetailView):
 	def get_context_data(self, **kwargs):
 		ctx = super(TicketDetailView, self).get_context_data(**kwargs)
 		ticketitem_form = TicketItemForm(initial={'ticket': self.object.pk })
-		ctx.update({ 'item_form': ticketitem_form })
+		status_form = TicketStatusForm(initial={'status': self.object.status})
+		ctx.update({
+			'item_form': ticketitem_form,
+			'status_form' : status_form,
+		})
 		return ctx
 
 class TicketItemCreateView(CreateView):

@@ -120,6 +120,10 @@ urlpatterns = patterns("pm.views",
 		TicketDetailView.as_view(),
 		name="pm_ticket_detail"
 	),
+	url(r'^ticket/status/(?P<pk>\d+)/$',
+		TicketStatusUpdateView.as_view(),
+		name="pm_ticket_status_update"
+	),
     url(r'^ticket/create/(?P<pk>\d+)/$',
 		TicketCreateView.as_view(),
 		name="pm_ticket_create"

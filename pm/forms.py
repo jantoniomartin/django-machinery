@@ -123,6 +123,11 @@ class TicketForm(forms.ModelForm):
 		model = Ticket
 		exclude = ['updated_by',]
 
+class TicketStatusForm(forms.ModelForm):
+	class Meta:
+		model = Ticket
+		fields = ['status',]
+
 class TicketItemForm(forms.ModelForm):
 	ticket = forms.ModelChoiceField(
 		queryset=Ticket.objects.all(),
