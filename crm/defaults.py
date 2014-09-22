@@ -10,6 +10,8 @@ COMPANY_CITY = getattr(settings, 'CRM_COMPANY_CITY', '')
 
 COMPANY_ADDRESS = getattr(settings, 'CRM_COMPANY_ADDRESS', '')
 
+COMPANY_VAT = getattr(settings, 'CRM_COMPANY_VAT', '')
+
 DATA_DISCLAIMER = getattr(settings, 'CRM_DATA_DISCLAIMER', '')
 
 VAT_CHOICES = getattr(settings, 'CRM_VAT_CHOICES', (

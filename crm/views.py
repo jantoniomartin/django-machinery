@@ -587,6 +587,7 @@ class DeliveryNotePdfView(PermissionRequiredMixin, PdfView):
 		ctx.update({
 			'note': self.object,
 			'address': COMPANY_ADDRESS,
+			'vat_no': COMPANY_VAT,
 			'projects': ", ".join(project_list),
 		})
 		return ctx
