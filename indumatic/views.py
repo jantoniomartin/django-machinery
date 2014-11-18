@@ -73,10 +73,13 @@ class DashboardView(TemplateView):
 				'-machine__running_on').distinct()[0:5]
 		days = datetime.timedelta(14)
 		delay = datetime.datetime.now() - days
-		delayed_orders = om.Order.objects.filter(
-			created_at__lt=delay,
-			orderitem__completed_on__isnull=True
-		).distinct()
+		delayed_orderitems = om.OrderItem.objects.filter(
+			completed_on__isnull=True,
+			order__created_at__lt=delay
+		).exclude(
+			estimated_delivery__gte = datetime.datetime.today()
+		).values_list('order__id', flat=True)
+		delayed_orders = om.Order.objects.filter(id__in = delayed_orderitems)
 		suppliers_in_cart = crm.Company.objects.filter(
 			offer__cartitem__quantity__gt=0
 		).distinct()
