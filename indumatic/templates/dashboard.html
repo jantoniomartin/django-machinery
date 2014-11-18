@@ -122,6 +122,21 @@
   </div>
 </div>
 
+<div class="panel panel-danger">
+  <div class="panel-heading">{% trans "Open tickets" %}</div>
+  <div class="panel-body">
+	<ul class="list-group">
+		{% for ticket in open_tickets %}
+		<li class="list-group-item">
+		<a href="{% url 'pm_ticket_detail' ticket.id %}">
+			{{ ticket|truncatewords:10 }}
+		</a>
+		</li>
+		{% endfor %}
+	</ul>
+  </div>
+</div>
+
 <div class="panel panel-success">
   <div class="panel-heading">{% trans "Possible orders" %}</div>
   <div class="panel-body">
@@ -145,21 +160,6 @@
 	<li class="list-group-item">{% trans "There are no pending orders" %}</li>
 {% endfor %}
 </ul>
-  </div>
-</div>
-
-<div class="panel panel-danger">
-  <div class="panel-heading">{% trans "Open tickets" %}</div>
-  <div class="panel-body">
-	<ul class="list-group">
-		{% for ticket in open_tickets %}
-		<li class="list-group-item">
-		<a href="{% url 'pm_ticket_detail' ticket.id %}">
-			{{ ticket|truncatewords:10 }}
-		</a>
-		</li>
-		{% endfor %}
-	</ul>
   </div>
 </div>
 
