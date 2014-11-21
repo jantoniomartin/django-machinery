@@ -58,6 +58,7 @@ class Article(models.Model):
 	packaging = models.PositiveIntegerField(_("standard packaging"), default=1)
 	enabled = models.BooleanField(_("enabled"), default=True)
 	brand = models.ForeignKey(Brand, verbose_name=_("brand"), null=True, blank=True)
+        weight = models.FloatField(_("weight (kg)"), default=0)
 	group = models.ForeignKey(Group, verbose_name=_("group"))
 	control_stock = models.BooleanField(_("control stock"), default=False)
 	stock = models.PositiveIntegerField(_("stock"), default=0)
