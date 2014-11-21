@@ -27,6 +27,7 @@ class GroupForm(forms.ModelForm):
 	
 	class Meta:
 		model = Group
+                fields = '__all__'
 
 class SupplierCodeForm(forms.ModelForm):
 	article = forms.ModelChoiceField(queryset=Article.objects.all(),
@@ -34,3 +35,4 @@ class SupplierCodeForm(forms.ModelForm):
 	
 	class Meta:
 		model = SupplierCode
+                fields = '__all__'

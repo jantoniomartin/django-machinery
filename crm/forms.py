@@ -14,6 +14,7 @@ class DepartmentForm(forms.ModelForm):
 
 	class Meta:
 		model = Department
+                fields = '__all__'
 
 class QuotationForm(forms.ModelForm):
 	company = forms.ModelChoiceField(queryset=Company.objects.all(),
@@ -131,3 +132,4 @@ class DeliveryNoteItemForm(forms.ModelForm):
 
 	class Meta:
 		model = DeliveryNoteItem
+                fields = '__all__'

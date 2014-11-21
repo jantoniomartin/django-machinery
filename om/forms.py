@@ -27,6 +27,7 @@ class OfferForm(forms.ModelForm):
 	
 	class Meta:
 		model = models.Offer
+                fields = '__all__'
 
 	def clean_invoice_price(self):
 		data = self.cleaned_data['invoice_price']

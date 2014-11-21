@@ -113,6 +113,7 @@ class CECertificateForm(forms.ModelForm):
 
 	class Meta:
 		model = CECertificate
+                fields = '__all__'
 
 class TicketForm(forms.ModelForm):
 	project = forms.ModelChoiceField(
