@@ -1,4 +1,4 @@
-from south.signals import post_migrate
+from django.db.models.signals import post_migrate
 
 def update_permissions_after_migration(app, **kwargs):
 	"""
@@ -11,4 +11,5 @@ def update_permissions_after_migration(app, **kwargs):
 
 	create_permissions(get_app(app), get_models(), 2 if settings.DEBUG else 0)
 
-post_migrate.connect(update_permissions_after_migration)
+##TODO: FIX THIS
+#post_migrate.connect(update_permissions_after_migration)
