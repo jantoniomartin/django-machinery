@@ -82,6 +82,17 @@ class Article(models.Model):
 	def __unicode__(self):
 		return self.code
 
+        def __init__(self, *args, **kwargs):
+            super(Article, self).__init__(*args, **kwargs)
+            self.__original_stock = self.stock
+
+        def save(self, force_insert=False, force_update=False, *args, **kwargs):
+            if self.stock != self.__original_stock:
+                self.stock_updated = timezone.now()
+            super(Article, self).save(force_insert, force_update,
+                    *args, **kwargs)
+            self.__original_stock = self.stock
+
 	@models.permalink
 	def get_absolute_url(self):
 		return('wm_article_detail', [self.id])
@@ -96,7 +107,7 @@ class Article(models.Model):
             self.stock += i
             if self.stock < 0:
                 self.stock = 0
-            self.stock_updated = timezone.now()
+            #self.stock_updated = timezone.now()
             self.save()
 
 class SupplierCode(models.Model):
