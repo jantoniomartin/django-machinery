@@ -11,7 +11,7 @@ class ArticleForm(forms.ModelForm):
 		widget=forms.Textarea)
 	
 	class Meta:
-		exclude = ['documents',]
+		exclude = ['documents', 'stock_updated',]
 		model = Article
 
 class DocumentLinkForm(forms.Form):
