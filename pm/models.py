@@ -155,12 +155,8 @@ class Part(models.Model):
 
 @receiver(post_save, sender=Part)
 def decrease_stock(sender, instance, created, raw, using, **kwargs):
-	if created:
-		if instance.article.control_stock:
-			instance.article.stock -= instance.quantity
-			if instance.article.stock < 0:
-				instance.article.stock = 0
-			instance.article.save()
+    if created:
+        instance.article.update_stock (-1 * instance.quantity)
 
 class CECertificate(models.Model):
 	project = models.ForeignKey(Project, verbose_name=_("project"))

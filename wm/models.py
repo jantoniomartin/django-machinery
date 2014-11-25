@@ -3,6 +3,7 @@ from django.core.cache.utils import make_template_fragment_key
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from mptt.models import MPTTModel, TreeForeignKey
@@ -63,6 +64,8 @@ class Article(models.Model):
 	control_stock = models.BooleanField(_("control stock"), default=False)
 	stock = models.PositiveIntegerField(_("stock"), default=0)
 	stock_alert = models.PositiveIntegerField(_("stock alert"), default=0)
+        stock_updated = models.DateTimeField(_("stock updated at"),
+                default=timezone.now()) # default value for migration
 	documents = models.ManyToManyField(Document,
 		blank=True,
 		null=True,
@@ -82,6 +85,19 @@ class Article(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return('wm_article_detail', [self.id])
+
+        def update_stock(self, items=0):
+            if not self.control_stock:
+                return
+            try:
+                i = int(items)
+            except ValueError:
+                i = 0
+            self.stock += i
+            if self.stock < 0:
+                self.stock = 0
+            self.stock_updated = timezone.now()
+            self.save()
 
 class SupplierCode(models.Model):
 	article = models.ForeignKey(Article, verbose_name=_("article"))
