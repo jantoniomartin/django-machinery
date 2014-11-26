@@ -110,6 +110,10 @@ class Article(models.Model):
             #self.stock_updated = timezone.now()
             self.save()
 
+        @property
+        def show_stock_warning(self):
+            return (self.stock < self.stock_alert) or not self.control_stock
+
 class SupplierCode(models.Model):
 	article = models.ForeignKey(Article, verbose_name=_("article"))
 	company = models.ForeignKey(Company, verbose_name=_("company"))

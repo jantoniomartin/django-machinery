@@ -41,7 +41,12 @@
 </div>
 
 <div class="col-md-6">
-<div class="panel panel-primary">
+    <div class="panel
+        {% if article.show_stock_warning %}
+            panel-danger
+        {% else %}
+            panel-primary
+        {% endif %}">
     <div class="panel-heading">{% trans "Stock" %} ({{ article.stock_updated }})</div>
 <div class="panel-body">
 {% if article.control_stock %}
