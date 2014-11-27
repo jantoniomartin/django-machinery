@@ -65,7 +65,12 @@ class Article(models.Model):
 	stock = models.PositiveIntegerField(_("stock"), default=0)
 	stock_alert = models.PositiveIntegerField(_("stock alert"), default=0)
         stock_updated = models.DateTimeField(_("stock updated at"),
-                default=timezone.now()) # default value for migration
+                default=timezone.now(), # default value for migration
+                editable=False) 
+	price = models.FloatField(_("retail price"), null=True, blank=True)
+        price_updated = models.DateTimeField(_("price updated at"),
+                default=timezone.now(), #default value for migration
+                editable=False)
 	documents = models.ManyToManyField(Document,
 		blank=True,
 		null=True,
@@ -85,13 +90,17 @@ class Article(models.Model):
         def __init__(self, *args, **kwargs):
             super(Article, self).__init__(*args, **kwargs)
             self.__original_stock = self.stock
+            self.__original_price = self.price
 
         def save(self, force_insert=False, force_update=False, *args, **kwargs):
             if self.stock != self.__original_stock:
                 self.stock_updated = timezone.now()
+            if self.price != self.__original_price:
+                self.price_updated = timezone.now()
             super(Article, self).save(force_insert, force_update,
                     *args, **kwargs)
             self.__original_stock = self.stock
+            self.__original_price = self.price
 
 	@models.permalink
 	def get_absolute_url(self):
