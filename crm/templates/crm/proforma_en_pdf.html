@@ -156,7 +156,7 @@ em {
 	{% for item in proforma.proformaitem_set.with_total %}
 	<tr>
 		<td style="text-align: center">{{ item.quantity }}</td>
-		<td>{{ item.description }}</td>
+		<td>{{ item.description|linebreaks }}</td>
 		{% if proforma.disaggregated %}
 		<td class="currency">
 		{{ item.price|intcomma }}
