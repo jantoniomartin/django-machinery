@@ -21,20 +21,20 @@
 <table class="table table-striped table-hover">
 <thead>
 <tr>
+    <th>{% trans "Stock" %}</th>
     <th>{% trans "Reference" %}</th>
     <th>{% trans "Brand" %}</th>
     <th>{% trans "Description" %}</th>
-	<th>{% trans "Stock" %}</th>
 </tr>
 </thead>
 <tbody>
 {% for form in formset %}
 {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
 <tr>
+    <td>{{ form.stock }}</td>
     <td>{{ form.code.value }}{{ form.code }}</td>
     <td>{{ form.brand.value|default_if_none:"" }}{{ form.brand }}</td>
     <td>{{ form.description.value }}{{ form.description }}</td>
-    <td>{{ form.stock }}</td>
 </tr>
 {% endfor %}
 </tbody>
