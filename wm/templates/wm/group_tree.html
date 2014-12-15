@@ -28,10 +28,13 @@ $(function() {
 				tbl_body += row;
 			});
 			$("#articles tbody").html(tbl_body);
-			var edit_link = '<a href="/wm/group/edit/';
-			edit_link += group_id;
-			edit_link += '">Editar categoría</a>';
-			$("#category_edit_link").html(edit_link);
+			var menu = '<a href="/wm/group/edit/';
+			menu += group_id;
+			menu += '">Editar categoría</a> |';
+                        menu += '<a target="_blank" href="/wm/group/stock/';
+			menu += group_id;
+			menu += '">Editar stock</a>';
+			$("#category_menu").html(menu);
 		})
 		.fail(function(){
 			alert("Error: No se ha podido cargar la lista de artículos.");
@@ -86,7 +89,7 @@ $(function() {
 <div class="panel panel-primary">
 <div class="panel-heading">{% trans "Articles" %}</div>
 <div class="panel-body">
-<p id="category_edit_link"></p>
+<p id="category_menu"></p>
 <table id="articles" class="table table-striped table-hover">
 <thead>
 <th>{% trans "Reference" %}</th>

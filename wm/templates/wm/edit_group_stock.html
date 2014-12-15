@@ -1,0 +1,45 @@
+{% extends "wm/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Article stocks" %}: {{ group }}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Article stocks" %}: {{ group }}</h1>
+
+<ul>
+{% for dict in formset.errors %}
+    {% for error in dict.values %}
+    <li>{{ error }}</li>
+    {% endfor %}
+{% endfor %}
+</ul>
+
+<form method="POST" action="">
+{% csrf_token %}
+{{ formset.management_form }}
+<table class="table table-striped table-hover">
+<thead>
+<tr>
+    <th>{% trans "Reference" %}</th>
+    <th>{% trans "Brand" %}</th>
+    <th>{% trans "Description" %}</th>
+	<th>{% trans "Stock" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for form in formset %}
+{% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+<tr>
+    <td>{{ form.code.value }}{{ form.code }}</td>
+    <td>{{ form.brand.value|default_if_none:"" }}{{ form.brand }}</td>
+    <td>{{ form.description.value }}{{ form.description }}</td>
+    <td>{{ form.stock }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<p><button type="submit" class="btn btn-primary">{% trans "Save" %}</button></p>
+</form>
+
+{% endblock %}

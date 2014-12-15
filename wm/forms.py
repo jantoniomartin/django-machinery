@@ -14,6 +14,36 @@ class ArticleForm(forms.ModelForm):
 		exclude = ['documents', 'stock_updated',]
 		model = Article
 
+class ArticleStockForm(forms.ModelForm):
+    code = forms.CharField(widget=forms.HiddenInput)
+    brand = forms.CharField(required=False, widget=forms.HiddenInput)
+    description = forms.CharField(widget=forms.HiddenInput)
+
+    class Meta:
+        model = Article
+        fields = ['code', 'brand', 'description', 'stock',]
+
+    def clean_code(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            return instance.code
+        else:
+            return self.cleaned_data['code']
+
+    def clean_brand(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            return instance.brand
+        else:
+            return self.cleaned_data['brand']
+
+    def clean_description(self):
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            return instance.description
+        else:
+            return self.cleaned_data['description']
+
 class DocumentLinkForm(forms.Form):
 	article = forms.ModelChoiceField(queryset=Article.objects.all(),
 		widget=forms.HiddenInput)

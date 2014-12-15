@@ -14,6 +14,8 @@ from django.views.generic import TemplateView, DetailView, ListView
 from django.views.generic.base import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
+from extra_views import InlineFormSetView
+
 from dm.models import Document
 from om.forms import OfferForm
 from wm import models
@@ -49,6 +51,14 @@ class GroupArticlesJSONView(TemplateView):
 			raise Http404
 		response_data = json.dumps(to_json)
 		return HttpResponse(response_data, content_type='application/json')
+
+class EditGroupStockView(InlineFormSetView):
+    model = models.Group
+    inline_model = models.Article
+    form_class = forms.ArticleStockForm
+    context_object_name = 'group'
+    extra = 0
+    template_name = 'wm/edit_group_stock.html'
 
 class BrandListView(ListView):
 	model = models.Brand

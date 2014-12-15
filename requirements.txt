@@ -16,3 +16,4 @@ html5lib
 reportlab
 -e git+https://github.com/davidvuong/django-brutebuster#egg=django_brutebuster
 django-uuidfield
+django-extra-views
