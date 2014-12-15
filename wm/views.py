@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import ObjectDoesNotExist, F
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
+from django.template.defaultfilters import date
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, DetailView, ListView
 from django.views.generic.base import View
@@ -39,8 +40,11 @@ class GroupArticlesJSONView(TemplateView):
 					'description': article.description,
 					'url': article.get_absolute_url(),
 					'stock': article.stock,
+                                        'stock_updated': date(article.stock_updated),
 					'unit': article.measure_unit,
 					'enabled': article.enabled,
+                                        'price': article.price,
+                                        'price_updated': date(article.price_updated),
 				}
 				try:
 					article_dict.update({'brand': article.brand.name })

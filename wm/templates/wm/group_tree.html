@@ -15,16 +15,24 @@ $(function() {
 		$.getJSON("/wm/group/" + group_id + "/articles/", function(data){
 			var tbl_body = "";
 			$.each( data, function() {
-				var row = "<tr";
+                                var price = "";
+                                if (this.price){
+                                    price = this.price.toFixed(2);
+                                }
+				var row = '<tr';
 				if (this.enabled == false) {
 					row += ' class="disabled"';
 				}
-				row += ">";
+				row += '>';
 				row += '<td><a href="' + this.url + '">' + this.code + '</a></td>';
-				row += "<td>" + this.brand + "</td>";
-				row += "<td>" + this.description + "</td>";
-				row += "<td>" + this.stock + " " + this.unit + "</td>";
-				row += "</tr>";
+				row += '<td>' + this.brand + '</td>';
+                                row += '<td>' + this.description + '</td>';
+				row += '<td title="' + this.stock_updated;
+                                row += '">' + this.stock + ' ';
+                                row += this.unit + '</td>';
+				row += '<td title="' + this.price_updated;
+                                row += '">' + price + '</td>';
+				row += '</tr>';
 				tbl_body += row;
 			});
 			$("#articles tbody").html(tbl_body);
@@ -96,6 +104,7 @@ $(function() {
 <th>{% trans "Brand" %}</th>
 <th>{% trans "Description" %}</th>
 <th>{% trans "Stock" %}</th>
+<th>{% trans "Price" %}</th>
 </thead>
 <tbody></tbody>
 </table>
