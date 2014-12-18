@@ -79,7 +79,7 @@ class Article(models.Model):
 	)
 
 	class Meta:
-		ordering = ['-id',]
+		ordering = ['code',]
 		unique_together = [('code', 'brand'),]
 		verbose_name = _("article")
 		verbose_name_plural = _("articles")
