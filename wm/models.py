@@ -94,6 +94,7 @@ class Article(models.Model):
 
         def save(self, force_insert=False, force_update=False, *args, **kwargs):
             if self.stock != self.__original_stock:
+                self.control_stock = True
                 self.stock_updated = timezone.now()
             if self.price != self.__original_price:
                 self.price_updated = timezone.now()
