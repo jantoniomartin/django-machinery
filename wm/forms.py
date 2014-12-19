@@ -16,12 +16,11 @@ class ArticleForm(forms.ModelForm):
 
 class ArticleStockForm(forms.ModelForm):
     code = forms.CharField(widget=forms.HiddenInput)
-    brand = forms.CharField(required=False, widget=forms.HiddenInput)
     description = forms.CharField(widget=forms.HiddenInput)
 
     class Meta:
         model = Article
-        fields = ['code', 'brand', 'description', 'stock',]
+        fields = ['code', 'description', 'stock',]
 
     def clean_code(self):
         instance = getattr(self, 'instance', None)
@@ -29,13 +28,6 @@ class ArticleStockForm(forms.ModelForm):
             return instance.code
         else:
             return self.cleaned_data['code']
-
-    def clean_brand(self):
-        instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
-            return instance.brand
-        else:
-            return self.cleaned_data['brand']
 
     def clean_description(self):
         instance = getattr(self, 'instance', None)

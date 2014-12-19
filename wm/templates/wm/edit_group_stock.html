@@ -23,7 +23,6 @@
 <tr>
     <th>{% trans "Stock" %}</th>
     <th>{% trans "Reference" %}</th>
-    <th>{% trans "Brand" %}</th>
     <th>{% trans "Description" %}</th>
 </tr>
 </thead>
@@ -33,7 +32,6 @@
 <tr>
     <td>{{ form.stock }}</td>
     <td>{{ form.code.value }}{{ form.code }}</td>
-    <td>{{ form.brand.value|default_if_none:"" }}{{ form.brand }}</td>
     <td>{{ form.description.value }}{{ form.description }}</td>
 </tr>
 {% endfor %}
