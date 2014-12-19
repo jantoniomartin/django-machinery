@@ -14,6 +14,18 @@ class ArticleForm(forms.ModelForm):
 		exclude = ['documents', 'stock_updated',]
 		model = Article
 
+class ArticleBatchForm(forms.ModelForm):
+    group = forms.CharField(widget=forms.HiddenInput)
+    description = forms.CharField(
+        label = _("Description"),
+        widget=forms.Textarea(attrs={'rows': 2})
+        )	
+
+    class Meta:
+        model = Article
+        fields = ['group', 'code', 'description', 'stock', 'measure_unit',
+                'packaging', 'brand', 'stock',]
+
 class ArticleStockForm(forms.ModelForm):
     code = forms.CharField(widget=forms.HiddenInput)
     description = forms.CharField(widget=forms.HiddenInput)

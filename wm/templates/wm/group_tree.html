@@ -41,7 +41,10 @@ $(function() {
 			menu += '">Editar categoría</a> |';
                         menu += '<a target="_blank" href="/wm/group/stock/';
 			menu += group_id;
-			menu += '">Editar stock</a>';
+			menu += '">Editar stock</a> |';
+                        menu += '<a target="_blank" href="/wm/group/edit_articles/';
+			menu += group_id;
+			menu += '">Editar en lote</a> |';
 			$("#category_menu").html(menu);
 		})
 		.fail(function(){

@@ -3,6 +3,7 @@ from datetime import date
 import json
 
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -11,6 +12,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import date
 from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, DetailView, ListView
 from django.views.generic.base import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
@@ -63,6 +65,22 @@ class EditGroupStockView(InlineFormSetView):
     context_object_name = 'group'
     extra = 0
     template_name = 'wm/edit_group_stock.html'
+
+    def formset_valid(self, form):
+        messages.success(self.request, _("The stock has been updated."))
+        return super(EditGroupStockView, self).formset_valid(form)
+
+class EditGroupArticlesView(InlineFormSetView):
+    model = models.Group
+    inline_model = models.Article
+    form_class = forms.ArticleBatchForm
+    context_object_name = 'group'
+    extra = 5
+    template_name = 'wm/edit_group_articles.html'
+
+    def formset_valid(self, form):
+        messages.success(self.request, _("Articles edited successfully."))
+        return super(EditGroupArticlesView, self).formset_valid(form)
 
 class BrandListView(ListView):
 	model = models.Brand

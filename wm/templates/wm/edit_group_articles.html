@@ -1,0 +1,49 @@
+{% extends "wm/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit articles in group" %}: {{ group }}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Edit articles in group" %}: {{ group }}</h1>
+
+<ul>
+{% for dict in formset.errors %}
+    {% for error in dict.values %}
+    <li>{{ error }}</li>
+    {% endfor %}
+{% endfor %}
+</ul>
+
+<form method="POST" action="">
+{% csrf_token %}
+{{ formset.management_form }}
+<table class="table table-striped table-hover">
+<thead>
+<tr>
+    <th>{% trans "Reference" %}</th>
+    <th>{% trans "Description" %}</th>
+    <th>{% trans "Measure unit" %}</th>
+    <th>{% trans "Packaging" %}</th>
+    <th>{% trans "Brand" %}</th>
+    <th>{% trans "Stock" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for form in formset %}
+{% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+<tr>
+    <td>{{ form.code }}</td>
+    <td>{{ form.description }}</td>
+    <td>{{ form.measure_unit }}</td>
+    <td>{{ form.packaging }}</td>
+    <td>{{ form.brand }}</td>
+    <td>{{ form.stock }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<p><button type="submit" class="btn btn-primary">{% trans "Save" %}</button></p>
+</form>
+
+{% endblock %}

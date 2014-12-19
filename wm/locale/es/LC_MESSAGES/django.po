@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-27 15:43+0000\n"
+"POT-Creation-Date: 2014-12-19 13:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:10 templates/wm/article_detail.html:24
+#: forms.py:10 forms.py:20 templates/wm/article_detail.html:24
 #: templates/wm/article_detail.html:163 templates/wm/article_detail.html:188
-#: templates/wm/article_list.html:15 templates/wm/group_detail.html:29
-#: templates/wm/group_tree.html:94
+#: templates/wm/article_list.html:15 templates/wm/edit_group_articles.html:25
+#: templates/wm/edit_group_stock.html:26 templates/wm/group_detail.html:29
+#: templates/wm/group_tree.html:108
 msgid "Description"
 msgstr "Descripción"
 
-#: forms.py:21
+#: forms.py:55
 msgid "Paste the uuid of the document."
 msgstr "Pega el uuid del documento."
 
@@ -49,7 +50,7 @@ msgstr "grupo"
 msgid "groups"
 msgstr "grupos"
 
-#: models.py:55 models.py:129
+#: models.py:55 models.py:130
 msgid "code"
 msgstr "código"
 
@@ -101,7 +102,7 @@ msgstr "precio actualizado el"
 msgid "documents"
 msgstr "documentos"
 
-#: models.py:84 models.py:127
+#: models.py:84 models.py:128
 msgid "article"
 msgstr "artículo"
 
@@ -109,15 +110,15 @@ msgstr "artículo"
 msgid "articles"
 msgstr "artículos"
 
-#: models.py:128
+#: models.py:129
 msgid "company"
 msgstr "empresa"
 
-#: models.py:133
+#: models.py:134
 msgid "supplier code"
 msgstr "código de proveedor"
 
-#: models.py:134
+#: models.py:135
 msgid "supplier codes"
 msgstr "códigos de proveedor"
 
@@ -143,12 +144,13 @@ msgid "Category"
 msgstr "Categoría"
 
 #: templates/wm/article_detail.html:30 templates/wm/article_list.html:14
-#: templates/wm/brand_list.html:13 templates/wm/group_detail.html:28
-#: templates/wm/group_tree.html:93
+#: templates/wm/brand_list.html:13 templates/wm/edit_group_articles.html:28
+#: templates/wm/group_detail.html:28 templates/wm/group_tree.html:107
 msgid "Brand"
 msgstr "Marca"
 
 #: templates/wm/article_detail.html:32
+#: templates/wm/edit_group_articles.html:26
 msgid "Measure unit"
 msgstr "Unidad de medida"
 
@@ -161,7 +163,8 @@ msgid "Weight"
 msgstr "Peso"
 
 #: templates/wm/article_detail.html:50 templates/wm/article_list.html:16
-#: templates/wm/base.html:15 templates/wm/group_tree.html:95
+#: templates/wm/base.html:15 templates/wm/edit_group_articles.html:29
+#: templates/wm/edit_group_stock.html:24 templates/wm/group_tree.html:109
 msgid "Stock"
 msgstr "Stock"
 
@@ -262,7 +265,9 @@ msgstr "Nueva oferta"
 
 #: templates/wm/article_detail.html:147 templates/wm/article_form.html:48
 #: templates/wm/brand_form.html:13 templates/wm/document_link_form.html:13
-#: templates/wm/group_form.html:48 templates/wm/suppliercode_form.html:13
+#: templates/wm/edit_group_articles.html:46
+#: templates/wm/edit_group_stock.html:40 templates/wm/group_form.html:48
+#: templates/wm/suppliercode_form.html:13
 msgid "Save"
 msgstr "Guardar"
 
@@ -307,12 +312,13 @@ msgid "Choose a category for the article"
 msgstr "Elige una categoría para el artículo"
 
 #: templates/wm/article_list.html:4 templates/wm/article_list.html.py:8
-#: templates/wm/group_tree.html:87
+#: templates/wm/group_tree.html:101
 msgid "Articles"
 msgstr "Artículos"
 
-#: templates/wm/article_list.html:13 templates/wm/group_detail.html:27
-#: templates/wm/group_tree.html:92
+#: templates/wm/article_list.html:13 templates/wm/edit_group_articles.html:24
+#: templates/wm/edit_group_stock.html:25 templates/wm/group_detail.html:27
+#: templates/wm/group_tree.html:106
 msgid "Reference"
 msgstr "Referencia"
 
@@ -390,6 +396,21 @@ msgstr "Editar marca"
 msgid "Link document"
 msgstr "Vincular documento"
 
+#: templates/wm/edit_group_articles.html:4
+#: templates/wm/edit_group_articles.html:8
+#| msgid "Edit article"
+msgid "Edit articles in group"
+msgstr "Editar artículos en el grupo"
+
+#: templates/wm/edit_group_articles.html:27
+msgid "Packaging"
+msgstr "Embalaje"
+
+#: templates/wm/edit_group_stock.html:4 templates/wm/edit_group_stock.html:8
+#| msgid "Articles"
+msgid "Article stocks"
+msgstr "Stock de artículos"
+
 #: templates/wm/group_form.html:32 templates/wm/group_form.html.py:36
 msgid "Edit category"
 msgstr "Editar categoría"
@@ -402,13 +423,17 @@ msgstr "Detalles del grupo"
 msgid "Chose a parent for this category"
 msgstr "Elige un padre para esta categoría"
 
-#: templates/wm/group_tree.html:54 templates/wm/group_tree.html.py:58
+#: templates/wm/group_tree.html:68 templates/wm/group_tree.html.py:72
 msgid "Articles by category"
 msgstr "Artículos por categoría"
 
-#: templates/wm/group_tree.html:63
+#: templates/wm/group_tree.html:77
 msgid "Select category"
 msgstr "Elige categoría"
+
+#: templates/wm/group_tree.html:110
+msgid "Price"
+msgstr "Precio"
 
 #: templates/wm/suppliercode_confirm_delete.html:4
 msgid "Delete supplier code"
@@ -430,6 +455,15 @@ msgstr "Volver"
 #: templates/wm/suppliercode_form.html:5 templates/wm/suppliercode_form.html:8
 msgid "Edit supplier code"
 msgstr "Editar código de proveedor"
+
+#: views.py:70
+#| msgid "stock updated at"
+msgid "The stock has been updated."
+msgstr "El stock se ha actualizado"
+
+#: views.py:82
+msgid "Articles edited successfully."
+msgstr "Articulos editados correctamente."
 
 #~ msgid "Order"
 #~ msgstr "Pedir"

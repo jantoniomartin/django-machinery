@@ -80,6 +80,10 @@ urlpatterns = patterns("wm.views",
 		EditGroupStockView.as_view(),
 		name="wm_group_stock"
 	),
+	url(r'^group/edit_articles/(?P<pk>\d+)/$',
+		EditGroupArticlesView.as_view(),
+		name="wm_group_edit_articles"
+	),
 	url(r'^group/edit/(?P<pk>\d+)/$',
 		GroupUpdateView.as_view(),
 		name="wm_group_edit"
