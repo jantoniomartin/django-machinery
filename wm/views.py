@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import ObjectDoesNotExist, F
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
-from django.template.defaultfilters import date
+from django.template.defaultfilters import date, floatformat
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, DetailView, ListView
@@ -18,6 +18,7 @@ from django.views.generic.base import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
 from extra_views import InlineFormSetView
+from mptt.templatetags.mptt_tags import tree_path
 
 from dm.models import Document
 from om.forms import OfferForm
@@ -243,22 +244,29 @@ class GroupUpdateView(UpdateView):
 		return reverse('wm_group_tree')
 
 class StockReportView(View):
-	def get(self, *args, **kwargs):
-		nodes = models.Group.objects.all()
-		response = HttpResponse(content_type="text/plain")
-		response['Content-Disposition'] = 'attachment; filename="stock.csv"'
-		w = csv.writer(response)
-		for node in nodes:
-			for a in node.article_set.all():
-				if a.stock > 0:
-					w.writerow([
-						'"%s"' % a.code.encode('utf-8'),
-						a.description.encode('utf-8'),
-						a.measure_unit,
-						getattr(a, 'brand', ''),
-						a.stock,
-					])
-		return response
+    def get(self, *args, **kwargs):
+        nodes = models.Group.objects.all()
+        response = HttpResponse(content_type="text/plain")
+        response['Content-Disposition'] = 'attachment; filename="stock.csv"'
+        w = csv.writer(response)
+        for node in nodes:
+            articles = node.article_set.filter(stock__gt=0)
+            if articles.count() > 0:
+                path = "/".join([tree_path(node.get_ancestors(), "/"),
+                    unicode(node)])
+                w.writerow([
+                    path.encode('utf-8'),
+                ])
+                for a in articles:
+                    w.writerow([
+                        a.code.encode('utf-8'),
+                        a.description.encode('utf-8'),
+                        getattr(a, 'brand', ''),
+                        a.stock,
+                        a.measure_unit,
+                        floatformat(a.stock_value, 2),
+                    ])
+        return response
 
 class ArticleSearchView(ListView):
 	model = models.Article
