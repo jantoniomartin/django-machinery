@@ -55,6 +55,8 @@
 <dd>{{ article.stock }}</dd>
 <dt>{% trans "Notify when stock is lower than" %}</dt>
 <dd>{{ article.stock_alert }}</dd>
+<dt>{% trans "Stock value" %}</dt>
+<dd>{{ article.stock_value|floatformat:2 }} &euro;</dd>
 </dl>
 {% else %}
 <p>{% trans "Stock is not accounted." %}</p>

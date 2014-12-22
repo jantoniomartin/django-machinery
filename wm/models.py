@@ -71,6 +71,10 @@ class Article(models.Model):
         price_updated = models.DateTimeField(_("price updated at"),
                 default=timezone.now(), #default value for migration
                 editable=False)
+	stock_value = models.FloatField(_("stock value"), default=0)
+        stock_value_updated = models.DateTimeField(_("stock value updated at"),
+                default=timezone.now(), #default value for migration
+                editable=False)
 	documents = models.ManyToManyField(Document,
 		blank=True,
 		null=True,
@@ -91,6 +95,7 @@ class Article(models.Model):
             super(Article, self).__init__(*args, **kwargs)
             self.__original_stock = self.stock
             self.__original_price = self.price
+            self.__original_stock_value = self.stock_value
 
         def save(self, force_insert=False, force_update=False, *args, **kwargs):
             if self.stock != self.__original_stock:
@@ -98,6 +103,8 @@ class Article(models.Model):
                 self.stock_updated = timezone.now()
             if self.price != self.__original_price:
                 self.price_updated = timezone.now()
+            if self.stock_value != self.__original_stock_value:
+                self.stock_value_updated = timezone.now()
             super(Article, self).save(force_insert, force_update,
                     *args, **kwargs)
             self.__original_stock = self.stock

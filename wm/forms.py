@@ -23,8 +23,8 @@ class ArticleBatchForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['group', 'code', 'description', 'stock', 'measure_unit',
-                'packaging', 'brand', 'stock',]
+        fields = ['group', 'code', 'description', 'measure_unit',
+                'packaging', 'brand', 'stock', 'stock_value',]
 
 class ArticleStockForm(forms.ModelForm):
     code = forms.CharField(widget=forms.HiddenInput)
@@ -32,7 +32,7 @@ class ArticleStockForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['code', 'description', 'stock',]
+        fields = ['code', 'description', 'stock', 'stock_value',]
 
     def clean_code(self):
         instance = getattr(self, 'instance', None)
