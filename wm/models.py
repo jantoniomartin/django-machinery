@@ -58,6 +58,7 @@ class Article(models.Model):
 		blank=True, null=True)
 	packaging = models.PositiveIntegerField(_("standard packaging"), default=1)
 	enabled = models.BooleanField(_("enabled"), default=True)
+	favorited = models.BooleanField(_("favorited"), default=False)
 	brand = models.ForeignKey(Brand, verbose_name=_("brand"), null=True, blank=True)
         weight = models.FloatField(_("weight (kg)"), default=0)
 	group = models.ForeignKey(Group, verbose_name=_("group"))
@@ -83,7 +84,7 @@ class Article(models.Model):
 	)
 
 	class Meta:
-		ordering = ['code',]
+		ordering = ['-favorited', '-enabled', 'code',]
 		unique_together = [('code', 'brand'),]
 		verbose_name = _("article")
 		verbose_name_plural = _("articles")
@@ -105,6 +106,8 @@ class Article(models.Model):
                 self.price_updated = timezone.now()
             if self.stock_value != self.__original_stock_value:
                 self.stock_value_updated = timezone.now()
+            if not self.enabled:
+                self.favorited = False
             super(Article, self).save(force_insert, force_update,
                     *args, **kwargs)
             self.__original_stock = self.stock
@@ -130,6 +133,14 @@ class Article(models.Model):
         @property
         def show_stock_warning(self):
             return (self.stock < self.stock_alert) or not self.control_stock
+
+        def toggle_favorite(self):
+            """Mark/unmark an article as favorited. A favorited article should
+            be also enabled."""
+            self.favorited = not self.favorited
+            if self.favorited and not self.enabled:
+                self.enabled = True
+            self.save()
 
 class SupplierCode(models.Model):
 	article = models.ForeignKey(Article, verbose_name=_("article"))

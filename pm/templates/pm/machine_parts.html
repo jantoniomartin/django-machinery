@@ -22,6 +22,14 @@ $(function() {
 				}
                                 row += '>';
 				row += '<td><input name="article" type="radio" value="' + this.pk + '"/></td>'; 
+                                row += '<td>';
+                                if (this.favorited == false) {
+                                    row += '<img src="/static/img/fav-no.png">';
+                                }
+                                else {
+                                    row += '<img src="/static/img/fav-yes.png">';
+                                }
+                                row += '</td>';
 				row += '<td><a href="' + this.url + '">' + this.code + '</a></td>';
 				row += "<td>" + this.brand + "</td>";
 				row += "<td>" + this.description + "</td>";
@@ -175,6 +183,7 @@ $(function() {
 
 <table id="articles" class="table table-striped table-hover">
 <thead>
+<th>&nbsp;</th>
 <th>&nbsp;</th>
 <th>{% trans "Reference" %}</th>
 <th>{% trans "Brand" %}</th>

@@ -32,7 +32,7 @@ class GroupArticlesJSONView(TemplateView):
 			group = models.Group.objects.get(id=kwargs['pk'])
 		except ObjectDoesNotExist:
 			raise Http404
-		articles = group.article_set.order_by('-enabled', 'code')
+		articles = group.article_set.all()
 		to_json = []
 		try:
 			for article in articles:
@@ -46,6 +46,7 @@ class GroupArticlesJSONView(TemplateView):
                                         'stock_updated': date(article.stock_updated),
 					'unit': article.measure_unit,
 					'enabled': article.enabled,
+                                        'favorited': article.favorited,
                                         'price': article.price,
                                         'price_updated': date(article.price_updated),
 				}
