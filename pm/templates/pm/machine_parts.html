@@ -16,7 +16,11 @@ $(function() {
 		$.getJSON("/wm/group/" + group_id + "/articles/", function(data){
 			var tbl_body = "";
 			$.each( data, function() {
-				var row = "<tr>";
+				var row = '<tr';
+				if (this.enabled == false) {
+					row += ' class="disabled"';
+				}
+                                row += '>';
 				row += '<td><input name="article" type="radio" value="' + this.pk + '"/></td>'; 
 				row += '<td><a href="' + this.url + '">' + this.code + '</a></td>';
 				row += "<td>" + this.brand + "</td>";
