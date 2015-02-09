@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load mptt_tags %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
 
 {% block title %}{{ article.code }}{% endblock %}
 
@@ -18,7 +19,14 @@
 
 <div class="col-md-6">
 <div class="panel panel-primary">
-<div class="panel-heading">{% trans "Article details" %}</div>
+<div class="panel-heading">
+    {% if article.favorited %}
+    <img src="{% static 'img/fav-yes.png' %}" />
+    {% else %}
+    <img src="{% static 'img/fav-no.png' %}" />
+    {% endif %}
+    {% trans "Article details" %}
+</div>
 <div class="panel-body">
 <dl class="dl-tab">
 <dt>{% trans "Description" %}</dt>
