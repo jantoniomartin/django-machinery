@@ -1,0 +1,19 @@
+{% extends 'pdf_base.html' %}
+
+{% block content %}
+
+<table border="1">
+
+{% for e in employees %}
+<tr>
+<td style="padding:1em">
+    <pdf:barcode value="{{ e.codename }}" barwidth="1" humanreadable="1" fontsize="16" />
+</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+
+{% endblock %}

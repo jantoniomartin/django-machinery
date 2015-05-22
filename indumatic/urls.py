@@ -23,6 +23,7 @@ urlpatterns = patterns('',
 	url(r'^om/', include('om.urls')),
 	url(r'^pm/', include('pm.urls')),
 	url(r'^wm/', include('wm.urls')),
+	url(r'^profiles/', include('profiles.urls')),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
