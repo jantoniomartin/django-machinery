@@ -1,0 +1,25 @@
+{% extends 'pdf_base.html' %}
+
+{% block content %}
+
+<h1>Proyecto {{ project }}</h1>
+<h2>{{ project.description }}</h2>
+<h3>{{ project.created_on }}</h3>
+
+<table border="1">
+
+{% for machine in project.machine_set.all %}
+<tr>
+<td style="padding:1em; font-size:16px">{{ machine.description }}</td>
+
+<td style="padding:1em">
+    <pdf:barcode value="{{ machine.full_reference }}" barwidth="1" humanreadable="1" fontsize="16" />
+</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+
+{% endblock %}

@@ -9,7 +9,7 @@
 {% for machine in project.machine_set.with_cost %}
 
 <h3>{{ machine }}: {{ machine.description }}</h3>
-<table>
+<table border="1">
 <thead>
 <tr>
 <th style="width: 10%">{% trans "Quantity" %}</th>

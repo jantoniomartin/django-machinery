@@ -37,6 +37,10 @@ urlpatterns = patterns("pm.views",
 		ProjectDetailView.as_view(),
 		name="pm_project_detail"
 	),
+    url(r'^project/report/(?P<pk>\d+)/$',
+		ProjectReportView.as_view(),
+		name="pm_project_report"
+	),
     url(r'^project/edit/(?P<pk>\d+)/$',
 		ProjectUpdateView.as_view(),
 		name="pm_project_edit"
@@ -68,6 +72,10 @@ urlpatterns = patterns("pm.views",
     url(r'^machine/detail/(?P<pk>\d+)/$',
 		MachineDetailView.as_view(),
 		name="pm_machine_detail"
+	),
+    url(r'^machine/barcode/(?P<pk>\d+)/$',
+		machine_barcode,
+		name="pm_machine_barcode"
 	),
     url(r'^machine/parts/(?P<pk>\d+)/$',
 		MachinePartsView.as_view(),

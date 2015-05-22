@@ -11,6 +11,8 @@
 <a href="{% url 'pm_machine_edit' machine.id %}">{% trans "Edit machine" %}</a>
 </p>
 
+<div class="col-md-6">
+
 <div class="panel panel-primary">
 <div class="panel-heading">{% trans "Machine info" %}</div>
 <div class="panel-body">
@@ -30,6 +32,20 @@
 </dl>
 </div>
 </div>
+
+</div>
+<div class="col-md-6">
+
+<div class="panel panel-primary">
+<div class="panel-heading">{% trans "Barcode" %}</div>
+<div class="panel-body">
+<img src="{% url 'pm_machine_barcode' machine.id %}" />
+</div>
+</div>
+
+</div>
+
+<div class="col-md-12">
 
 <h2>{% trans "Comments" %}</h2>
 {% for comment in machine.machinecomment_set.all %}
@@ -54,4 +70,5 @@
 
 </form>
 
+</div>
 {% endblock %}

@@ -106,6 +106,13 @@ class MachineDetailView(DetailView):
 		ctx.update({ 'comment_form': comment_form })
 		return ctx
 
+def machine_barcode(request, pk):
+    machine = get_object_or_404(Machine, id=pk)
+    import indumatic.barcodegen as barcodegen
+    d = barcodegen.BarcodeDrawing(machine.full_reference)
+    binarycode = d.asString('png')
+    return HttpResponse(binarycode, 'image/png')
+
 class MachinePartsView(DetailView):
 	model=Machine
 	context_object_name="machine"
@@ -179,6 +186,15 @@ class ProjectDetailView(DetailView):
 					'open_tickets': self.object.ticket_set.count(),
 					})
 		return ctx
+
+class ProjectReportView(PdfView):
+    template_name = 'pm/project_pdf.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ProjectReportView, self).get_context_data(**kwargs)
+        project = get_object_or_404(Project, id=self.kwargs['pk'])
+        ctx.update({ 'project': project})
+        return ctx
 
 class ProjectListView(ListView):
 	model = Project

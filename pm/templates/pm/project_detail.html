@@ -58,6 +58,8 @@ $(function() {
 <p>
 <a href="{% url 'pm_project_edit' project.id %}">{% trans "Edit project" %}</a>
 |
+<a href="{% url 'pm_project_report' project.id %}">{% trans "Barcodes" %}</a>
+|
 <a href="{% url 'pm_project_parts_report' project.id %}">{% trans "Parts report" %}</a>
 |
 <a href="{% url 'pm_project_parts_costreport' project.id %}">{% trans "Cost report" %}</a>
