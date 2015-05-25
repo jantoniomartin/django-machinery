@@ -81,6 +81,10 @@ urlpatterns = patterns("pm.views",
 		MachinePartsView.as_view(),
 		name="pm_machine_parts"
 	),
+    url(r'^machine/interventions/(?P<pk>\d+)/$',
+		MachineInterventionsView.as_view(),
+		name="pm_machine_interventions"
+	),
     url(r'^machine/edit/(?P<pk>\d+)/$',
 		MachineUpdateView.as_view(),
 		name="pm_machine_edit"
@@ -139,5 +143,13 @@ urlpatterns = patterns("pm.views",
     url(r'^ticketitem/create/$',
 		TicketItemCreateView.as_view(),
 		name="pm_ticketitem_create"
+	),
+    url(r'^intervention/create/(?P<pk>\d+)/$',
+		InterventionCreateView.as_view(),
+		name="pm_intervention_create"
+	),
+    url(r'^intervention/edit/(?P<pk>\d+)/$',
+		InterventionUpdateView.as_view(),
+		name="pm_intervention_update"
 	),
 )

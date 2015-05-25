@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-22 12:47+0200\n"
+"POT-Creation-Date: 2015-05-25 12:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,189 +39,221 @@ msgstr "Máquina"
 msgid "Select parts"
 msgstr "Selecciona componentes"
 
-#: models.py:18
+#: forms.py:161 forms.py:166
+msgid "dd/mm/yy"
+msgstr "dd/mm/aa"
+
+#: forms.py:162 forms.py:167
+msgid "HH:MM"
+msgstr "HH:MM"
+
+#: models.py:19
 msgid "code"
 msgstr "código"
 
-#: models.py:19 models.py:40 models.py:80
+#: models.py:20 models.py:41 models.py:81
 msgid "description"
 msgstr "descripción"
 
-#: models.py:22 models.py:36
+#: models.py:23 models.py:37
 msgid "sector"
 msgstr "sector"
 
-#: models.py:23
+#: models.py:24
 msgid "sectors"
 msgstr "sectores"
 
-#: models.py:37
+#: models.py:38
 msgid "serial number"
 msgstr "número de serie"
 
-#: models.py:38
+#: models.py:39
 msgid "old model"
 msgstr "antiguo modelo"
 
-#: models.py:41
+#: models.py:42
 msgid "notes"
 msgstr "notas"
 
-#: models.py:42 models.py:85
+#: models.py:43 models.py:86
 msgid "retired"
 msgstr "retirado"
 
-#: models.py:43 models.py:81 models.py:130 models.py:180 models.py:202
+#: models.py:44 models.py:82 models.py:131 models.py:181 models.py:203
 msgid "created on"
 msgstr "creado el"
 
-#: models.py:44
+#: models.py:45
 msgid "company"
 msgstr "empresa"
 
-#: models.py:45
+#: models.py:46
 msgid "thumbnail"
 msgstr "miniatura"
 
-#: models.py:48 models.py:86 models.py:162 models.py:179
+#: models.py:49 models.py:87 models.py:163 models.py:180
 msgid "project"
 msgstr "proyecto"
 
-#: models.py:49
+#: models.py:50
 msgid "projects"
 msgstr "proyectos"
 
-#: models.py:78
+#: models.py:79
 msgid "model"
 msgstr "modelo"
 
-#: models.py:79
+#: models.py:80
 msgid "number"
 msgstr "número"
 
-#: models.py:82
+#: models.py:83
 msgid "shipped on"
 msgstr "enviado el"
 
-#: models.py:83
+#: models.py:84
 msgid "running on"
 msgstr "en marcha el"
 
-#: models.py:84
+#: models.py:85
 msgid "estimated delivery"
 msgstr "entrega estimada"
 
-#: models.py:88
+#: models.py:89
 msgid "contract item"
 msgstr "línea de contrato"
 
-#: models.py:95 models.py:128 models.py:142
+#: models.py:96 models.py:129 models.py:143 models.py:224
 msgid "machine"
 msgstr "máquina"
 
-#: models.py:96
+#: models.py:97
 msgid "machines"
 msgstr "máquinas"
 
-#: models.py:129
+#: models.py:130
 msgid "body"
 msgstr "cuerpo"
 
-#: models.py:131
+#: models.py:132
 msgid "author"
 msgstr "autor"
 
-#: models.py:134
+#: models.py:135
 msgid "machine comment"
 msgstr "comentario de máquina"
 
-#: models.py:135
+#: models.py:136
 msgid "machine comments"
 msgstr "comentarios de máquina"
 
-#: models.py:141
+#: models.py:142
 msgid "article"
 msgstr "artículo"
 
-#: models.py:143
+#: models.py:144
 msgid "quantity"
 msgstr "cantidad"
 
-#: models.py:144
+#: models.py:145
 msgid "function"
 msgstr "función"
 
-#: models.py:150
+#: models.py:151
 msgid "part"
 msgstr "componente"
 
-#: models.py:151
+#: models.py:152
 msgid "parts"
 msgstr "componentes"
 
-#: models.py:163
+#: models.py:164
 msgid "date"
 msgstr "fecha"
 
-#: models.py:166
+#: models.py:167
 msgid "CE certificate"
 msgstr "certificado CE"
 
-#: models.py:167
+#: models.py:168
 msgid "CE certificates"
 msgstr "certificados CE"
 
-#: models.py:173
+#: models.py:174
 msgid "The customer is waiting for an answer"
 msgstr "El cliente está esperando una respuesta"
 
-#: models.py:174
+#: models.py:175
 msgid "Waiting for an answer from the customer"
 msgstr "Esperando una respuesta del cliente"
 
-#: models.py:175
+#: models.py:176
 msgid "Closed"
 msgstr "Cerrado"
 
-#: models.py:181
+#: models.py:182
 msgid "updated on"
 msgstr "creado el"
 
-#: models.py:182
+#: models.py:183
 msgid "updated by"
 msgstr "actualizado por"
 
-#: models.py:183
+#: models.py:184
 msgid "status"
 msgstr "estado"
 
-#: models.py:185
+#: models.py:186
 msgid "summary"
 msgstr "resumen"
 
-#: models.py:186 models.py:204
+#: models.py:187 models.py:205
 msgid "content"
 msgstr "contenido"
 
-#: models.py:189 models.py:201
+#: models.py:190 models.py:202
 msgid "ticket"
 msgstr "incidencia"
 
-#: models.py:190
+#: models.py:191
 msgid "tickets"
 msgstr "incidencias"
 
-#: models.py:203
+#: models.py:204
 msgid "created_by"
 msgstr "creado por"
 
-#: models.py:207
+#: models.py:208
 msgid "ticket item"
 msgstr "elemento de incidencia"
 
-#: models.py:208
+#: models.py:209
 msgid "ticket items"
 msgstr "elementos de incidencia"
+
+#: models.py:223
+msgid "employee"
+msgstr "empleado"
+
+#: models.py:225
+msgid "start at"
+msgstr "inicio"
+
+#: models.py:226
+msgid "end at"
+msgstr "fin"
+
+#: models.py:227
+msgid "seconds"
+msgstr "segundos"
+
+#: models.py:231
+msgid "intervention"
+msgstr "intervención"
+
+#: models.py:232
+msgid "interventions"
+msgstr "intervenciones"
 
 #: templates/pm/base.html:8 templates/pm/sector_list.html:4
 #: templates/pm/sector_list.html.py:7
@@ -250,7 +282,8 @@ msgstr "Buscar"
 msgid "Edit certificate"
 msgstr "Editar certificado"
 
-#: templates/pm/certificate_form.html:15 templates/pm/machine_detail.html:68
+#: templates/pm/certificate_form.html:15
+#: templates/pm/intervention_form.html:15 templates/pm/machine_detail.html:74
 #: templates/pm/machine_form.html:21 templates/pm/machine_parts.html:181
 #: templates/pm/machinecomment_form.html:15 templates/pm/part_form.html:15
 #: templates/pm/project_detail.html:163 templates/pm/project_form.html:17
@@ -279,6 +312,10 @@ msgstr "Los componentes se copiarán a"
 msgid "Copy"
 msgstr "Copiar"
 
+#: templates/pm/intervention_form.html:5 templates/pm/intervention_form.html:9
+msgid "Edit intervention"
+msgstr "Editar intervención"
+
 #: templates/pm/machine_confirm_delete.html:4
 msgid "Delete machine"
 msgstr "Borrar máquina"
@@ -305,7 +342,7 @@ msgid "Go back."
 msgstr "Volver."
 
 #: templates/pm/machine_confirm_delete.html:15
-#: templates/pm/machine_detail.html:57 templates/pm/machine_parts.html:76
+#: templates/pm/machine_detail.html:63 templates/pm/machine_parts.html:76
 #: templates/pm/machine_parts.html:137
 #: templates/pm/machinecomment_confirm_delete.html:20
 #: templates/pm/part_confirm_delete.html:19
@@ -313,16 +350,16 @@ msgstr "Volver."
 msgid "Delete"
 msgstr "Borrar"
 
-#: templates/pm/machine_detail.html:11 templates/pm/machine_form.html:5
+#: templates/pm/machine_detail.html:12 templates/pm/machine_form.html:5
 #: templates/pm/machine_form.html.py:9
 msgid "Edit machine"
 msgstr "Editar máquina"
 
-#: templates/pm/machine_detail.html:17
+#: templates/pm/machine_detail.html:19
 msgid "Machine info"
 msgstr "Información de la máquina"
 
-#: templates/pm/machine_detail.html:20 templates/pm/machine_parts.html:122
+#: templates/pm/machine_detail.html:22 templates/pm/machine_parts.html:122
 #: templates/pm/machine_parts.html:190 templates/pm/parts_cost_pdf.html:17
 #: templates/pm/parts_pdf.html:17 templates/pm/project_detail.html:84
 #: templates/pm/project_detail.html:118 templates/pm/project_list.html:20
@@ -330,37 +367,82 @@ msgstr "Información de la máquina"
 msgid "Description"
 msgstr "Descripción"
 
-#: templates/pm/machine_detail.html:22 templates/pm/project_detail.html:88
+#: templates/pm/machine_detail.html:24 templates/pm/project_detail.html:88
 #: templates/pm/project_detail.html:121 templates/pm/project_list.html:22
 #: templates/pm/ticket_detail.html:16
 msgid "Created on"
 msgstr "Creado él"
 
-#: templates/pm/machine_detail.html:24 templates/pm/project_detail.html:122
+#: templates/pm/machine_detail.html:26 templates/pm/project_detail.html:122
 msgid "Shipped on"
 msgstr "Enviado el"
 
-#: templates/pm/machine_detail.html:26 templates/pm/project_detail.html:123
+#: templates/pm/machine_detail.html:28 templates/pm/project_detail.html:123
 msgid "Running on"
 msgstr "En marcha el"
 
-#: templates/pm/machine_detail.html:28
+#: templates/pm/machine_detail.html:30
 msgid "Estimated delivery on"
 msgstr "Entrega estimada"
 
-#: templates/pm/machine_detail.html:30
+#: templates/pm/machine_detail.html:32
 msgid "Is retired?"
 msgstr "¿Está retirada?"
 
-#: templates/pm/machine_detail.html:40
-#| msgid "code"
+#: templates/pm/machine_detail.html:42
 msgid "Barcode"
 msgstr "Código de barras"
 
-#: templates/pm/machine_detail.html:50 templates/pm/project_detail.html:119
+#: templates/pm/machine_detail.html:55 templates/pm/project_detail.html:119
 msgid "Comments"
 msgstr "Comentarios"
 
+#: templates/pm/machine_detail.html:87
+#: templates/pm/machine_interventions.html:17
+msgid "Interventions"
+msgstr "Intervenciones"
+
+#: templates/pm/machine_detail.html:92
+#: templates/pm/machine_interventions.html:23
+msgid "Hours"
+msgstr "Hours"
+
+#: templates/pm/machine_detail.html:93
+#: templates/pm/machine_interventions.html:24
+msgid "Employee"
+msgstr "Empleado"
+
+#: templates/pm/machine_detail.html:109
+msgid "Detail"
+msgstr "Detalle"
+
+#: templates/pm/machine_interventions.html:6
+msgid "Interventions list"
+msgstr "Lista de intervenciones"
+
+#: templates/pm/machine_interventions.html:10
+#, python-format
+msgid "Interventions in %(reference)s"
+msgstr "Intervenciones en %(reference)s"
+
+#: templates/pm/machine_interventions.html:12
+msgid "Machine details"
+msgstr "Detalles de la máquina"
+
+#: templates/pm/machine_interventions.html:13
+msgid "Add intervention"
+msgstr "Añadir intervención"
+
+#: templates/pm/machine_interventions.html:22
+msgid "Date"
+msgstr "Fecha"
+
+#: templates/pm/machine_interventions.html:25
+#: templates/pm/machine_parts.html:124 templates/pm/project_detail.html:125
+msgid "Actions"
+msgstr "Acciones"
+
+#: templates/pm/machine_interventions.html:34
 #: templates/pm/machine_parts.html:74 templates/pm/machine_parts.html:136
 #: templates/pm/project_detail.html:31 templates/pm/project_detail.html:146
 msgid "Edit"
@@ -401,10 +483,6 @@ msgstr "Referencia"
 #: templates/pm/parts_cost_pdf.html:18 templates/pm/parts_pdf.html:18
 msgid "Function"
 msgstr "Función"
-
-#: templates/pm/machine_parts.html:124 templates/pm/project_detail.html:125
-msgid "Actions"
-msgstr "Acciones"
 
 #: templates/pm/machine_parts.html:146
 msgid "Select category"
@@ -483,7 +561,6 @@ msgid "Edit project"
 msgstr "Editar proyecto"
 
 #: templates/pm/project_detail.html:61
-#| msgid "code"
 msgid "Barcodes"
 msgstr "Códigos"
 
@@ -578,7 +655,7 @@ msgstr "Resumen"
 msgid "The machine has been added to the project."
 msgstr "La máquina se ha añadido al proyecto."
 
-#: views.py:335
+#: views.py:346
 #, python-format
 msgid "%s parts were successfully copied."
 msgstr "%s componentes se han copiado correctamente."

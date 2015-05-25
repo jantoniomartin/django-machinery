@@ -13,6 +13,7 @@ from model_utils.managers import PassThroughManager
 from pm import querysets
 from crm.models import Company, ContractItem
 from wm.models import Article
+from profiles.models import Employee
 
 class Sector(models.Model):
 	code = models.CharField(_("code"), max_length=3, unique=True)
@@ -96,8 +97,8 @@ class Machine(models.Model):
 		verbose_name_plural = _("machines")
 
 	def __unicode__(self):
-		return u"%(model)s%(number)s" % {'model': self.model,
-										'number': self.number }
+	    return u"%(model)s%(number)s" % {'model': self.model,
+                    'number': self.number }
 
 	def save(self, *args, **kwargs):
 		if not self.pk and not self.number:
@@ -210,3 +211,36 @@ class TicketItem(models.Model):
 	def __unicode__(self):
 		return u"%s" % self.pk
 
+##
+## Classes to control the work hours for each project
+##
+
+class Intervention(models.Model):
+    """
+    An Intervention is a continuous period of time that an Employee has been
+    working on a Machine.
+    """
+    employee = models.ForeignKey(Employee, verbose_name=_("employee"))
+    machine = models.ForeignKey(Machine, verbose_name=_("machine"))
+    start_at = models.DateTimeField(_("start at"))
+    end_at = models.DateTimeField(_("end at"), null=True, blank=True)
+    seconds = models.PositiveIntegerField(_("seconds"), editable=False,
+            default=0)
+
+    class Meta:
+        verbose_name = _("intervention")
+        verbose_name_plural = _("interventions")
+
+    def __unicode__(self):
+        return u"%s (%s seconds)" % (self.pk, self.seconds)
+
+    def save(self, force_insert=False, force_update=False):
+        if self.end_at:
+            s = self.end_at - self.start_at
+            if s.seconds > 0:
+                self.seconds = s.seconds
+        super(Intervention, self).save(force_insert, force_update)
+
+    @property
+    def hours(self):
+        return self.seconds / 3600.

@@ -140,3 +140,35 @@ class TicketItemForm(forms.ModelForm):
 		model = TicketItem
 		exclude = ['created_by',]
 
+class SplitDateTimeWidget(forms.SplitDateTimeWidget):
+    def __init__(self, attrs=None, date_format=None, time_format=None):
+        date_ph = attrs.get('date_placeholder')
+        del attrs['date_placeholder']
+        time_ph = attrs.get('time_placeholder')
+        del attrs['time_placeholder']
+
+        widgets = (forms.DateInput(
+            attrs={'placeholder': date_ph}, format=date_format),
+            forms.TimeInput(
+            attrs={'placeholder': time_ph}, format=time_format))
+        super(forms.SplitDateTimeWidget, self).__init__(widgets, attrs)
+
+class InterventionForm(forms.ModelForm):
+    machine = forms.ModelChoiceField(
+        queryset=Machine.objects.all(),
+        widget=forms.HiddenInput)
+    start_at = forms.DateTimeField(widget=SplitDateTimeWidget(
+        attrs={'date_placeholder': _('dd/mm/yy'),
+            'time_placeholder': _('HH:MM')},
+            date_format="%d/%m/%y",
+            time_format="%H:%M"))
+    end_at = forms.DateTimeField(widget=SplitDateTimeWidget(
+        attrs={'date_placeholder': _('dd/mm/yy'),
+            'time_placeholder': _('HH:MM')},
+            date_format="%d/%m/%y",
+            time_format="%H:%M"))
+    
+    class Meta:
+        model = Intervention
+        fields = ['machine', 'employee', 'start_at', 'end_at']
+

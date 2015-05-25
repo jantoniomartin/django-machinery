@@ -1,0 +1,42 @@
+{% extends "pm/base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load pm_tags %}
+
+{% block title %}{% trans "Interventions list" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% blocktrans with machine.full_reference as reference %}Interventions in {{ reference }}{% endblocktrans %}</h1>
+<p>
+<a href="{% url 'pm_machine_detail' machine.id %}">{% trans "Machine details" %}</a> |
+<a href="{% url 'pm_intervention_create' machine.id %}">{% trans "Add intervention" %}</a>
+</p>
+
+<div class="panel panel-primary">
+<div class="panel-heading">{% trans "Interventions" %}</div>
+<div class="panel-body">
+    <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>{% trans "Date" %}</th>
+        <th>{% trans "Hours" %}</th> 
+        <th>{% trans "Employee" %}</th> 
+        <th>{% trans "Actions" %}</th> 
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in machine.intervention_set.all %}
+    <tr>
+        <td>{{ i.start_at|date:"SHORT_DATE_FORMAT" }}</td>
+        <td>{{ i.seconds|as_hours:1 }}</td>
+        <td>{{ i.employee.display }}</td>
+        <td><a href="{% url 'pm_intervention_update' i.id %}">{% trans "Edit" %}</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

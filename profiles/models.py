@@ -15,7 +15,7 @@ class Employee(models.Model):
         verbose_name_plural = _("employees")
 
     def __unicode__(self):
-        return unicode(self.user)
+        return u"%s %s" % (self.user.first_name, self.user.last_name)
 
     def codename(self):
         """Return a unique string to be used in a barcode (Code39)"""
@@ -24,3 +24,6 @@ class Employee(models.Model):
         name = name[0:39]
         return unicodedata.normalize('NFKD', name).encode('ascii', 'ignore')
 
+    @property
+    def display(self):
+        return "%s %s" % (self.user.first_name, self.user.last_name)
