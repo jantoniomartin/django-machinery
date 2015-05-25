@@ -106,10 +106,15 @@ class MachineDetailView(DetailView):
         interventions = self.object.intervention_set. \
             values('employee__user__first_name', 'employee__user__last_name'). \
             annotate(total=Sum('seconds'))
-        total_seconds = self.object.intervention_set.aggregate(Sum('seconds'))
+        if self.object.intervention_set.count() > 0:
+            total_seconds = self.object.intervention_set.aggregate(
+                Sum('seconds')
+            )['seconds__sum']
+        else:
+            total_seconds = 0
         ctx.update({ 'comment_form': comment_form,
             'interventions': interventions,
-            'total_seconds': total_seconds['seconds__sum']})
+            'total_seconds': total_seconds})
         return ctx
 
 def machine_barcode(request, pk):
