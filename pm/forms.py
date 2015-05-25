@@ -157,12 +157,14 @@ class InterventionForm(forms.ModelForm):
     machine = forms.ModelChoiceField(
         queryset=Machine.objects.all(),
         widget=forms.HiddenInput)
-    start_at = forms.DateTimeField(widget=SplitDateTimeWidget(
+    start_at = forms.DateTimeField(label=_("start at"),
+        widget=SplitDateTimeWidget(
         attrs={'date_placeholder': _('dd/mm/yy'),
             'time_placeholder': _('HH:MM')},
             date_format="%d/%m/%y",
             time_format="%H:%M"))
-    end_at = forms.DateTimeField(widget=SplitDateTimeWidget(
+    end_at = forms.DateTimeField(label=_("end at"),
+        widget=SplitDateTimeWidget(
         attrs={'date_placeholder': _('dd/mm/yy'),
             'time_placeholder': _('HH:MM')},
             date_format="%d/%m/%y",
