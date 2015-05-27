@@ -2,18 +2,17 @@
 
 {% block content %}
 
-<h1>Proyecto {{ project }}</h1>
-<h2>{{ project.description }}</h2>
-<h3>{{ project.created_on }}</h3>
+<h1 style="font-size: 32px">Proyecto {{ project }}</h1>
+<h1 style="font-size: 32px">{{ project.description }}</h2>
+<h3>{{ project.created_on }} ({{ project.company.region }})</h3>
 
-<table border="1">
+<table style="border: solid 1px #999">
 
 {% for machine in project.machine_set.all %}
 <tr>
-<td style="padding:1em; font-size:16px">{{ machine.description }}</td>
-
-<td style="padding:1em">
-    <pdf:barcode value="{{ machine.full_reference }}" barwidth="1" humanreadable="1" fontsize="16" />
+<td style="padding:0.5em; font-size:24px; text-align: center;">
+    {{ machine.description }}<br />
+    <pdf:barcode value="{{ machine.full_reference }}" barwidth="1.2" humanreadable="1" fontsize="16" />
 </td>
 </tr>
 
