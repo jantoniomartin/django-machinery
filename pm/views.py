@@ -438,6 +438,11 @@ class TicketCreateView(CreateView):
     model = Ticket
     form_class = TicketForm
     
+    @method_decorator(permission_required('pm.add_ticket',
+        raise_exception=True))
+    def dispatch(self, *args, **kwargs):
+        return super(TicketCreateView, self).dispatch(*args, **kwargs)
+
     def form_valid(self, form):
         ticket = form.save(commit = False)
         ticket.updated_by = self.request.user
@@ -451,6 +456,11 @@ class TicketCreateView(CreateView):
 class TicketStatusUpdateView(UpdateView):
     model=Ticket
     form_class = TicketStatusForm
+
+    @method_decorator(permission_required('pm.change_ticket',
+        raise_exception=True))
+    def dispatch(self, *args, **kwargs):
+        return super(TicketStatusUpdateView, self).dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         ticket = form.save(commit = False)
@@ -475,6 +485,11 @@ class TicketDetailView(DetailView):
 class TicketItemCreateView(CreateView):
     model = TicketItem
     form_class = TicketItemForm
+    
+    @method_decorator(permission_required('pm.add_ticketitem',
+        raise_exception=True))
+    def dispatch(self, *args, **kwargs):
+        return super(TicketItemCreateView, self).dispatch(*args, **kwargs)
     
     def form_valid(self, form):
         item = form.save(commit = False)
@@ -555,7 +570,6 @@ def import_interventions(request):
                 messages.warning(request,
                     _("%(n)s interventions created. There where %(e)s errors." %
                         {'n': n, 'e': errors}))
-                )
     else:
         form = ImportInterventionsForm()
     return render_to_response('pm/intervention_import.html',
