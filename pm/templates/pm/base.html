@@ -9,6 +9,9 @@
 	<li><a href="{% url 'pm_project_list' %}">{% trans "Projects" %}</a></li>
 	<li><a href="{% url 'pm_project_create' %}">{% trans "New project" %}</a></li>
 	<li><a href="{% url 'pm_ticket_list' %}">{% trans "Tickets" %}</a></li>
+    {% if perms.pm.add_intervention %}
+    <li><a href="{% url 'pm_intervention_import' %}">{% trans "Import interventions" %}</a></li>
+    {% endif %}
 <li>
 <form method="GET" action="{% url 'pm_project_search' %}">
   <input class="form-control" placeholder="{% trans "Search" %}" type="text" name="q" />

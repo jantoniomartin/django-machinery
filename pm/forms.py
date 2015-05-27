@@ -174,3 +174,7 @@ class InterventionForm(forms.ModelForm):
         model = Intervention
         fields = ['machine', 'employee', 'start_at', 'end_at']
 
+class ImportInterventionsForm(forms.Form):
+    csv_file = forms.FileField(label=_("csv file"))
+
+

@@ -152,4 +152,8 @@ urlpatterns = patterns("pm.views",
 		InterventionUpdateView.as_view(),
 		name="pm_intervention_update"
 	),
+    url(r'^intervention/import/$',
+        import_interventions,
+        name="pm_intervention_import"
+    ),
 )

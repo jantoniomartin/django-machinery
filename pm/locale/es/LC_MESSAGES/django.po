@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 12:57+0200\n"
+"POT-Creation-Date: 2015-05-27 11:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,13 +39,25 @@ msgstr "Máquina"
 msgid "Select parts"
 msgstr "Selecciona componentes"
 
-#: forms.py:161 forms.py:166
+#: forms.py:160 models.py:225
+msgid "start at"
+msgstr "inicio"
+
+#: forms.py:162 forms.py:168
 msgid "dd/mm/yy"
 msgstr "dd/mm/aa"
 
-#: forms.py:162 forms.py:167
+#: forms.py:163 forms.py:169
 msgid "HH:MM"
 msgstr "HH:MM"
+
+#: forms.py:166 models.py:226
+msgid "end at"
+msgstr "fin"
+
+#: forms.py:178
+msgid "csv file"
+msgstr "archivo csv"
 
 #: models.py:19
 msgid "code"
@@ -235,14 +247,6 @@ msgstr "elementos de incidencia"
 msgid "employee"
 msgstr "empleado"
 
-#: models.py:225
-msgid "start at"
-msgstr "inicio"
-
-#: models.py:226
-msgid "end at"
-msgstr "fin"
-
 #: models.py:227
 msgid "seconds"
 msgstr "segundos"
@@ -274,7 +278,12 @@ msgstr "Nuevo proyecto"
 msgid "Tickets"
 msgstr "Incidencias"
 
-#: templates/pm/base.html:14
+#: templates/pm/base.html:13 templates/pm/intervention_import.html:5
+#: templates/pm/intervention_import.html:9
+msgid "Import interventions"
+msgstr "Importar intervenciones"
+
+#: templates/pm/base.html:17
 msgid "Search"
 msgstr "Buscar"
 
@@ -283,8 +292,10 @@ msgid "Edit certificate"
 msgstr "Editar certificado"
 
 #: templates/pm/certificate_form.html:15
-#: templates/pm/intervention_form.html:15 templates/pm/machine_detail.html:74
-#: templates/pm/machine_form.html:21 templates/pm/machine_parts.html:181
+#: templates/pm/intervention_form.html:15
+#: templates/pm/intervention_import.html:16
+#: templates/pm/machine_detail.html:74 templates/pm/machine_form.html:21
+#: templates/pm/machine_parts.html:181
 #: templates/pm/machinecomment_form.html:15 templates/pm/part_form.html:15
 #: templates/pm/project_detail.html:163 templates/pm/project_form.html:17
 #: templates/pm/sector_form.html:16 templates/pm/ticket_detail.html:53
@@ -651,14 +662,28 @@ msgstr "Todas las incidencias"
 msgid "Summary"
 msgstr "Resumen"
 
-#: views.py:84
+#: views.py:88
 msgid "The machine has been added to the project."
 msgstr "La máquina se ha añadido al proyecto."
 
-#: views.py:346
+#: views.py:355
 #, python-format
 msgid "%s parts were successfully copied."
 msgstr "%s componentes se han copiado correctamente."
+
+#: views.py:551
+#, python-format
+msgid "%s interventions created."
+msgstr "%s intervenciones creadas."
+
+#: views.py:553
+msgid "Error. No valid interventions."
+msgstr "Error. No hay intervenciones válidas."
+
+#: views.py:556
+#, python-format
+msgid "%(n)s interventions created. There where %(e)s errors."
+msgstr "%(n)s intervenciones creadas. Ha habido %(e)s errores."
 
 #~ msgid "New"
 #~ msgstr "Nuevo"

@@ -1,14 +1,17 @@
+import csv
+from datetime import datetime
 import json
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, login_required
 from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import ObjectDoesNotExist, Sum
 from django.http import HttpResponse, HttpResponseBadRequest, Http404
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
+from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import DetailView, ListView, TemplateView
@@ -16,6 +19,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormVi
 
 from pm.forms import *
 from pm.models import *
+from profiles.models import Employee
 from crm.models import ContractItem
 from wm.models import Group
 from indumatic.search import get_query
@@ -482,6 +486,11 @@ class InterventionCreateView(CreateView):
     model = Intervention
     form_class = InterventionForm
     
+    @method_decorator(permission_required('pm.add_intervention',
+        raise_exception=True))
+    def dispatch(self, *args, **kwargs):
+        return super(InterventionCreateView, self).dispatch(*args, **kwargs)
+
     def get_initial(self):
         machine = get_object_or_404(Machine, id=self.kwargs['pk'])
         return {"machine": machine}
@@ -493,6 +502,62 @@ class InterventionUpdateView(UpdateView):
     model=Intervention
     form_class = InterventionForm
 
+    @method_decorator(permission_required('pm.change_intervention',
+        raise_exception=True))
+    def dispatch(self, *args, **kwargs):
+        return super(InterventionUpdateView, self).dispatch(*args, **kwargs)
+
     def get_success_url(self):
         return reverse_lazy('pm_machine_interventions', args=[self.object.machine.id])
 
+@permission_required('pm.add_intervention', raise_exception=True)
+def import_interventions(request):
+    if request.method == 'POST':
+        form = ImportInterventionsForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = request.FILES['csv_file'].read().splitlines()
+            reader = csv.reader(data, delimiter=";")
+            n = 0
+            errors = 0
+            employee = None
+            interventions = []
+            for row in reader:
+                if employee is None:
+                    employee_id = int(row[0].split(" ")[0])
+                    try:
+                        employee = Employee.objects.get(id=employee_id)
+                    except ObjectDoesNotExist:
+                        errors += 1
+                        continue
+                project_serial = row[1][4:8]
+                machine_number = row[1][12:]
+                try:
+                    project = Project.objects.get(serial=project_serial)
+                    machine = Machine.objects.get(project=project,
+                        number=machine_number)
+                except ObjectDoesNotExist:
+                    errors += 1
+                    continue
+                else:
+                    start_at = datetime.strptime(row[2], "%Y/%m/%d %H:%M")
+                    end_at = datetime.strptime(row[3], "%Y/%m/%d %H:%M")
+                    i = Intervention(employee=employee,
+                            machine=machine,
+                            start_at=start_at,
+                            end_at=end_at)
+                    i.save()
+                    n += 1
+            if errors == 0:
+                messages.success(request, _("%s interventions created." % n))
+            elif n == 0:
+                messages.error(request, _("Error. No valid interventions."))
+            else:
+                messages.warning(request,
+                    _("%(n)s interventions created. There where %(e)s errors." %
+                        {'n': n, 'e': errors}))
+                )
+    else:
+        form = ImportInterventionsForm()
+    return render_to_response('pm/intervention_import.html',
+        {'form': form},
+        context_instance=RequestContext(request))
