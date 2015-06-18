@@ -146,7 +146,7 @@ class SalesDocumentItem(models.Model):
 		return unicode(self.description)
 
 class Quotation(SalesDocument):
-	created = models.DateField(_("created"), auto_now_add=True)
+	created = models.DateField(_("created"))
 	recipient_name = models.CharField(_("recipient name"), max_length=255,
 		blank=True, null=True)
 	title = models.CharField(_("title"), max_length=255)

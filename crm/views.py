@@ -149,7 +149,10 @@ class QuotationCreateView(PermissionRequiredMixin, CreateView):
 
 	def get_initial(self):
 		company = get_object_or_404(Company, id=self.kwargs['pk'])
-		return {'company': company}
+		return {
+            'company': company,
+            'created': date.today(),
+        }
 
 	def form_valid(self, form):
 		q = form.save(commit=False)
@@ -254,7 +257,10 @@ class ContractCreateView(PermissionRequiredMixin, CreateView):
 
 	def get_initial(self):
 		company = get_object_or_404(Company, id=self.kwargs['pk'])
-		return {'company': company}
+		return {
+            'company': company,
+            'created': date.today(),
+        }
 
 	def form_valid(self, form):
 		q = form.save(commit=False)
@@ -396,7 +402,10 @@ class ProformaCreateView(PermissionRequiredMixin, CreateView):
 
 	def get_initial(self):
 		company = get_object_or_404(Company, id=self.kwargs['pk'])
-		return {'company': company}
+		return {
+            'company': company,
+            'created': date.today(),
+        }
 
 	def form_valid(self, form):
 		q = form.save(commit=False)
