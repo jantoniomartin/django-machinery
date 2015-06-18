@@ -9,6 +9,13 @@
 
 <embed src="{% url 'om_order_pdf' order.id %}" width="800" height="600" type="application/pdf">
 
+{% if order.private_note %}
+<h3>{% trans "Private note" %}</h3>
+<div>
+{{ order.private_note }}
+</div>
+{% endif %}
+
 {% if not order.completed_on %}
 <div>
 <h3>{% trans "Order will be sent to" %}</h3>

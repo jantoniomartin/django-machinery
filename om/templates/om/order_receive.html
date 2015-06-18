@@ -17,6 +17,10 @@
 <dd><a href="{% url 'crm_company_detail' order.company.id %}">{{ order.company }}</a>
 <dt>{% trans "Notes" %}</dt>
 <dd>{{ order.notes }}</dd>
+{% if order.private_note %}
+<dt>{% trans "Private note" %}</dt>
+<dd>{{ order.private_note }}</dd>
+{% endif %}
 </dl>
 </div>
 </div>

@@ -55,8 +55,14 @@ class OrderForm(forms.ModelForm):
 		queryset=models.CartItem.objects.all()
 	)
 	notes = forms.CharField(
+        label=_("Notes"),
 		required=False,
 		widget=forms.Textarea
+	)
+	private_note = forms.CharField(
+        label=_("Private note"),
+		required=False,
+		widget=forms.Textarea(attrs={'class': 'private_input'}),
 	)
 	password = forms.CharField(label=_("Password"),
 		widget=forms.PasswordInput)

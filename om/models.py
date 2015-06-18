@@ -34,6 +34,7 @@ class Order(models.Model):
 	created_at = models.DateTimeField(_("created at"), auto_now_add=True)
 	completed_on = models.DateField(_("completed on"), null=True, blank=True)
 	notes = models.CharField(_("notes"), max_length=255, null=True, blank=True)
+	private_note = models.CharField(_("private note"), max_length=255, null=True, blank=True)
 	company = models.ForeignKey(crm.Company, verbose_name=_("company"))
 	created_by = models.ForeignKey(User, verbose_name=_("created by"))
 
