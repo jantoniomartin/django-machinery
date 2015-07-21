@@ -55,14 +55,15 @@ class DashboardView(TemplateView):
 		active_projects = pm.Project.objects.filter(
 			is_retired=False,
 			machine__is_retired=False,
+			machine__finished_on__isnull=True,
 			machine__shipped_on__isnull=True,
 			machine__running_on__isnull=True,
 			machine__created_on__gt=datetime.date(min_year, 1, 1)
 		).distinct()
-		shipped_projects = pm.Project.objects.filter(
+		finished_projects = pm.Project.objects.filter(
 			is_retired=False,
 			machine__is_retired=False,
-			machine__shipped_on__isnull=False,
+			machine__finished_on__isnull=False,
 			machine__running_on__isnull=True,
 			machine__created_on__gt=datetime.date(min_year, 1, 1)
 		).distinct()
@@ -92,7 +93,7 @@ class DashboardView(TemplateView):
 		
 		context.update({
 			'active_projects': active_projects,
-			'shipped_projects': shipped_projects,
+			'finished_projects': finished_projects,
 			'running_projects': running_projects,
 			'delayed_orders': delayed_orders,
 			'suppliers_in_cart': suppliers_in_cart,

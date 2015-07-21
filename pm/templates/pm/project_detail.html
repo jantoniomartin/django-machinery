@@ -119,6 +119,7 @@ $(function() {
 <th>{% trans "Comments" %}</th>
 <th>{% trans "Parts" %}</th>
 <th>{% trans "Created on" %}</th>
+<th>{% trans "Finished on" %}</th>
 <th>{% trans "Shipped on" %}</th>
 <th>{% trans "Running on" %}</th>
 <th>{% trans "Estimated delivery" %}</th>
@@ -133,6 +134,7 @@ $(function() {
 <td>{{ machine.machinecomment_set.count }}</td>
 <td><a href="{% url 'pm_machine_parts' machine.id %}">{{ machine.part_set.count }}</a></td>
 <td>{{ machine.created_on|date:"d/m/Y" }}</td>
+<td>{{ machine.finished_on|date:"d/m/Y" }}</td>
 <td>{{ machine.shipped_on|date:"d/m/Y" }}</td>
 <td>{{ machine.running_on|date:"d/m/Y" }}</td>
 <td>{{ machine.estimated_delivery_on|date:"d/m/Y" }}</td>

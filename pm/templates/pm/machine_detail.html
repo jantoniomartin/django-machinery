@@ -23,12 +23,14 @@
 <dd>{{ machine.description }}</dd>
 <dt>{% trans "Created on" %}</dt>
 <dd>{{ machine.created_on }}</dd>
+<dt>{% trans "Finished on" %}</dt>
+<dd>{{ machine.finished_on|default_if_none:"" }}</dd>
 <dt>{% trans "Shipped on" %}</dt>
-<dd>{{ machine.shipped_on }}</dd>
+<dd>{{ machine.shipped_on|default_if_none:"" }}</dd>
 <dt>{% trans "Running on" %}</dt>
-<dd>{{ machine.running_on }}</dd>
+<dd>{{ machine.running_on|default_if_none:"" }}</dd>
 <dt>{% trans "Estimated delivery on" %}</dt>
-<dd>{{ machine.estimated_delivery_on }}</dd>
+<dd>{{ machine.estimated_delivery_on|default_if_none:"" }}</dd>
 <dt>{% trans "Is retired?" %}</dt>
 <dd>{{ machine.is_retired|yesno }}</dd>
 </dl>
