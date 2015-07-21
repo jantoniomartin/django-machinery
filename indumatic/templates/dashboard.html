@@ -16,7 +16,6 @@
 <table class="table table-striped table-hover">
 <thead>
 <tr>
-<th>&nbsp;</th>
 <th style="width:10%">{% trans "Reference" %}</th>
 <th style="width:50%">{% trans "Description" %}</th>
 <th>{% trans "Customer" %}</th>
@@ -25,13 +24,6 @@
 <tbody>
 {% for project in active_projects %}
 <tr>
-<td>
-{% if project.thumbnail %}
-<img src="{{ MEDIA_URL }}{{ project.thumbnail }}" style="width: 80px" />
-{% else %}
-<img src="{% static 'img/no-picture.png' %}" style="width: 80px" />
-{% endif %}
-</td>
 <td><a href="{% url 'pm_project_detail' project.id %}">{{ project }}</a></td>
 <td>{{ project.description }}</td>
 <td><a href="{% url 'crm_company_detail' project.company.id %}">{{ project.company }}</a></td>
