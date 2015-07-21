@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-11 08:12+0200\n"
+"POT-Creation-Date: 2015-07-21 11:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,29 +18,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:21 templates/crm/quotation_detail.html:45
+#: forms.py:24 templates/crm/quotation_detail.html:45
 msgid "Private note"
 msgstr "Nota privada"
 
-#: forms.py:22
+#: forms.py:25
 msgid "will not be shown in the document"
 msgstr "no se mostrará en el documento"
 
-#: forms.py:33 forms.py:61
+#: forms.py:36 forms.py:64
 msgid "If the quotation is disaggregated, total must be empty."
 msgstr "Si el presupuesto es desglosado, el total debe estar en blanco."
 
-#: forms.py:94
+#: forms.py:97
 msgid "If the proforma is disaggregated, total must be empty."
 msgstr "Si la proforma es desglosada, el total debe estar en blanco."
 
-#: forms.py:111 templates/crm/contract_detail.html:68
+#: forms.py:114
+msgid "Created"
+msgstr "Creado"
+
+#: forms.py:116 templates/crm/contract_detail.html:68
 #: templates/crm/deliverynote_detail.html:39
 #: templates/crm/proforma_detail.html:39
 msgid "Remarks"
 msgstr "Observaciones"
 
-#: forms.py:113
+#: forms.py:118
 msgid "Composition"
 msgstr "Composición"
 
@@ -303,15 +307,6 @@ msgstr "línea de albarán"
 #: models.py:272
 msgid "delivery note items"
 msgstr "líneas de albarán"
-
-#: views.py:367
-#, python-format
-msgid "The contract could not be created. %s"
-msgstr "El contrato no se ha podido crear. %s"
-
-#: views.py:532
-msgid "The delivery note could not be created."
-msgstr "El albarán no se ha podido crear. %s"
 
 #: templates/crm/base.html:8 templates/crm/group_list.html:4
 #: templates/crm/group_list.html.py:8
@@ -743,3 +738,12 @@ msgstr "Esta línea de presupuesto se eliminará. ¿Estás seguro?"
 #: templates/crm/quotationitem_form.html:9
 msgid "Edit quotation item"
 msgstr "Editar línea de presupuesto"
+
+#: views.py:373
+#, python-format
+msgid "The contract could not be created. %s"
+msgstr "El contrato no se ha podido crear. %s"
+
+#: views.py:543
+msgid "The delivery note could not be created."
+msgstr "El albarán no se ha podido crear. %s"

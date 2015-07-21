@@ -242,7 +242,7 @@ class ProformaItem(SalesDocumentItem):
 	
 class DeliveryNote(models.Model):
 	contract = models.ForeignKey(Contract, verbose_name=_("contract"))
-	created = models.DateField(_("created"), auto_now_add=True)
+	created = models.DateField(_("created"))
 	remarks = models.TextField(_("remarks"), default="", blank=True)
 
 	class Meta:
