@@ -54,6 +54,7 @@ class DashboardView(TemplateView):
 		min_year = getattr(settings, "PM_RUNNING_ALL_BEFORE_YEAR", 1900)
 		active_projects = pm.Project.objects.filter(
 			is_retired=False,
+            hide=False,
 			machine__is_retired=False,
 			machine__finished_on__isnull=True,
 			machine__shipped_on__isnull=True,
@@ -62,6 +63,7 @@ class DashboardView(TemplateView):
 		).distinct()
 		finished_projects = pm.Project.objects.filter(
 			is_retired=False,
+            hide=False,
 			machine__is_retired=False,
 			machine__finished_on__isnull=False,
 			machine__running_on__isnull=True,
@@ -69,6 +71,7 @@ class DashboardView(TemplateView):
 		).distinct()
 		running_projects = pm.Project.objects.filter(
 			is_retired=False,
+            hide=False,
 			machine__is_retired=False,
 			machine__running_on__isnull=False).order_by(
 				'-machine__running_on').distinct()[0:5]
