@@ -1,8 +1,4 @@
-from django.core.cache import cache
-from django.core.cache.utils import make_template_fragment_key
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -44,12 +40,6 @@ class Group(MPTTModel):
 	@models.permalink
 	def get_absolute_url(self):
 		return('wm_group_detail', [self.id])
-
-@receiver(post_save, sender=Group)
-def clear_tree_cache(sender, instance, created, raw, using, **kwargs):
-	key = make_template_fragment_key('groups_tree', [])
-	if cache.get(key):
-		cache.delete(key)
 
 class Article(models.Model):
 	code = models.CharField(_("code"), max_length=128)
