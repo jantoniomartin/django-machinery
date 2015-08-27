@@ -17,7 +17,7 @@ def clear_tree_cache(sender, instance, created, raw, using, **kwargs):
 def update_price_from_offer(sender, instance, created, raw, using, **kwargs):
     if instance.invoice_price is not None:
         if instance.article.stock_value is None or \
-            timezone.now() >= instance.article.stock_value_updated:
+            instance.created_on >= instance.article.stock_value_updated.date():
             instance.article.stock_value = instance.invoice_price
             instance.article.save()
 
