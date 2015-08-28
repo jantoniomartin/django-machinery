@@ -553,6 +553,8 @@ class DeliveryNoteCreateView(PermissionRequiredMixin, FormView):
                 for machine in item.machine_set.all():
                     if machine.shipped_on is None:
                         machine.shipped_on = created
+                        if machine.finished_on is None:
+                            machine.finished_on = created
                         machine.save()
         return HttpResponseRedirect(note.get_absolute_url())
 
