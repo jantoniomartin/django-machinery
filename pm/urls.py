@@ -81,6 +81,10 @@ urlpatterns = patterns("pm.views",
 		MachinePartsView.as_view(),
 		name="pm_machine_parts"
 	),
+    url(r'^machine/parts/report/(?P<pk>\d+)/$',
+		MachinePartsReportView.as_view(),
+		name="pm_machine_parts_report"
+	),
     url(r'^machine/interventions/(?P<pk>\d+)/$',
 		MachineInterventionsView.as_view(),
 		name="pm_machine_interventions"

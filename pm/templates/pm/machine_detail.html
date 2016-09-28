@@ -9,7 +9,8 @@
 
 <h1><a href="{% url 'pm_project_detail' machine.project.id %}">{{ machine.project }}</a>-{{ machine.model }}{{ machine.number }}</h1>
 <p>
-<a href="{% url 'pm_machine_edit' machine.id %}">{% trans "Edit machine" %}</a>
+<a href="{% url 'pm_machine_edit' machine.id %}">{% trans "Edit machine" %}</a> |
+<a href="{% url 'pm_machine_parts_report' machine.id %}">{% trans "Parts report" %}</a>
 </p>
 
 <div class="row">

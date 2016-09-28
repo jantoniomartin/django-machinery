@@ -1,0 +1,31 @@
+{% extends 'pdf_base.html' %}
+{% load i18n %}
+
+{% block content %}
+
+<h1>{{ machine.project }}</h1>
+<h2>{% trans "Parts report" %}</h2>
+
+<h3>{{ machine }}: {{ machine.description }}</h3>
+<table border="1">
+<thead>
+<tr>
+<th style="width: 10%">{% trans "Quantity" %}</th>
+<th>{% trans "Reference" %}</th>
+<th>{% trans "Description" %}</th>
+<th>{% trans "Function" %}</th>
+</tr>
+</thead>
+<tbody>
+{% for part in machine.part_set.all %}
+	<tr>
+	<td style="text-align: center">{{ part.quantity }}</td>
+	<td>{{ part.article.code }}</td>
+	<td>{{ part.article.description }}</td>
+	<td>{{ part.function }}</td>
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

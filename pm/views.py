@@ -142,6 +142,15 @@ class MachinePartsView(DetailView):
 
         return ctx
 
+class MachinePartsReportView(PdfView):
+    template_name = 'pm/machine_parts_pdf.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(MachinePartsReportView, self).get_context_data(**kwargs)
+        machine = get_object_or_404(Machine, id=self.kwargs['pk'])
+        ctx.update({ 'machine': machine})
+        return ctx
+
 class PartDeleteView(DeleteView):
     model = Part
     
