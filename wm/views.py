@@ -1,5 +1,5 @@
 import csv
-from datetime import date
+import datetime
 import json
 
 from django.conf import settings
@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core import serializers
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.db.models import ObjectDoesNotExist, F
+from django.db.models import ObjectDoesNotExist, F, Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import date, floatformat
@@ -243,6 +243,34 @@ class GroupUpdateView(UpdateView):
 		
 	def get_success_url(self):
 		return reverse('wm_group_tree')
+
+class CountSheetView(View):
+    def get(self, *args, **kwargs):
+        current_year = datetime.date.today().year
+        nodes = models.Group.objects.all()
+        response = HttpResponse(content_type="text/plain")
+        response['Content-Disposition'] = 'attachment; filename="cnt_sheet.csv"'
+        w = csv.writer(response)
+        for node in nodes:
+            articles = node.article_set.filter(
+                Q(offer__orderitem__completed_on__year=current_year - 2) |
+                Q(offer__orderitem__completed_on__year=current_year - 1) |
+                Q(offer__orderitem__completed_on__year=current_year)
+                )
+            if articles.count() > 0:
+                path = "/".join([tree_path(node.get_ancestors(), "/"),
+                    unicode(node)])
+                w.writerow([
+                    path.encode('utf-8'),
+                ])
+                for a in articles:
+                    w.writerow([
+                        a.code.encode('utf-8'),
+                        a.description.encode('utf-8'),
+                        getattr(a, 'brand', ''),
+                        a.measure_unit,
+                    ])
+        return response
 
 class StockReportView(View):
     def get(self, *args, **kwargs):

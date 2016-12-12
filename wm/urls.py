@@ -96,6 +96,10 @@ urlpatterns = patterns("wm.views",
 		StockReportView.as_view(),
 		name="wm_stock_report"
 	),
+	url(r'^count_sheet/$',
+		CountSheetView.as_view(),
+		name="wm_count_sheet"
+	),
 	url(r'^scodes/(?P<pk>\d+)/$',
 		DetailView.as_view(
 			model = Article,

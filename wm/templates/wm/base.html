@@ -13,6 +13,7 @@
 	<li><a href="{% url 'wm_article_shortage' %}">{% trans "Shortages" %}</a></li>
 	{% if user.is_staff %}
 	<li><a href="{% url 'wm_stock_report' %}">{% trans "Stock" %}</a></li>
+	<li><a href="{% url 'wm_count_sheet' %}">{% trans "Count sheet" %}</a></li>
 	{% endif %}
 <li>
 <form method="GET" action="{% url 'wm_article_search' %}">
