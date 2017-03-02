@@ -26,7 +26,7 @@
 	<td>{{ part.article.code }}</td>
 	<td>{{ part.article.description }}</td>
 	<td>{{ part.function }}</td>
-	<td style="text-align:right">{{ part.total_cost|floatformat:2 }}</td>
+	<td style="text-align:right">{{ part.total_cost|default_if_none:0|floatformat:2 }}</td>
 	</tr>
 {% endfor %}
 </tbody>
