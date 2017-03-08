@@ -43,8 +43,9 @@ $(function() {
 <form method="POST" action="." class="uniForm">
 {% csrf_token %}
 
+<p><button type="submit" class="btn btn-primary">{% trans "Save" %}<button/></p>
 {{ form|crispy }}
-<p><input type="submit" value="{% trans "Save" %}" /></p>
+<p><button type="submit" class="btn btn-primary">{% trans "Save" %}<button/></p>
 </form>
 </div>
 </div>
