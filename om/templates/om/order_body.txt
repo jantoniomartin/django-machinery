@@ -1,6 +1,19 @@
 Estimados Sres.:
 
-Rogamos nos envíen el material que se detalla en el archivo adjunto.
+Rogamos nos envíen el material que se detalla en el archivo adjunto y que,
+para su comodidad, reproducimos a continuación.
 
 Atentamente,
 Automatización y Diseño Industrial S.L.
+
+Resumen del pedido:
+
+{% for item in items %}
+
+- {{ item.ordered_quantity }} {{ item.offer.article.measure_unit }} {{ item.offer.article.code }} {{ item.offer.article.description }} 
+
+{% endfor %}
+
+{% if order.notes %}
+{{ order.notes|linebreaks }}
+{% endif %}
