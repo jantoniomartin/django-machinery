@@ -8,12 +8,12 @@ Automatización y Diseño Industrial S.L.
 
 Resumen del pedido:
 
+{% autoescape off %}
 {% for item in items %}
-
 - {{ item.ordered_quantity }} {{ item.offer.article.measure_unit }} {{ item.offer.article.code }} {{ item.offer.article.description }} 
-
 {% endfor %}
 
 {% if order.notes %}
 {{ order.notes|linebreaks }}
 {% endif %}
+{% endautoescape %}
