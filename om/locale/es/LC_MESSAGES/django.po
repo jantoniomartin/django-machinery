@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-14 08:27+0200\n"
+"POT-Creation-Date: 2017-04-20 12:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:20
+#| msgid "article"
+msgid "Article code"
+msgstr "Código de artículo"
 
 #: forms.py:15 templates/om/order_form.html:42
 msgid "Company"
@@ -34,11 +39,20 @@ msgstr "P.V.P."
 msgid "Invoice price"
 msgstr "Precio neto"
 
-#: forms.py:46
+#: forms.py:47
 msgid "Enter a number or product."
-msgstr ""
+msgstr "Introduce un número o producto"
 
-#: forms.py:60
+#: forms.py:58 templates/om/order_receive.html:19
+msgid "Notes"
+msgstr "Notas"
+
+#: forms.py:63 templates/om/order_detail.html:13
+#: templates/om/order_receive.html:22
+msgid "Private note"
+msgstr "Nota privada"
+
+#: forms.py:67
 msgid "Password"
 msgstr "Contraseña"
 
@@ -46,7 +60,7 @@ msgstr "Contraseña"
 msgid "article"
 msgstr "artículo"
 
-#: models.py:10 models.py:37 models.py:108
+#: models.py:10 models.py:38 models.py:109
 msgid "company"
 msgstr "empresa"
 
@@ -70,7 +84,7 @@ msgstr "P.V.P."
 msgid "invoice price"
 msgstr "precio neto"
 
-#: models.py:19 models.py:69 models.py:97
+#: models.py:19 models.py:70 models.py:98
 msgid "offer"
 msgstr "oferta"
 
@@ -87,7 +101,7 @@ msgstr "Oferta para %s"
 msgid "created at"
 msgstr "creado el"
 
-#: models.py:35 models.py:66
+#: models.py:35 models.py:67
 msgid "completed on"
 msgstr "completado el"
 
@@ -95,73 +109,65 @@ msgstr "completado el"
 msgid "notes"
 msgstr "notas"
 
-#: models.py:38
+#: models.py:37
+msgid "private note"
+msgstr "nota privada"
+
+#: models.py:39
 msgid "created by"
 msgstr "creado por"
 
-#: models.py:42 models.py:68
+#: models.py:43 models.py:69
 msgid "order"
 msgstr "pedido"
 
-#: models.py:43
+#: models.py:44
 msgid "orders"
 msgstr "pedidos"
 
-#: models.py:64
+#: models.py:65
 msgid "ordered quantity"
 msgstr "cantidad pedida"
 
-#: models.py:65
+#: models.py:66
 msgid "received quantity"
 msgstr "cantidad recibida"
 
-#: models.py:67
+#: models.py:68
 msgid "estimated delivery"
 msgstr "entrega estimada"
 
-#: models.py:73
+#: models.py:74
 msgid "order line"
 msgstr "línea de pedido"
 
-#: models.py:74
+#: models.py:75
 msgid "order lines"
 msgstr "líneas de pedido"
 
-#: models.py:98
+#: models.py:99
 msgid "quantity"
 msgstr "cantidad"
 
-#: models.py:101
+#: models.py:102
 msgid "cart item"
 msgstr "artículo en el carro"
 
-#: models.py:102
+#: models.py:103
 msgid "cart items"
 msgstr "artículos en el carro"
 
-#: models.py:109
+#: models.py:110
 msgid "template"
 msgstr "plantilla"
 
-#: models.py:112
+#: models.py:113
 msgid "csv template"
 msgstr "plantilla csv"
 
-#: models.py:113
+#: models.py:114
 msgid "csv templates"
 msgstr "plantillas csv"
-
-#: views.py:99
-msgid "Offer has expired."
-msgstr "La oferta ha caducado."
-
-#: views.py:174
-msgid "The pdf report for the order could not be made."
-msgstr "No se ha podido generar el archivo pdf"
-
-#: views.py:197
-msgid "The order was successfully sent."
-msgstr "El pedido se ha enviado correctamente."
 
 #: templates/om/base.html:8
 msgid "All orders"
@@ -203,7 +209,7 @@ msgid "Articles ready to be ordered"
 msgstr "Artículos listos para ser pedidos"
 
 #: templates/om/cartitem_list.html:13 templates/om/order_list.html:20
-#: templates/om/order_receive.html:16
+#: templates/om/order_receive.html:17
 #: templates/om/orderitem_pending_list.html:13
 msgid "Supplier"
 msgstr "Proveedor"
@@ -213,13 +219,13 @@ msgid "Quantity"
 msgstr "Cantidad"
 
 #: templates/om/cartitem_list.html:15 templates/om/order_list.html:17
-#: templates/om/order_receive.html:37
+#: templates/om/order_receive.html:42
 #: templates/om/orderitem_by_company.html:18
 #: templates/om/orderitem_pending_list.html:18
 msgid "Reference"
 msgstr "Referencia"
 
-#: templates/om/cartitem_list.html:16 templates/om/order_receive.html:38
+#: templates/om/cartitem_list.html:16 templates/om/order_receive.html:43
 #: templates/om/orderitem_by_company.html:19
 #: templates/om/orderitem_pending_list.html:19
 msgid "Description"
@@ -243,20 +249,20 @@ msgid "Save"
 msgstr "Guardar"
 
 #: templates/om/order_detail.html:4 templates/om/order_detail.html.py:8
-#: templates/om/order_receive.html:4
+#: templates/om/order_receive.html:5
 #: templates/om/orderitem_pending_list.html:14
 msgid "Order"
 msgstr "Pedido"
 
-#: templates/om/order_detail.html:14
+#: templates/om/order_detail.html:21
 msgid "Order will be sent to"
 msgstr "El pedido se enviará a"
 
-#: templates/om/order_detail.html:20
+#: templates/om/order_detail.html:27
 msgid "Send"
 msgstr "Enviar"
 
-#: templates/om/order_detail.html:21
+#: templates/om/order_detail.html:28
 msgid "Get CSV"
 msgstr "Ver CSV"
 
@@ -296,7 +302,7 @@ msgstr "Lista de pedidos"
 msgid "Ordered by"
 msgstr "Pedido por"
 
-#: templates/om/order_list.html:19 templates/om/order_receive.html:14
+#: templates/om/order_list.html:19 templates/om/order_receive.html:15
 #: templates/om/orderitem_by_company.html:15
 msgid "Date"
 msgstr "Fecha"
@@ -305,7 +311,7 @@ msgstr "Fecha"
 msgid "Completed"
 msgstr "Completado"
 
-#: templates/om/order_list.html:36 templates/om/order_receive.html:35
+#: templates/om/order_list.html:36 templates/om/order_receive.html:40
 #: templates/om/orderitem_pending_list.html:36
 msgid "Receive"
 msgstr "Recibir"
@@ -320,51 +326,51 @@ msgstr "Anterior"
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/om/order_receive.html:8
+#: templates/om/order_receive.html:9
 msgid "Receive order"
 msgstr "Recibir pedido"
 
-#: templates/om/order_receive.html:11
+#: templates/om/order_receive.html:12
 msgid "Order details"
 msgstr "Detalles del pedido"
 
-#: templates/om/order_receive.html:18
-msgid "Notes"
-msgstr "Notas"
-
-#: templates/om/order_receive.html:24
+#: templates/om/order_receive.html:29
 msgid "Order reception"
 msgstr "Recepción del pedido"
 
-#: templates/om/order_receive.html:33
+#: templates/om/order_receive.html:38
 #: templates/om/orderitem_by_company.html:16
 #: templates/om/orderitem_pending_list.html:15
 msgid "Ordered"
 msgstr "Pedidos"
 
-#: templates/om/order_receive.html:34
+#: templates/om/order_receive.html:39
 msgid "Pending"
 msgstr "Pendientes"
 
-#: templates/om/order_receive.html:36
+#: templates/om/order_receive.html:41
 #: templates/om/orderitem_by_company.html:17
 #: templates/om/orderitem_pending_list.html:17
 msgid "Unit"
 msgstr "Unidad"
 
-#: templates/om/order_receive.html:39
+#: templates/om/order_receive.html:44
 msgid "Retail Price"
 msgstr "P.V.P."
 
-#: templates/om/order_receive.html:40
+#: templates/om/order_receive.html:45
 msgid "Invoice Price"
 msgstr "Precio Neto"
 
-#: templates/om/order_receive.html:41
+#: templates/om/order_receive.html:46
 msgid "Delivery date"
 msgstr "Fecha de entrega"
 
-#: templates/om/order_receive.html:78
+#: templates/om/order_receive.html:59
+msgid "Stock will be updated"
+msgstr "El stock se actualizará"
+
+#: templates/om/order_receive.html:90
 msgid "Update"
 msgstr "Actualizar"
 
@@ -385,6 +391,18 @@ msgstr "Recibido"
 #: templates/om/orderitem_pending_list.html:20
 msgid "Estimated delivery"
 msgstr "Entrega estimada"
+
+#: views.py:100
+msgid "Offer has expired."
+msgstr "La oferta ha caducado."
+
+#: views.py:175
+msgid "The pdf report for the order could not be made."
+msgstr "No se ha podido generar el archivo pdf"
+
+#: views.py:198
+msgid "The order was successfully sent."
+msgstr "El pedido se ha enviado correctamente."
 
 #~ msgid "Price"
 #~ msgstr "Precio"

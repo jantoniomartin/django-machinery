@@ -1,5 +1,6 @@
 {% extends 'om/base.html' %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block title %}{% trans "Order" %} {{ order.reference }}{% endblock %}
 
@@ -50,7 +51,14 @@
 <tr>
 <td class="center">{{ form.instance.ordered_quantity }}</td>
 <td class="center">{{ form.instance.pending }}</td>
-<td class="center">{{ form.id }}{% if not form.instance.completed_on %}{{ form.receive }}{% endif %}</td>
+<td class="center">{{ form.id }}
+{% if not form.instance.completed_on %}
+{{ form.receive }}
+  {% if form.instance.offer.article.control_stock %}
+    <img src="{% static 'img/stock-notepad.png' %}"
+    title="{% trans "Stock will be updated" %}"/>
+  {% endif %}
+{% endif %}</td>
 <td class="center">{{ form.instance.offer.article.measure_unit }}</td>
 <td class="center">
 <a href="{% url 'wm_article_detail' form.instance.offer.article.id %}">
