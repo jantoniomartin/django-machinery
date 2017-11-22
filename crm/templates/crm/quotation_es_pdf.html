@@ -59,6 +59,22 @@ em {
 	font-size: 85%;
 }
 
+#info table {
+	margin: 0;
+	table-layout: auto;
+}
+
+#info table th {
+	width: 12%;
+	border: 0;
+	text-align: left;
+}
+
+#info table td {
+	border: 0;
+}
+
+
 #top_date {
 	text-align: right;
 }
@@ -80,19 +96,46 @@ em {
 </table>
 </div>
 
-<div id="recipient">
-	<p><strong>{{ quotation.company }}</strong></p>
-	<p>{{ quotation.recipient_name }}</p>
-</div>
-
-<div id="top_date">
-	<p>{{ city }}, {{ quotation.created }}</p> 
+<div id="info">
+	<table>
+		<tr>
+		<th>Referencia:</th>
+		<td>{{ quotation }}</td>
+		<th>Fecha:</th>
+		<td>{{ quotation.created }}</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+		<th>Nombre:</th>
+		<td>{{ quotation.company }}</td>
+		<th>NIF/CIF:</th>
+		<td>{{ quotation.company.vatin }}</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+		<th>Domicilio:</th>
+		<td>{{ quotation.company.address }}</td>
+		<th>C.P.:</th>
+		<td>{{ quotation.company.postal_code }}</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+		<th>Localidad:</th>
+		<td>{{ quotation.company.city }}</td>
+		<th>Provincia:</th>
+		<td>{{ quotation.company.region }}</td>
+		<th>País:</th>
+		<td>{{ quotation.company.country }}</td>
+		</tr>
+	</table>
 </div>
 
 <div id="intro">
 <p>Estimado/a Sr/a:</p>
-<p>Respondiendo a su solicitud, nos complace enviarle el siguiente presupuesto,
-con referencia <strong>{{ quotation }}</strong>.</p>
+<p>Respondiendo a su solicitud, nos complace enviarle el siguiente presupuesto.</p>
 <h1>{{ quotation.title }}</h1>
 </div>
 

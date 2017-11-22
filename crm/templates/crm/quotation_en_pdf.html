@@ -55,6 +55,21 @@ th {
 	text-align: center;
 }
 
+#info table {
+	margin: 0;
+	table-layout: auto;
+}
+
+#info table th {
+	width: 12%;
+	border: 0;
+	text-align: left;
+}
+
+#info table td {
+	border: 0;
+}
+
 em {
 	font-size: 85%;
 }
@@ -80,19 +95,46 @@ em {
 </table>
 </div>
 
-<div id="recipient">
-	<p><strong>{{ quotation.company }}</strong></p>
-	<p>{{ quotation.recipient_name }}</p>
-</div>
-
-<div id="top_date">
-	<p>{{ city }}, {{ quotation.created }}</p> 
+<div id="info">
+	<table>
+		<tr>
+		<th>Reference:</th>
+		<td>{{ quotation }}</td>
+		<th>Date:</th>
+		<td>{{ quotation.created }}</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+		<th>Name:</th>
+		<td>{{ quotation.company }}</td>
+		<th>VAT No:</th>
+		<td>{{ quotation.company.vatin }}</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+		<th>Address:</th>
+		<td>{{ quotation.company.address }}</td>
+		<th>P.C.:</th>
+		<td>{{ quotation.company.postal_code }}</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+		<th>City:</th>
+		<td>{{ quotation.company.city }}</td>
+		<th>Province:</th>
+		<td>{{ quotation.company.region }}</td>
+		<th>Country:</th>
+		<td>{{ quotation.company.country }}</td>
+		</tr>
+	</table>
 </div>
 
 <div id="intro">
 <p>Dear Sir/Madame,</p>
-<p>As you have requested, we are glad to send you the following quotation,
-with reference <strong>{{ quotation }}</strong>.</p>
+<p>As you have requested, we are glad to send you the following quotation.</p>
 <h1>{{ quotation.title }}</h1>
 </div>
 
