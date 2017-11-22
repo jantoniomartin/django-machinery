@@ -256,7 +256,7 @@ class CountSheetView(View):
                 Q(offer__orderitem__completed_on__year=current_year - 2) |
                 Q(offer__orderitem__completed_on__year=current_year - 1) |
                 Q(offer__orderitem__completed_on__year=current_year)
-                )
+                ).distinct()
             if articles.count() > 0:
                 path = "/".join([tree_path(node.get_ancestors(), "/"),
                     unicode(node)])
